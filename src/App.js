@@ -10,7 +10,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Box style={{ backgroundColor: "green" }}>
+        <Box>
           <Header />
           <AppRoutes />
         </Box>
