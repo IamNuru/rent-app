@@ -1,8 +1,7 @@
-import { Typography, Box, Grid } from "@mui/material";
-import { config } from "../../../../config";
-import Property from "./Property";
+import { Box, Grid } from "@mui/material";
+import Property from "../../home/components/listings/Property"
 
-const Listings = () => {
+const PropertiesList = () => {
   const properties = [
     {
       id:8,
@@ -86,16 +85,7 @@ const Listings = () => {
 
   return (
     <section style={{backgroundColor: 'F6F6F6'}}>
-      <Box mt={8} mb={2} align="center">
-        <Typography variant="h4" align="center">
-          Available Listings on RentGh{" "}
-          {config.appName ? config.appName : "RentGh"}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          Take a deep dive and browse homes for sale, original neighborhood
-          photos, resident reviews and local insights to find what is right for
-          you.
-        </Typography>
+      <Box mt={2} mb={2} align="center">
         <Box sx={{ flexGrow: 1 }} mt={2} className="">
           <Grid container spacing={2} align="center">
             {properties?.map((property) => {
@@ -112,4 +102,4 @@ const Listings = () => {
   );
 };
 
-export default Listings;
+export default PropertiesList;

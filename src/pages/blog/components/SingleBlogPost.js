@@ -19,7 +19,7 @@ import { deepOrange } from "@mui/material/colors";
 const SingleBlogPost = () => {
   const post = {
     id: 4,
-    title: "My first Blog post is here live",
+    title: "My first Blog post is here live for you",
     description:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio! ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio!",
     date: "122554335545",

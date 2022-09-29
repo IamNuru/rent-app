@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 const Values = () => {
   const ourValues = [
     {
+      id: 1,
       title: "Rent a room",
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
@@ -14,14 +15,15 @@ const Values = () => {
         "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
     },
     {
-      title: "Rent a room",
+      id: 2,
+      title: "Rent an apartment",
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
         "https://cdn.pixabay.com/photo/2015/10/20/18/57/furniture-998265_640.jpg",
     },
     {
-      title: "Rent a room",
+      id: 3,
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
@@ -34,7 +36,7 @@ const Values = () => {
       <Grid container rowSpacing={4} align="center">
         {ourValues?.map((value) => {
           return (
-            <Grid item xs={12} md={4} key={value.title}>
+            <Grid item xs={12} md={4} key={value.id}>
               <Value value={value} />
             </Grid>
           );

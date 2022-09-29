@@ -49,7 +49,7 @@ const Blog = () => {
       <Box align="center" mb={4}>
         <Typography variant="h5">Blog / Posts</Typography>
       </Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {posts?.map((post) => {
           return (
             <Grid item key={post.id} style={{ paddingLeft:0}}>

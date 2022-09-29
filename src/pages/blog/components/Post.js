@@ -3,21 +3,20 @@ import format from "date-fns/format";
 import { Card, Grid, Typography, Button, CardMedia, Divider } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { Link } from "react-router-dom";
+import '../styles.css'
 
-/* import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery"; */
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Post = ({ post }) => {
-  /* const theme = useTheme();
-  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-  const sizes = isMediumScreen ? "medium" : "small"; */
 
+  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+  
   return (
     <Card
-      className="wrap-post"
+      className="card"
       p={2}
       style={{ padding: "0.45rem", width:"100%" }}
-      elevation={7}
+      elevation={isMediumScreen ? 7 : 1}
       >
       <Grid container>
         <Grid item className="date" xs={12}>

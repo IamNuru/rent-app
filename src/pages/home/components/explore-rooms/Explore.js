@@ -21,8 +21,7 @@ const Explore = () => {
     },
     {
       name: "Ashanti",
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
+      image: "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
     },
   ];
   return (
@@ -37,7 +36,7 @@ const Explore = () => {
           you.
         </Typography>
         <Box sx={{ flexGrow: 1 }} mt={2} style={{overflow:'auto'}}>
-          <Grid container spacing={2} align="center" wrap='noWrap'>
+          <Grid container spacing={2} align="center" wrap="nowrap">
             {regions?.map((region) => {
               return (
                 <Grid item key={region.name}>
