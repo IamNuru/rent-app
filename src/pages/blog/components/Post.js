@@ -2,14 +2,15 @@ import toDate from "date-fns/toDate";
 import format from "date-fns/format";
 import { Card, Grid, Typography, Button, CardMedia, Divider } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
+import { Link } from "react-router-dom";
 
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+/* import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery"; */
 
 const Post = ({ post }) => {
-  const theme = useTheme();
+  /* const theme = useTheme();
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-  const sizes = isMediumScreen ? "medium" : "small";
+  const sizes = isMediumScreen ? "medium" : "small"; */
 
   return (
     <Card
@@ -48,9 +49,8 @@ const Post = ({ post }) => {
             size="small"
             color="primary"
             endIcon={<LaunchIcon />}
-            href={`/post/${post?.id}/${post?.slug}`}
           >
-            Read More
+            <Link to={`/post/${post?.id}/${post?.slug}`} style={{width:'100%',height:'100%',color:"white"}}>Read More</Link>
           </Button>
         </Grid>
       </Grid>

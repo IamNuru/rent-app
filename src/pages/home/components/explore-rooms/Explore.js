@@ -1,7 +1,6 @@
 import { Typography, Box, Grid } from "@mui/material";
 import { config } from "../../../../config";
 import Region from "./Region";
-import Zoom from '@mui/material/Zoom';
 
 const Explore = () => {
   const regions = [

@@ -12,7 +12,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { styled, alpha } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -175,7 +174,7 @@ export default function Header(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <Link to={`${item.link}`}>
-            <ListItemButton sx={{ textAlign: 'center' }} sx={{ color: '#000' }}>
+            <ListItemButton sx={{ textAlign: 'center', color: '#000' }}>
               <ListItemText primary={item.text} />
             </ListItemButton>
             </Link>

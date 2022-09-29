@@ -17,7 +17,6 @@ import CurrencyFormatter from "../../../../utils/CurrencyFormatter";
 import FirstLetter from "../../../../utils/FirstLetter";
 
 const Property = ({ property }) => {
-  const theme = useTheme();
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const sizes = isMediumScreen ? "medium" : "small";
 
