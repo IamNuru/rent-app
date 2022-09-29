@@ -94,7 +94,7 @@ const Listings = () => {
           <Grid container spacing={2} align="center">
             {properties?.map((property) => {
               return (
-                <Grid item key={property.id} xs={1} sm={6} md={4}>
+                <Grid item key={property.id} xs={12} sm={6} md={4}>
                   <Property property={property} />
                 </Grid>
               );
