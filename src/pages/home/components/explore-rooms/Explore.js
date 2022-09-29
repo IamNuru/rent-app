@@ -26,8 +26,8 @@ const Explore = () => {
     },
   ];
   return (
-    <section style={{overflow:'auto'}}>
-      <Box mt={6} mb={2} align="center">
+    <section>
+      <Box mt={8} mb={2} align="center">
         <Typography variant="h4" align="center">
           Explore Rooms on {config.appName ? config.appName : "RentGh"}
         </Typography>
@@ -36,7 +36,7 @@ const Explore = () => {
           photos, resident reviews and local insights to find what is right for
           you.
         </Typography>
-        <Box sx={{ flexGrow: 1 }} mt={2} className="">
+        <Box sx={{ flexGrow: 1 }} mt={2} style={{overflow:'auto'}}>
           <Grid container spacing={2} align="center" wrap='noWrap'>
             {regions?.map((region) => {
               return (

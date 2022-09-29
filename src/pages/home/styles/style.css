@@ -5,6 +5,7 @@
     display: grid;
     justify-content: center;
     align-items: center;
+    padding: 5px;
 }
 .hero-section > .wrap-input{
     text-align: center;
@@ -19,15 +20,4 @@
     font-size: 1.8rem;
     border-radius: 10px;
     width: 25rem;
-}
-/* .flex{
-    display: flex;
-}
-.values{
-    display: flex;
-    justify-content: center;
-} */
-.value{
-    padding: 0.4rem;
-    margin: 0.25rem 0.25rem 0;
 }

@@ -80,8 +80,8 @@ const Listings = () => {
 
   return (
     <section style={{backgroundColor: 'F6F6F6'}}>
-      <Box mt={6} mb={2} align="center">
-        <Typography variant="h4" align="left" style={{ fontWeight: 600 }}>
+      <Box mt={8} mb={2} align="center">
+        <Typography variant="h4" align="center">
           Available Listings on RentGh{" "}
           {config.appName ? config.appName : "RentGh"}
         </Typography>
@@ -94,7 +94,7 @@ const Listings = () => {
           <Grid container spacing={2} align="center">
             {properties?.map((property) => {
               return (
-                <Grid item key={property.id} xs={6} sm={4}>
+                <Grid item key={property.id} xs={1} sm={6} md={4}>
                   <Property property={property} />
                 </Grid>
               );

@@ -16,7 +16,7 @@ const Post = ({ post }) => {
     <Card
       className="wrap-post"
       p={2}
-      style={{ padding: "0.45rem" }}
+      style={{ padding: "0.45rem", width:"100%" }}
       elevation={7}
       >
       <Grid container>

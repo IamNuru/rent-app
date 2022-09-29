@@ -2,8 +2,8 @@ import { Box, Typography, Paper, Grid } from "@mui/material";
 
 const Statistics = () => {
   return (
-    <Box mt={6}>
-      <Typography variant="h4" align="left" style={{ fontWeight: 600 }}>
+    <Box mt={8}>
+      <Typography variant="h4" align="center" >
         What is happening on this Platform?
       </Typography>
       <Grid container spacing={5}>

@@ -52,7 +52,7 @@ const Blog = () => {
       <Grid container spacing={2}>
         {posts?.map((post) => {
           return (
-            <Grid item key={post.id} p="2">
+            <Grid item key={post.id} style={{ paddingLeft:0}}>
               <Post post={post} />
             </Grid>
           );
