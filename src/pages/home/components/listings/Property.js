@@ -10,7 +10,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import CircleIcon from "@mui/icons-material/Circle";
 
-import { useTheme } from "@mui/material/styles";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import CurrencyFormatter from "../../../../utils/CurrencyFormatter";
