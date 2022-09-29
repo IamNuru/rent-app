@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Container, FormLabel, FormControl, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
+import { FormControl, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
 
 
 const FilterProperties =() =>{
@@ -21,9 +21,7 @@ const FilterProperties =() =>{
   const { verified, rated, kitchen, toilet, bath } = state;
 
   return (
-    <Container maxWidth="md" mt={2}>
       <FormControl component="fieldset" variant="standard">
-        <FormLabel component="legend">Filter</FormLabel>
         <FormGroup row>
           <FormControlLabel
             control={
@@ -57,7 +55,6 @@ const FilterProperties =() =>{
           />
         </FormGroup>
       </FormControl>
-    </Container>
   );
 }
 
