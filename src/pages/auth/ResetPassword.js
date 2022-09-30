@@ -1,53 +1,38 @@
-import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
 import {
   Box,
   Button,
   CircularProgress,
-  IconButton,
   TextField,
   Typography,
-  InputAdornment,
   Alert,
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
-  Slide,
 } from "@mui/material";
-import ReportIcon from "@mui/icons-material/Report";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import SendIcon from '@mui/icons-material/Send';
 import "./styles/login.css";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 
-/* import { useLoginUserMutation } from "../../slices/apiSlice"; */
+/* import { useResetPasswordUserMutation } from "../../slices/apiSlice"; */
 
-const Login = () => {
-  /* const [loginUser] = useLoginUserMutation(); */
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+const ResetPassword = () => {
+  /* const [ResetPasswordUser] = useResetPasswordUserMutation(); */
 
   /* using formik */
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      email: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string()
-        .min(2, "Username must be more than 2 characters")
-        .required("Username is required"),
-      password: Yup.string()
-        .required("No password provided.")
-        .min(6, "Password is too short - should be 6 chars minimum."),
+      email: Yup.string()
+      .email()
+        .required("Email is required"),
     }),
 
     onSubmit: async (credentials, { setSubmitting }) => {
-      /* await loginUser(credentials); */
+      /* await ResetPasswordUser(credentials); */
       setSubmitting(false);
     },
   });
@@ -63,15 +48,13 @@ const Login = () => {
             alignItems: "center",
             flexWrap: "wrap",
             width: "28rem",
-            border: "1px solid gray",
             padding: "1.2rem 4rem 3rem",
             borderRadius: "4px",
           }}
         >
-          <Typography component="div" className="login-title">
-            <PersonOutlineOutlinedIcon />
+          <Typography component="div" className="ResetPassword-title">
             <Typography variant="h6" component="h6">
-              LOGIN
+              ResetPassword
             </Typography>
           </Typography>
           {formik.isSubmitting ? (
@@ -80,7 +63,7 @@ const Login = () => {
             </Alert>
           ) : formik.isValid ? (
             <Alert severity="success" color="success">
-              Successfully Login. redirecting...
+              Password reset link has been sent to your email
             </Alert>
           ) : (
             <Alert severity="error" color="error">
@@ -91,7 +74,6 @@ const Login = () => {
             <List style={{ paddingTop: 0 }}>
               {Object.keys(formik.errors).map(function (value) {
                 return (
-                  <Slide in={true} direction="down" mountOnEnter unmountOnExit>
                     <ListItem
                       key={value}
                       alignItems="flex-start"
@@ -105,76 +87,44 @@ const Login = () => {
                         paddingRight: "8px",
                       }}
                     >
-                      <ListItemIcon
-                        style={{ minWidth: "30px", color: "red", margin: 0 }}
-                      >
-                        <ReportIcon fontSize="small" />
-                      </ListItemIcon>
                       <ListItemText
                         primary={formik.errors[value]}
                         style={{ margin: 0 }}
                       />
                     </ListItem>
-                  </Slide>
                 );
               })}
             </List>
           ) : null}
           <TextField
-            name="username"
-            type="text"
-            label="username"
-            placeholder="username"
+            name="email"
+            type="email"
+            label="Your Email"
+            placeholder="Your Email"
             variant="outlined"
             size="small"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.username}
+            value={formik.values.email}
           />
 
-          <TextField
-            name="password"
-            label="password"
-            placeholder="password"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            type={showPassword ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
           <Button
             color="primary"
             variant="contained"
             disabled={!isEmptyObject(formik.errors)}
             type="submit"
+            endIcon={<SendIcon />}
           >
             {formik.isSubmitting ? (
               <CircularProgress size={30} color="secondary" />
             ) : (
-              "Login"
+              "Send Password Reset Link"
             )}
           </Button>
         </Box>
-        <Typography>
-          Have you forgot your password?. Click on <Link to="/reset-password">Reset Password</Link> to reset your password
-        </Typography>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

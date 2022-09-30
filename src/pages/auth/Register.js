@@ -36,6 +36,7 @@ const Register = () => {
       firstName: "",
       surname: "",
       username: "",
+      email: "",
       password: "",
     },
     validationSchema: Yup.object({
@@ -47,6 +48,9 @@ const Register = () => {
       username: Yup.string()
         .min(2, "Username must be more than 2 characters")
         .required("Username is required"),
+      email: Yup.string()
+        .email()
+        .required("Email is required"),
       password: Yup.string()
         .required("No password provided.")
         .min(6, "Password is too short - should be 6 chars minimum."),
@@ -158,6 +162,18 @@ const Register = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.username}
+          />
+
+          <TextField
+            name="email"
+            type="email"
+            label="generous@gmail"
+            placeholder="Email"
+            variant="outlined"
+            size="small"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
           />
 
           <TextField
