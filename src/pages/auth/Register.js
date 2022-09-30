@@ -25,13 +25,17 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 
 /* import { useRegisterUserMutation } from "../../slices/apiSlice"; */
+import { useIsTabletScreen } from "../../hooks/useMediaScreens";
 
 const Register = () => {
+  const tablet = useIsTabletScreen();
   /* const [registerUser] = useRegisterUserMutation(); */
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+  
+  
   /* using formik */
   const formik = useFormik({
     initialValues: {
@@ -39,17 +43,25 @@ const Register = () => {
       surname: "",
       username: "",
       email: "",
+      phone: "",
       password: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
         .required("First Name is required.")
         .min(2, "First Name must be more than 2 characters."),
-      lastName: Yup.string().min(2, "Last Name must be more than 2 characters."),
+      lastName: Yup.string().min(
+        2,
+        "Last Name must be more than 2 characters."
+      ),
       username: Yup.string()
         .min(2, "Username must be more than 2 characters.")
         .required("Username is required."),
       email: Yup.string().email().required("Email is required."),
+      phone: Yup.string()
+      .min(9, 'Phone Number should not be less than 9')
+      .max(16, 'Phone Number should not be more than 16')
+      .matches(phoneRegExp, 'Phone number is not valid'),
       password: Yup.string()
         .required("Password is Required.")
         .min(6, "Password is too short - should be 6 chars minimum."),
@@ -117,8 +129,8 @@ const Register = () => {
               })}
             </List>
           ) : null}
-          <Grid container spacing={3}>
-            <Grid container item spacing={2}>
+          <Grid container spacing={3.5}>
+            <Grid container item spacing={tablet ? 2 : 1}>
               <Grid item xs={12} md={6}>
                 <TextField
                   name="firstName"
@@ -131,7 +143,6 @@ const Register = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.firstName}
-
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -161,8 +172,24 @@ const Register = () => {
                   value={formik.values.email}
                 />
               </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="phone"
+                  type="text"
+                  label="Phone Number"
+                  placeholder="+233543027058"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
+                />
+              </Grid>
             </Grid>
-            <Grid container item spacing={2}>
+            <Grid container item spacing={tablet ? 2 : 1}>
+              <Grid item xs={12}>
+                <Typography sx={{fontWeight:600}}>Login Credentials</Typography>
+              </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
                   name="username"
@@ -219,8 +246,12 @@ const Register = () => {
             )}
           </Button>
         </Box>
-        <Typography align="center" sx={{p:4, fontSize: "1rem", color:'#979494'}}>
-          Already have an account?. Click on <Link to="/login">Login</Link> to log into you account.
+        <Typography
+          align="center"
+          sx={{ p: 4, fontSize: "1rem", color: "#979494" }}
+        >
+          Already have an account?. Click on <Link to="/login">Login</Link> to
+          log into you account.
         </Typography>
       </form>
     </div>

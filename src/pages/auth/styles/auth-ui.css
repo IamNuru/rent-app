@@ -32,4 +32,7 @@
   .wrap-auth-ui {
     margin-top: 2rem;
   }
+  .form-wrapper{
+    padding: 1rem;
+  }
 }
