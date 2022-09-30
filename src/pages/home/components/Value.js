@@ -25,7 +25,7 @@ const Value = ({value}) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button variant="contained" size="small" color="primary" style={{margin:'auto'}}>
+            <Button variant="contained" size="small" color="primary" style={{margin:'auto', padding:'5px 15px'}}>
               Browse
             </Button>
           </CardActions>

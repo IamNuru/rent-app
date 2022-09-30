@@ -2,10 +2,8 @@ import React from "react";
 import "../styles/style.css";
 import { Box, TextField, Typography, Button, Grid } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { useIsTabletScreen } from "../../../hooks/useMediaScreens";
 
 const Hero = () => {
-  const tablet = useIsTabletScreen();
   return (
     <section className="hero-section">
       <Box className="wrap-input" sx={{zIndex:10}}>

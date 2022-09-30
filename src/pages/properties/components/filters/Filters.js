@@ -10,18 +10,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortIcon from '@mui/icons-material/Sort';
 
-import { useIsTabletScreen } from "../../../../hooks/useMediaScreens";
 import FilterProperties from "./FilterProperties";
 import SortProperties from "./SortProperties";
 import PriceRange from "./PriceRange";
 
 const SortingProperties = () => {
-  const isTabletScreen = useIsTabletScreen();
 
   return (
     <Container maxWidth="md" sx={{mt:2}}>
 
-      <Accordion defaultExpanded={isTabletScreen}>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -41,7 +39,7 @@ const SortingProperties = () => {
         </AccordionDetails>
       </Accordion>
       
-      <Accordion defaultExpanded={isTabletScreen} sx={{mt:1}}>
+      <Accordion sx={{mt:1}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
@@ -61,7 +59,7 @@ const SortingProperties = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion defaultExpanded={isTabletScreen} sx={{mt:1}}>
+      <Accordion sx={{mt:1}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
