@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import ReportIcon from "@mui/icons-material/Report";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import "./styles/login.css";
+import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 
@@ -53,22 +53,15 @@ const Login = () => {
   });
 
   return (
-    <div className="wrap-login-form">
+    <div className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
-            py: 2,
-            display: "grid",
-            gap: 2,
-            alignItems: "center",
-            flexWrap: "wrap",
-            width: "28rem",
-            border: "1px solid gray",
-            padding: "1.2rem 4rem 3rem",
-            borderRadius: "4px",
+            margin:{xs:"auto 2rem"}
           }}
+          className="form-wrapper"
         >
-          <Typography component="div" className="login-title">
+          <Typography component="div" className="auth-ui-title">
             <PersonOutlineOutlinedIcon />
             <Typography variant="h6" component="h6">
               LOGIN
@@ -169,8 +162,11 @@ const Login = () => {
             )}
           </Button>
         </Box>
-        <Typography>
-          Have you forgot your password?. Click on <Link to="/reset-password">Reset Password</Link> to reset your password
+        <Typography align="center" sx={{p:2, fontSize: "1rem", color:'#979494'}}>
+          Have you forgot your password?. Click on <Link to="/reset-password">Reset Password</Link> to reset your password.
+        </Typography>
+        <Typography align="center" sx={{fontSize: "1rem", color:'#979494'}}>
+          You don't have account yet?. Click on <Link to="/register">Create account</Link> to register.
         </Typography>
       </form>
     </div>

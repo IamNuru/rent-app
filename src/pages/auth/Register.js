@@ -15,10 +15,12 @@ import {
   ListItemText,
   ListItemIcon,
   Slide,
+  Grid,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import ReportIcon from "@mui/icons-material/Report";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import "./styles/login.css";
+import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 
@@ -41,18 +43,15 @@ const Register = () => {
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
-      .required("First Name is required")
-        .min(2, "First Name must be more than 2 characters"),
-      lastName: Yup.string()
-        .min(2, "Last Name must be more than 2 characters"),
+        .required("First Name is required.")
+        .min(2, "First Name must be more than 2 characters."),
+      lastName: Yup.string().min(2, "Last Name must be more than 2 characters."),
       username: Yup.string()
-        .min(2, "Username must be more than 2 characters")
-        .required("Username is required"),
-      email: Yup.string()
-        .email()
-        .required("Email is required"),
+        .min(2, "Username must be more than 2 characters.")
+        .required("Username is required."),
+      email: Yup.string().email().required("Email is required."),
       password: Yup.string()
-        .required("No password provided.")
+        .required("Password is Required.")
         .min(6, "Password is too short - should be 6 chars minimum."),
     }),
 
@@ -63,22 +62,10 @@ const Register = () => {
   });
 
   return (
-    <div className="wrap-login-form">
+    <div className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
-        <Box
-          sx={{
-            py: 2,
-            display: "grid",
-            gap: 2,
-            alignItems: "center",
-            flexWrap: "wrap",
-            width: "28rem",
-            border: "1px solid gray",
-            padding: "1.2rem 4rem 3rem",
-            borderRadius: "4px",
-          }}
-        >
-          <Typography component="div" className="login-title">
+        <Box className="form-wrapper">
+          <Typography component="div" className="auth-ui-title">
             <PersonOutlineOutlinedIcon />
             <Typography variant="h6" component="h6">
               REGISTER
@@ -130,76 +117,95 @@ const Register = () => {
               })}
             </List>
           ) : null}
-          <TextField
-            name="firstName"
-            type="text"
-            label="first Name"
-            placeholder="first Name"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.firstName}
-          />
-          <TextField
-            name="surname"
-            type="text"
-            label="surname"
-            placeholder="surname (optional)"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.surname}
-          />
-          <TextField
-            name="username"
-            type="text"
-            label="username"
-            placeholder="username"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.username}
-          />
+          <Grid container spacing={3}>
+            <Grid container item spacing={2}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="firstName"
+                  type="text"
+                  label="First Name"
+                  placeholder="First Name"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.firstName}
 
-          <TextField
-            name="email"
-            type="email"
-            label="generous@gmail"
-            placeholder="Email"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-
-          <TextField
-            name="password"
-            label="password"
-            placeholder="password"
-            variant="outlined"
-            size="small"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            type={showPassword ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="surname"
+                  type="text"
+                  label="Surname"
+                  placeholder="Surname (optional)"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.surname}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="email"
+                  type="email"
+                  label="Email"
+                  placeholder="youremail@email.com"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                />
+              </Grid>
+            </Grid>
+            <Grid container item spacing={2}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="username"
+                  type="text"
+                  label="Username"
+                  placeholder="Username"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.username}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  name="password"
+                  label="Password"
+                  placeholder="Password"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  type={showPassword ? "text" : "password"}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
           <Button
             color="primary"
             variant="contained"
@@ -213,6 +219,9 @@ const Register = () => {
             )}
           </Button>
         </Box>
+        <Typography align="center" sx={{p:4, fontSize: "1rem", color:'#979494'}}>
+          Already have an account?. Click on <Link to="/login">Login</Link> to log into you account.
+        </Typography>
       </form>
     </div>
   );

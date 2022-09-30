@@ -1,0 +1,35 @@
+.wrap-auth-ui {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+}
+.auth-ui-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listItem {
+  color: #e31414;
+  font-size: 14px;
+  margin-top: 4px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.form-wrapper {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 40rem;
+  border: 1px solid gray;
+  padding: 1.2rem 4rem 3rem;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+  .wrap-auth-ui {
+    margin-top: 2rem;
+  }
+}

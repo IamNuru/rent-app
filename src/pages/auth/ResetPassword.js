@@ -12,7 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import "./styles/login.css";
+import "./styles/auth-ui.css";
 import isEmptyObject from "../../utils/isEmptyObject";
 
 /* import { useResetPasswordUserMutation } from "../../slices/apiSlice"; */
@@ -38,21 +38,12 @@ const ResetPassword = () => {
   });
 
   return (
-    <div className="wrap-login-form">
+    <div className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
-          sx={{
-            py: 2,
-            display: "grid",
-            gap: 2,
-            alignItems: "center",
-            flexWrap: "wrap",
-            width: "28rem",
-            padding: "1.2rem 4rem 3rem",
-            borderRadius: "4px",
-          }}
+          className="form-wrapper"
         >
-          <Typography component="div" className="ResetPassword-title">
+          <Typography component="div" className="auth-ui-title">
             <Typography variant="h6" component="h6">
               ResetPassword
             </Typography>
