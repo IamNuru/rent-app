@@ -107,8 +107,15 @@ export default function Header(props: Props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <MenuItem onClick={handleMenuClose}>
+      <Link to="/register">Create Account</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/login">Login</Link>
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -172,9 +179,9 @@ export default function Header(props: Props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <Link to={`${item.link}`}>
-            <ListItemButton sx={{ textAlign: 'center', color: '#000' }}>
+          <ListItem divider key={item.text} disablePadding sx={{width:'100%'}}>
+            <Link to={`${item.link}`} style={{width:'100%'}}>
+            <ListItemButton sx={{ textAlign: 'left', color: '#000' }}>
               <ListItemText primary={item.text} />
             </ListItemButton>
             </Link>
@@ -202,7 +209,7 @@ export default function Header(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1 }}
           >
             {config.appName ? config.appName : 'RentGh'}
           </Typography>

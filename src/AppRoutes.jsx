@@ -3,6 +3,8 @@ import Home from "./pages/home/Home";
 import Blog from "./pages/blog/Blog";
 import Properties from "./pages/properties/Properties";
 import SingleBlogPost from "./pages/blog/components/SingleBlogPost";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 const AppRoutes = () => {
 
@@ -13,6 +15,8 @@ const AppRoutes = () => {
         <Route path="/properties" element={<Properties />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );

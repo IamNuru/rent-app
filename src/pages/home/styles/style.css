@@ -14,7 +14,7 @@
   overflow-x: none;
 }
 body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 .hero-section::before {
   border-radius: 0 0 100% 100%;
