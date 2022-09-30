@@ -9,14 +9,14 @@ const AppRoutes = () => {
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   return (
-    <Container disableGutters={!isMediumScreen}>
+    <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
       </Routes>
-    </Container>
+    </>
   );
 };
 

@@ -1,23 +1,50 @@
-.hero-section{
-    background-color: rgb(116, 113, 113);
-    min-height: 20rem;
-    border-radius: 0 0 10px 10px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
+.hero-section {
+  /* background-color: rgb(116, 113, 113); */
+  min-height: 20rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: -1rem;
+  opacity: 0.9;
+  padding: 1.5rem;
+  position: relative;
+  overflow-x: none;
 }
-.hero-section > .wrap-input{
-    text-align: center;
+body {
+  overflow-x: hidden;
 }
-.wrap-input > .title{
-    color: white;
-    
+.hero-section::before {
+  border-radius: 0 0 100% 100%;
+  height: 35rem;
+  position: absolute;
+  background-color: rgb(55, 54, 54);
+  background-image: url("../../../assets/bg2.jpg");
+  right: -200px;
+  left: -200px;
+  top: 0px;
+  content: "";
+  bottom: 0;
 }
-.search-input{
-    background-color: white;
-    color: black;
-    font-size: 1.8rem;
-    border-radius: 10px;
-    width: 100%;
+.hero-section > .wrap-input {
+  text-align: center;
+}
+.wrap-input > .title {
+  color: white;
+}
+.search-input {
+  background-color: white;
+  color: black;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* On screens that are 600px or less*/
+@media screen and (max-width: 600px) {
+    .hero-section::before {
+        height: 22rem;
+    }
 }

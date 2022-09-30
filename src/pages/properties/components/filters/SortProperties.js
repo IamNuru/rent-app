@@ -18,6 +18,8 @@ const SortProperties = () => {
         <FormControlLabel value="latest" control={<Radio />} label="Latest" />
         <FormControlLabel value="oldest" control={<Radio />} label="Oldest" />
         <FormControlLabel value="ratings" control={<Radio />} label="Ratings" />
+        <FormControlLabel value="lowestPrice" control={<Radio />} label="Lowest Price" />
+        <FormControlLabel value="highestPrice" control={<Radio />} label="Highest Price" />
       </RadioGroup>
     </FormControl>
   );

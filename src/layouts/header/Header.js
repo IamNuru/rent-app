@@ -275,7 +275,7 @@ export default function Header(props: Props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3, mb:4 }}>
+      <Box component="main" sx={{ p:2, mb:4 }}>
       </Box>
     </Box>
   );

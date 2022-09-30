@@ -13,12 +13,14 @@ import SortIcon from '@mui/icons-material/Sort';
 import { useIsTabletScreen } from "../../../../hooks/useMediaScreens";
 import FilterProperties from "./FilterProperties";
 import SortProperties from "./SortProperties";
+import PriceRange from "./PriceRange";
 
 const SortingProperties = () => {
   const isTabletScreen = useIsTabletScreen();
 
   return (
-    <Container maxWidth="md" mt={4}>
+    <Container maxWidth="md" sx={{mt:2}}>
+
       <Accordion defaultExpanded={isTabletScreen}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -30,7 +32,7 @@ const SortingProperties = () => {
               <SortIcon fontSize="small"/>
             </Grid>
             <Grid item>
-              <Typography sx={{ color: "gray" }}>Sort:</Typography>
+              <Typography sx={{ color: "gray" }}>Order By:</Typography>
             </Grid>
           </Grid>
         </AccordionSummary>
@@ -38,6 +40,7 @@ const SortingProperties = () => {
           <SortProperties />
         </AccordionDetails>
       </Accordion>
+      
       <Accordion defaultExpanded={isTabletScreen} sx={{mt:1}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -57,6 +60,27 @@ const SortingProperties = () => {
           <FilterProperties />
         </AccordionDetails>
       </Accordion>
+
+      <Accordion defaultExpanded={isTabletScreen} sx={{mt:1}}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Grid container spacing={2}>
+            <Grid item>
+              <FilterAltIcon fontSize="small"/>
+            </Grid>
+            <Grid item>
+              <Typography sx={{ color: "gray" }}>Price Range:</Typography>
+            </Grid>
+          </Grid>
+        </AccordionSummary>
+        <AccordionDetails>
+          <PriceRange />
+        </AccordionDetails>
+      </Accordion>
+
     </Container>
   );
 };

@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/style.css";
-import { TextField, Typography, Button, Grid } from "@mui/material";
+import { Box, TextField, Typography, Button, Grid } from "@mui/material";
 import { Search } from "@mui/icons-material";
+import { useIsTabletScreen } from "../../../hooks/useMediaScreens";
 
 const Hero = () => {
+  const tablet = useIsTabletScreen();
   return (
     <section className="hero-section">
-      <div className="wrap-input">
+      <Box className="wrap-input" sx={{zIndex:10}}>
         <Typography
           align="center"
           variant="h5"
@@ -22,6 +24,7 @@ const Hero = () => {
               id="outlined-basic"
               variant="outlined"
               className="search-input"
+              
             />
           </Grid>
           <Grid item sx={{ marginLeft: { xs: "auto" } }} xs={12} sm={3}>
@@ -30,7 +33,7 @@ const Hero = () => {
             </Button>
           </Grid>
         </Grid>
-      </div>
+      </Box>
     </section>
   );
 };
