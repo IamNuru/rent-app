@@ -4,15 +4,16 @@ import Statistics from "./components/Statistics";
 import Listings from "./components/listings/Listings";
 import Values from "./components/Values";
 import "./styles/style.css";
+import Page from "../../components/Page.js"
 
 const Home = () => {
-  return (<div className="home">
+  return (<Page title="Home Page" className="home">
         <Hero />
         <Values />
         <Explore />
         <Listings />
         <Statistics />
-      </div>
+      </Page>
   );
 };
 

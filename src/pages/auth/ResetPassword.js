@@ -14,6 +14,8 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import "./styles/auth-ui.css";
 import isEmptyObject from "../../utils/isEmptyObject";
+import Page from "../../components/Page.js"
+
 
 /* import { useResetPasswordUserMutation } from "../../slices/apiSlice"; */
 
@@ -38,7 +40,7 @@ const ResetPassword = () => {
   });
 
   return (
-    <div className="wrap-auth-ui">
+    <Page title="Reset Password" className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
           className="form-wrapper"
@@ -114,7 +116,7 @@ const ResetPassword = () => {
           </Button>
         </Box>
       </form>
-    </div>
+    </Page>
   );
 };
 

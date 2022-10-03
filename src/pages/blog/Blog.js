@@ -1,5 +1,13 @@
-import { Container, Typography, Box, Grid, Pagination, Stack } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Pagination,
+  Stack,
+} from "@mui/material";
 import Post from "./components/Post";
+import Page from "../../components/Page.js";
 
 const Blog = () => {
   const posts = [
@@ -45,23 +53,25 @@ const Blog = () => {
     },
   ];
   return (
-    <Container maxWidth="md">
-      <Box align="center" mb={4}>
-        <Typography variant="h5">Blog / Posts</Typography>
-      </Box>
-      <Grid container spacing={3}>
-        {posts?.map((post) => {
-          return (
-            <Grid item key={post.id} style={{ paddingLeft:0}}>
-              <Post post={post} />
-            </Grid>
-          );
-        })}
-      </Grid>
-      <Stack spacing={2} mt={4} style={{alignItems:"center"}}>
-       <Pagination count={posts?.length} color="primary" />
-      </Stack>
-    </Container>
+    <Page title="Blog Posts">
+      <Container maxWidth="md">
+        <Box align="center" mb={4}>
+          <Typography variant="h5">Blog / Posts</Typography>
+        </Box>
+        <Grid container spacing={3}>
+          {posts?.map((post) => {
+            return (
+              <Grid item key={post.id} style={{ paddingLeft: 0 }}>
+                <Post post={post} />
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Stack spacing={2} mt={4} style={{ alignItems: "center" }}>
+          <Pagination count={posts?.length} color="primary" />
+        </Stack>
+      </Container>
+    </Page>
   );
 };
 

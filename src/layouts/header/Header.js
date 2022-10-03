@@ -53,6 +53,10 @@ const navItems = [
     link:'/contact-us',
     text:'Contact'
   },
+  {
+    link:'/dashboard',
+    text:'Dashboard'
+  },
 ];
 
 export default function Header(props: Props) {
@@ -112,6 +116,9 @@ export default function Header(props: Props) {
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <Link to="/login">Login</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/dashboard">Dashboard</Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>

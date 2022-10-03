@@ -22,6 +22,8 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
+import Page from "../../components/Page.js"
+
 
 /* import { useLoginUserMutation } from "../../slices/apiSlice"; */
 
@@ -53,7 +55,7 @@ const Login = () => {
   });
 
   return (
-    <div className="wrap-auth-ui">
+    <Page title="Login" className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
@@ -169,7 +171,7 @@ const Login = () => {
           You don't have account yet?. Click on <Link to="/register">Create account</Link> to register.
         </Typography>
       </form>
-    </div>
+    </Page>
   );
 };
 

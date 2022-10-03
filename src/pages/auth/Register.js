@@ -23,6 +23,8 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
+import Page from "../../components/Page.js"
+
 
 /* import { useRegisterUserMutation } from "../../slices/apiSlice"; */
 import { useIsTabletScreen } from "../../hooks/useMediaScreens";
@@ -74,7 +76,7 @@ const Register = () => {
   });
 
   return (
-    <div className="wrap-auth-ui">
+    <Page title="Create an Account" className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box className="form-wrapper">
           <Typography component="div" className="auth-ui-title">
@@ -254,7 +256,7 @@ const Register = () => {
           log into you account.
         </Typography>
       </form>
-    </div>
+    </Page>
   );
 };
 
