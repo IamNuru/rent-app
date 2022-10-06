@@ -11,7 +11,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Box>
-          {/* <Header /> */}
+          <Header />
           <AppRoutes />
         </Box>
       </Router>

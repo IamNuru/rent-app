@@ -10,18 +10,21 @@ import Page404 from "./pages/Page404";
 import DashboardLayout from "./layouts/dashboard";
 import Dashboard from "./pages/dashboard/Dashboard";
 import User from "./pages/dashboard/User";
+import AppLayout from "./layouts/app";
 
 const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/properties" element={<Properties />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/" element={<AppLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/properties" element={<Properties />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="app" element={<Dashboard />} />
           <Route path="users" element={<User />} />
