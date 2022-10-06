@@ -8,7 +8,6 @@ import { Search  } from '@mui/icons-material';
 // ----------------------------------------------------------------------
 
 const APPBAR_MOBILE = 64;
-const APPBAR_DESKTOP = 92;
 
 const SearchbarStyle = {
   top: 0,

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // mock
 import account from '../../_mock/account';
 // hooks
@@ -17,10 +17,6 @@ import navConfig from './NavConfig';
 
 const DRAWER_WIDTH = 280;
 
-const RootStyle =  {
-    flexShrink: 0,
-    width: 280,
-};
 
 const AccountStyle ={
   display: 'flex',

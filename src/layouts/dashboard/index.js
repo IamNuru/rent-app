@@ -6,8 +6,6 @@ import { Box } from '@mui/material';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
 
-//hooks
-import { useIsLargeScreen } from '../../hooks/useMediaScreens';
 
 
 // ----------------------------------------------------------------------
@@ -33,7 +31,6 @@ const MainStyle = {
 
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
-  const lg = useIsLargeScreen()
 
   return (
     <Box style={RootStyle} sx={{lg:{paddingTop: APP_BAR_DESKTOP + 24, paddingLeft:2, paddingRight:2}}}>
