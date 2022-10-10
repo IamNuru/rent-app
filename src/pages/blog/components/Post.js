@@ -14,8 +14,7 @@ const Post = ({ post }) => {
   return (
     <Card
       className="card"
-      p={2}
-      style={{ padding: "0.45rem", width:"100%" }}
+      style={{ padding: "0.55rem 1rem", width:"100%" }}
       elevation={isMediumScreen ? 7 : 1}
       >
       <Grid container>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 // material
 import { Menu, Button, MenuItem, Typography } from '@mui/material';
-// component
-import Iconify from '../../../components/Iconify';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ export default function ShopProductSort() {
         color="inherit"
         disableRipple
         onClick={handleOpen}
-        endIcon={<Iconify icon={open ? 'eva:chevron-up-fill' : 'eva:chevron-down-fill'} />}
+        endIcon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       >
         Sort By:&nbsp;
         <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>

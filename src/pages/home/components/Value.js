@@ -7,7 +7,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 const Value = ({value}) => {
     return (
-        <Card sx={{ maxWidth: 345, padding:4 }} className="vakkklue" elevation={20}>
+        <Card sx={{ maxWidth: {sm:345}, padding:{md:4, xs:0}, margin:'0 auto' }}  elevation={20}>
           <CardActionArea>
             <CardMedia
               component="img"

@@ -2,14 +2,14 @@ import { useState } from 'react';
 // material
 import { Container, Stack, Typography } from '@mui/material';
 // components
-import Page from '../components/Page';
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
+import Page from '../../components/Page';
+import { PropertySort, PropertyList, PropertyCartWidget, PropertyFilterSidebar } from './properties';
 // mock
-import PRODUCTS from '../_mock/products';
+import properties from '../../_mock/properties';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceShop() {
+export default function PropertiesList() {
   const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -21,25 +21,25 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Dashboard: Products">
+    <Page title="Dashboard: properties">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+          Properties
         </Typography>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
+            <PropertyFilterSidebar
               isOpenFilter={openFilter}
               onOpenFilter={handleOpenFilter}
               onCloseFilter={handleCloseFilter}
             />
-            <ProductSort />
+            <PropertySort />
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
+        <PropertyList properties={properties} />
+        <PropertyCartWidget />
       </Container>
     </Page>
   );

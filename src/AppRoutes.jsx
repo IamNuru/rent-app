@@ -10,7 +10,9 @@ import Page404 from "./pages/Page404";
 import DashboardLayout from "./layouts/dashboard";
 import Dashboard from "./pages/dashboard/Dashboard";
 import User from "./pages/dashboard/User";
+import DashboardPosts from './pages/dashboard/Blog';
 import AppLayout from "./layouts/app";
+import PropertiesList from "./pages/dashboard/PropertiesList";
 
 const AppRoutes = () => {
   return (
@@ -26,8 +28,11 @@ const AppRoutes = () => {
           <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="" element={<Dashboard />} />
           <Route path="app" element={<Dashboard />} />
           <Route path="users" element={<User />} />
+          <Route path="properties" element={<PropertiesList />} />
+          <Route path="posts" element={<DashboardPosts />} />
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

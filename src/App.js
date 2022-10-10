@@ -1,4 +1,3 @@
-import Header from "./layouts/header/Header";
 import { Box } from "@mui/material";
 import AppRoutes from "./AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -11,7 +10,6 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Box>
-          <Header />
           <AppRoutes />
         </Box>
       </Router>

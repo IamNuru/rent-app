@@ -34,7 +34,7 @@ const Values = () => {
   return (
     <Box sx={{ flexGrow: 1 }} mt={2} className="valuelllls">
       <Grid container rowSpacing={4} align="center">
-        {ourValues?.map((index, value) => {
+        {ourValues?.map((value, index) => {
           return (
               <Grid key={value.id} item xs={12} md={4} sx={{ zIndex: 10 }}>
                 <Value value={value} />

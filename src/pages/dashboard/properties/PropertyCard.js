@@ -2,37 +2,37 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Box, Card, Link, Typography, Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
+/* import { styled } from '@mui/material/styles'; */
 // utils
-import { fCurrency } from '../../../utils/formatNumber';
+/* import { fCurrency } from '../../../utils/formatNumber'; */
 // components
-import Label from '../../../components/Label';
+/* import Label from '../../../components/Label'; */
 import { ColorPreview } from '../../../components/color-utils';
 
 // ----------------------------------------------------------------------
 
-const ProductImgStyle = styled('img')({
+const PropertyImgStyle = {
   top: 0,
   width: '100%',
   height: '100%',
   objectFit: 'cover',
   position: 'absolute',
-});
+};
 
 // ----------------------------------------------------------------------
 
-ShopProductCard.propTypes = {
-  product: PropTypes.object,
+RentPropertyCard.propTypes = {
+  property: PropTypes.object,
 };
 
-export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+export default function RentPropertyCard({ property }) {
+  const { name, cover, price, colors, status, priceSale } = property;
 
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
         {status && (
-          <Label
+          <Typography
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
             sx={{
@@ -44,9 +44,9 @@ export default function ShopProductCard({ product }) {
             }}
           >
             {status}
-          </Label>
+          </Typography>
         )}
-        <ProductImgStyle alt={name} src={cover} />
+        <img style={PropertyImgStyle} alt={name} src={cover} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
@@ -67,10 +67,10 @@ export default function ShopProductCard({ product }) {
                 textDecoration: 'line-through',
               }}
             >
-              {priceSale && fCurrency(priceSale)}
+              {priceSale && (priceSale)}
             </Typography>
             &nbsp;
-            {fCurrency(price)}
+            {price}
           </Typography>
         </Stack>
       </Stack>

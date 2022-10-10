@@ -15,10 +15,12 @@ import {
   RadioGroup,
   FormControlLabel,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import FilterListIcon from '@mui/icons-material/FilterList';
 // components
-import Iconify from '../../../components/Iconify';
-import Scrollbar from '../../../components/Scrollbar';
 import { ColorManyPicker } from '../../../components/color-utils';
+
 
 // ----------------------------------------------------------------------
 
@@ -58,7 +60,7 @@ ShopFilterSidebar.propTypes = {
 export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseFilter }) {
   return (
     <>
-      <Button disableRipple color="inherit" endIcon={<Iconify icon="ic:round-filter-list" />} onClick={onOpenFilter}>
+      <Button disableRipple color="inherit" endIcon={<FilterListIcon />} onClick={onOpenFilter}>
         Filters&nbsp;
       </Button>
 
@@ -75,13 +77,13 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
             Filters
           </Typography>
           <IconButton onClick={onCloseFilter}>
-            <Iconify icon="eva:close-fill" width={20} height={20} />
+            <CloseIcon width={20} height={20} />
           </IconButton>
         </Stack>
 
         <Divider />
 
-        <Scrollbar>
+        <Box>
           <Stack spacing={3} sx={{ p: 3 }}>
             <div>
               <Typography variant="subtitle1" gutterBottom>
@@ -160,7 +162,7 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
               </RadioGroup>
             </div>
           </Stack>
-        </Scrollbar>
+        </Box>
 
         <Box sx={{ p: 3 }}>
           <Button
@@ -169,7 +171,7 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
             type="submit"
             color="inherit"
             variant="outlined"
-            startIcon={<Iconify icon="ic:round-clear-all" />}
+            startIcon={<ClearAllIcon />}
           >
             Clear All
           </Button>

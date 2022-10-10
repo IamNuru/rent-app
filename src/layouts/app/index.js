@@ -9,7 +9,7 @@ export default function AppLayout() {
   return (
     <Box>
       <Header />
-      <Box>
+      <Box style={{marginTop:'1rem'}}>
         <Outlet />
       </Box>
     </Box>
