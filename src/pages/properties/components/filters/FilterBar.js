@@ -110,7 +110,7 @@ export default function FilterBar(props: Props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav" position="static" color="transparent" 
-      sx={{ ml:'auto', top: 'auto', bottom: 0, width:'100px', py:'2px' }}>
+      sx={{ ml:'auto', top: 'auto', bottom: 0, width:'100px', py:'2px', px:'4px' }}>
         <Toolbar sx={{p:0}}>
           <Typography
             variant="h6"
