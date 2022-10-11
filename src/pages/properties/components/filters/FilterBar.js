@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Filters from './Filters';
 
 interface Props {
   /**
@@ -56,6 +57,7 @@ export default function FilterBar(props: Props) {
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
+    anchor='right'
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -79,13 +81,13 @@ export default function FilterBar(props: Props) {
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'left',
+        horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'left',
+        horizontal: 'right',
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
@@ -99,7 +101,7 @@ export default function FilterBar(props: Props) {
         Filter
       </Typography>
       <Divider />
-     {/* put all filters here */}
+     <Filters />
     </Box>
   );
 
@@ -107,17 +109,9 @@ export default function FilterBar(props: Props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar component="nav" position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+      <AppBar component="nav" position="static" color="transparent" 
+      sx={{ ml:'auto', top: 'auto', bottom: 0, width:'100px', py:'2px' }}>
+        <Toolbar sx={{p:0}}>
           <Typography
             variant="h6"
             component="div"
@@ -125,6 +119,15 @@ export default function FilterBar(props: Props) {
           >
             Filter
           </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ ml: 1 }}
+          >
+            <MenuIcon />
+          </IconButton>
           
         </Toolbar>
       </AppBar>
@@ -132,6 +135,7 @@ export default function FilterBar(props: Props) {
       {renderMenu}
       <Box component="nav">
         <Drawer
+          anchor='right'
           container={container}
           variant="temporary"
           open={mobileOpen}
@@ -140,7 +144,7 @@ export default function FilterBar(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

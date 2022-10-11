@@ -1,9 +1,9 @@
 import { Container } from '@mui/material'
 import React from 'react'
 import SearchProperties from "./components/SearchProperties"
-import Filters from "./components/filters/Filters"
 import PropertiesList from './components/PropertiesList'
 import Page from "../../components/Page.js"
+import FilterBar from './components/filters/FilterBar'
 
 
 const Properties = () => {
@@ -11,7 +11,7 @@ const Properties = () => {
     <Page title="List of Properties">
     <Container>
         <SearchProperties />
-        <Filters />
+        <FilterBar />
         <PropertiesList />
     </Container>
     </Page>

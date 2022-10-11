@@ -18,7 +18,6 @@ const SortingProperties = () => {
 
   return (
     <Container maxWidth="md" sx={{mt:2}}>
-
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
