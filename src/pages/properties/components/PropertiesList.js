@@ -1,6 +1,5 @@
 import { Box, Grid } from "@mui/material";
 import Property from "../../home/components/listings/Property"
-import FilterBar from './filters/FilterBar'
 
 const PropertiesList = () => {
   const properties = [
@@ -99,7 +98,6 @@ const PropertiesList = () => {
           </Grid>
         </Box>
       </Box>
-      <FilterBar />
     </section>
   );
 };
