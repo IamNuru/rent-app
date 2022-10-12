@@ -13,6 +13,7 @@ import User from "./pages/dashboard/User";
 import DashboardPosts from './pages/dashboard/Blog';
 import AppLayout from "./layouts/app";
 import PropertiesList from "./pages/dashboard/PropertiesList";
+import ContactUs from "./pages/ContactUs";
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

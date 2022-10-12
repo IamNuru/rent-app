@@ -104,7 +104,7 @@ const Footer = () => {
               <ListItemIcon>
                 <InboxIcon htmlColor="white" />
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="inbox@rentgh.com" />
             </ListItemButton>
           </ListItem>
             </List>
