@@ -22,7 +22,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // components
 import Page from '../../components/Page';
 import SearchNotFound from '../../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from './user';
+import UserListHead from './user/UserListHead';
+import UserMoreMenu from './user/UserMoreMenu';
+import UserListToolbar from './user/UserListToolbar';
 // mock
 import USERLIST from '../../_mock/user';
 

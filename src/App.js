@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import AppRoutes from "./AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useTheme, ThemeProvider } from "@mui/material";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const theme = useTheme();
@@ -9,6 +10,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Box>
           <AppRoutes />
         </Box>

@@ -1,10 +1,15 @@
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 // components
 import Page from '../../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from './blog';
+//import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from './blog';
+import BlogPostCard from './blog/BlogPostCard';
+import BlogPostsSort from './blog/BlogPostsSort';
+import BlogPostsSearch from './blog/BlogPostsSearch';
+
 // mock
 import POSTS from '../../_mock/blog';
 
