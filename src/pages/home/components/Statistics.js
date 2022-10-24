@@ -6,7 +6,7 @@ const Statistics = () => {
       <Typography variant="h4" align="center" >
         What is happening on this Platform?
       </Typography>
-      <Grid container spacing={5}>
+      <Grid container spacing={5} sx={{justifyContent:'center', marginTop:'0.5rem'}}>
         <Grid item xs={6} style={{ maxWidth: "20rem" }}>
           <Paper elevation={12} sx={{ padding: "12px", textAlign: "center" }}>
             <Typography variant="h4" mb={4} style={{ color: "#4F9BF5" }}>

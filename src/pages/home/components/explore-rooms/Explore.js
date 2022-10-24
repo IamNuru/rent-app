@@ -35,7 +35,7 @@ const Explore = () => {
           photos, resident reviews and local insights to find what is right for
           you.
         </Typography>
-        <Box sx={{ flexGrow: 1 }} mt={2} style={{overflow:'auto'}}>
+        <Box sx={{ flexGrow: 1 }} mt={2} style={{overflow:'auto', paddingBottom:"0.5rem"}}>
           <Grid container spacing={2} align="center" wrap="nowrap">
             {regions?.map((region) => {
               return (

@@ -22,7 +22,7 @@ const Property = ({ property }) => {
 
   return (
     <Paper elevation={7}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, boxShadow:'none'}} >
         <CardHeader
           avatar={
             isMediumScreen ? (
