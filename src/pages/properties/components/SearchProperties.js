@@ -14,8 +14,8 @@ const SearchProperties = () => {
             className="search-input"
           />
         </Grid>
-        <Grid item sx={{ marginLeft: { xs: "auto" } }} xs={12} sm={3}>
-          <Button variant="contained" endIcon={<Search />}>
+        <Grid item xs={12} sm={3}>
+          <Button variant="contained" endIcon={<Search />} sx={{ float: { xs: "right" } }}>
             Search
           </Button>
         </Grid>

@@ -24,6 +24,7 @@ const Values = () => {
     },
     {
       id: 143,
+      title: "Buy a house",
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
       image:

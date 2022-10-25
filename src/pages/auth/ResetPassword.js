@@ -47,7 +47,7 @@ const ResetPassword = () => {
         >
           <Typography component="div" className="auth-ui-title">
             <Typography variant="h6" component="h6">
-              ResetPassword
+              Reset Password
             </Typography>
           </Typography>
           {formik.isSubmitting ? (

@@ -21,7 +21,7 @@ export default function PropertiesList() {
   };
 
   return (
-    <Page title="Dashboard: properties">
+    <Page title="Dashboard: Properties">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Properties

@@ -14,6 +14,7 @@ import DashboardPosts from './pages/dashboard/Blog';
 import AppLayout from "./layouts/app";
 import PropertiesList from "./pages/dashboard/PropertiesList";
 import ContactUs from "./pages/ContactUs";
+import SingleProperty from "./pages/properties/components/SearchProperties"
 
 const AppRoutes = () => {
   return (
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/property/:id/:slug" element={<SingleProperty />} />
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<Dashboard />} />

@@ -9,6 +9,7 @@ import { Paper, Grid, Chip, Typography } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import CircleIcon from "@mui/icons-material/Circle";
+import { Link } from "react-router-dom"
 
 
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -22,6 +23,7 @@ const Property = ({ property }) => {
 
   return (
     <Paper elevation={7}>
+      <Link to={`/property/id/slug`}>
       <Card sx={{ maxWidth: 345, boxShadow:'none'}} >
         <CardHeader
           avatar={
@@ -113,6 +115,7 @@ const Property = ({ property }) => {
           GPS: {property?.gps}{" "}
         </Typography>
       </Card>
+      </Link>
     </Paper>
   );
 };

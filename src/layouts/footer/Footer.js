@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Grid, List, ListItem, ListSubheader, ListItemText, ListItemButton, ListItemIcon } from "@mui/material";
+import { Box, Grid, List, ListItem, ListSubheader, ListItemText, ListItemButton, ListItemIcon,  } from "@mui/material";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import StarIcon from '@mui/icons-material/Star';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { Link } from "react-router-dom";
 import posts from '../../_mock/blog';
@@ -71,7 +72,8 @@ const Footer = () => {
             {
                 posts?.slice(0, 5).map((post, index) =>(
                    <ListItem divider disableGutters disablePadding key={index} sx={{ml:{xs:'2rem'}}}>
-                        <Link to={`${post.title}`} style={{width:'100%'}}>
+                        <Link to={`${post.title}`} style={{width:'100%', display:'flex'}}>
+                            <StarIcon fontSize="small" sx={{color:'yellow', mt:'0.3rem', mr:'0.25rem'}} />
                             <ListItemText primary={post.title} sx={{color:'rgb(205, 210, 225)',fontWeight:600,fontSize: 16 }} />
                         </Link>
                     </ListItem> 

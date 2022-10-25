@@ -18,7 +18,7 @@ const Region = ({ region }) => {
         />
       </CardActionArea>
       <CardActions>
-        <Button variant="contained" size="small" style={{backgroundColor: 'gray'}}>
+        <Button variant="contained" size="small" sx={{mx:'auto'}}>
           view Rooms
         </Button>
       </CardActions>

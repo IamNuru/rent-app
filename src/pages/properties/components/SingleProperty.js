@@ -1,9 +1,15 @@
+import { Container } from '@mui/system'
 import React from 'react'
-import {} from ''
+import Page from '../../../components/Page'
 
 const SingleProperty = () => {
   return (
-    <div>SingleProperty</div>
+    <Page title={`The title of the property`}>
+      <Container>
+        lorem10
+        
+      </Container>
+    </Page>
   )
 }
 
