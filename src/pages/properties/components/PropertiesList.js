@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Pagination, Stack } from "@mui/material";
 import Property from "../../home/components/listings/Property"
 
 const PropertiesList = () => {
@@ -98,6 +98,9 @@ const PropertiesList = () => {
           </Grid>
         </Box>
       </Box>
+      <Stack spacing={2} mt={4} style={{ alignItems: "center" }}>
+          <Pagination count={properties?.length} color="primary" />
+        </Stack>
     </section>
   );
 };

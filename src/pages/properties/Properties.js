@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import SearchProperties from "./components/SearchProperties"
 import PropertiesList from './components/PropertiesList'
 import Page from "../../components/Page.js"
-import FilterBar from './components/filters/FilterBar'
 import { PropertyFilterSidebar, PropertySort } from '../dashboard/properties'
 
 
@@ -35,6 +34,7 @@ const Properties = () => {
         </Stack>
 
         <PropertiesList />
+        
     </Container>
     </Page>
   )

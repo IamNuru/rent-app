@@ -23,16 +23,19 @@ const Post = ({ post }) => {
             {format(toDate(5*post.id*78098443000), "do MMM, yyyy")}
           </Typography>
         </Grid>
-        <Grid item className="wrap-image" xs={0} sm={3} sx={{display:{xs:'none', sm:'block'}}}>
+        <Grid item className="wrap-image" xs={12} sm={3} >
+        <Typography variant="body1" style={{ fontWeight: 600, fontSize:'1.45rem' }} sx={{display:{xs:'block', sm:'none'}}}>
+            {post?.title}
+          </Typography>
           <CardMedia 
           component="img"
-          height="120"
+          height={isMediumScreen ? '120' : '180'}
           image={post?.image}
           alt={post?.title}
           />
         </Grid>
         <Grid item className="title" my={0.5} xs={12} sm={9} px={0.75}>
-          <Typography variant="body1" style={{ fontWeight: 600, fontSize:'1.45rem' }}>
+          <Typography variant="body1" style={{ fontWeight: 600, fontSize:'1.45rem' }} sx={{display:{xs:'none', sm:'block'}}}>
             {post?.title}
           </Typography>
           <Typography variant="p" xs={0} sx={{display:{xs:'none', sm:'block'}, fontSize:{ sm:'1.25rem'}}}>{post?.description}</Typography>
