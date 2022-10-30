@@ -90,7 +90,7 @@ const Messages = () => {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Box sx={{ height: { xs: 340, sm: 'auto' } }}>
+        <Box>
           <List
             disablePadding
             subheader={
@@ -200,5 +200,5 @@ function NotificationItem({ notification }) {
       title,
     };
   }
-
-export default Messages;
+  
+  export default Messages;

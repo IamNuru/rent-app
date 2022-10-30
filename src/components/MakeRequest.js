@@ -3,7 +3,7 @@ import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
 export default function MakeRequest() {
   return (
-    <Paper elevation={12} variant="outlined" sx={{minWidth:'10rem', maxWidth:{xs:"100%", sm:'30rem', backgroundColor:'rgb(5, 30, 52)', borderRadius:'1.2rem', color:"white"}, mx:"auto", py:3, px:4}}>
+    <Paper elevation={12} sx={{minWidth:'10rem', maxWidth:{xs:"100%", sm:'30rem', backgroundColor:'rgb(5, 30, 52)', borderRadius:'1.2rem', color:"white"}, mx:"auto", py:3, px:4}}>
       <CardContent>
         <Typography align="center" sx={{ fontSize: 22, fontWeight:600 }}  gutterBottom>
           Request

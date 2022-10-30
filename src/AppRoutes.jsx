@@ -14,9 +14,10 @@ import DashboardPosts from './pages/dashboard/Blog';
 import AppLayout from "./layouts/app";
 import PropertiesList from "./pages/dashboard/PropertiesList";
 import ContactUs from "./pages/ContactUs";
-import SingleProperty from "./pages/properties/components/SearchProperties"
+import SingleProperty from "./pages/properties/components/SingleProperty";
 import Notifications from "./pages/auth/Notifications";
 import Messages from "./pages/auth/Messages";
+import Tenant from "./pages/dashboard/Tenants";
 
 const AppRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const AppRoutes = () => {
           <Route path="" element={<Dashboard />} />
           <Route path="app" element={<Dashboard />} />
           <Route path="users" element={<User />} />
+          <Route path="tenants" element={<Tenant />} />
           <Route path="properties" element={<PropertiesList />} />
           <Route path="posts" element={<DashboardPosts />} />
         </Route>
