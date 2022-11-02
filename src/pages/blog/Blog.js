@@ -1,63 +1,18 @@
 import {
   Container,
-  Typography,
-  Box,
   Grid,
   Pagination,
   Stack,
 } from "@mui/material";
 import Post from "./components/Post";
 import Page from "../../components/Page.js";
+import posts from "../../_mock/blog";
 
 const Blog = () => {
-  const posts = [
-    {
-      id: 1,
-      title: "My first Blog post is here live",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio!",
-      date: "122554335545",
-      slug: "slug-of-post",
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
-    },
-    {
-      id: 2,
-      title: "My first Blog post is here live",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio!",
-      date: "122554335545",
-      slug: "slug-of-post",
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
-    },
-    {
-      id: 3,
-      title: "My first Blog post is here live",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio!",
-      date: "122554335545",
-      slug: "slug-of-post",
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
-    },
-    {
-      id: 4,
-      title: "My first Blog post is here live",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, incidunt ratione quaerat pariatur! Autem, animi mollitia. Nisi aliquid debitis minima optio!",
-      date: "122554335545",
-      slug: "slug-of-post",
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
-    },
-  ];
+  
   return (
     <Page title="Blog Posts">
       <Container maxWidth="md">
-        <Box align="center" mb={4}>
-          <Typography variant="h5">Blog / Posts</Typography>
-        </Box>
         <Grid container spacing={3}>
           {posts?.map((post) => {
             return (

@@ -1,3 +1,32 @@
 a{
     text-decoration: none;
 }
+
+.lobster2{
+    font-family: 'Lobster Two';
+}
+.merriweather{
+    font-family: 'Merriweather';
+}
+.oswald{
+    font-family: 'Oswald';
+}
+.roboto-mono{
+    font-family: 'Roboto Mono';
+}
+.sawarabi{
+    font-family: 'Sawarabi Mincho';
+}
+
+.main-header{
+    font-family: 'Merriweather' !important;
+    font-size: 2.2rem !important;
+}
+.main-header-description{
+    font-family: 'Sawarabi Mincho' !important;
+    font-size: 1.1rem !important;
+}
+.property-title{
+    font-family: 'Oswald' !important;
+    font-size: 4.1rem !important;
+}

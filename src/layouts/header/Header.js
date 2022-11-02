@@ -185,7 +185,7 @@ export default function Header(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        {config.appName ? config.appName : 'RentGh'}
+        <Link to="/" style={{color:'gray'}}>{config.appName ? config.appName : 'RentGh'}</Link>
       </Typography>
       <Divider />
       <List>

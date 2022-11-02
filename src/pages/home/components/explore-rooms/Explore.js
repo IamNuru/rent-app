@@ -2,6 +2,7 @@ import { Typography, Box, Grid } from "@mui/material";
 import { config } from "../../../../config";
 import Region from "./Region";
 
+
 const Explore = () => {
   const regions = [
     {
@@ -27,10 +28,10 @@ const Explore = () => {
   return (
     <section>
       <Box mt={8} mb={2} align="center">
-        <Typography variant="h4" align="center">
+        <Typography variant="h4" align="center" className="main-header">
           Explore Rooms on {config.appName ? config.appName : "RentGh"}
         </Typography>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary" className="main-header-description" gutterBottom>
           Take a deep dive and browse homes for sale, original neighborhood
           photos, resident reviews and local insights to find what is right for
           you.

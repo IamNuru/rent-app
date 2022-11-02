@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import SearchProperties from "./components/SearchProperties"
 import PropertiesList from './components/PropertiesList'
 import Page from "../../components/Page.js"
-import { PropertyFilterSidebar, PropertySort } from '../dashboard/properties'
+import { PropertyFilterSidebar, PropertySort } from './components/properties'
 
 
 const Properties = () => {
@@ -21,7 +21,6 @@ const Properties = () => {
     <Page title="List of Properties">
     <Container>
         <SearchProperties />
-        {/* <FilterBar /> */}
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end">
           <Stack direction="row" spacing={1} flexShrink={0}>
             <PropertyFilterSidebar

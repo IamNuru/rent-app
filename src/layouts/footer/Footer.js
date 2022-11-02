@@ -34,7 +34,7 @@ const Footer = () => {
         },
       ];
   return (
-    <Box sx={{px:{sm:'4rem', xs:'2rem'}, mt:6, py:'1.5rem', backgroundColor:'rgb(5, 30, 52)'}}>
+    <Box sx={{px:{sm:'4rem', xs:'1rem'}, mt:6, py:'1.5rem', backgroundColor:'rgb(5, 30, 52)'}}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <List
@@ -71,7 +71,7 @@ const Footer = () => {
           >
             {
                 posts?.slice(0, 5).map((post, index) =>(
-                   <ListItem divider disableGutters disablePadding key={index} sx={{ml:{xs:'2rem'}}}>
+                   <ListItem divider disableGutters disablePadding key={index} sx={{ml:{xs:'2rem'}, my:'0.35rem'}}>
                         <Link to={`${post.title}`} style={{width:'100%', display:'flex'}}>
                             <StarIcon fontSize="small" sx={{color:'yellow', mt:'0.3rem', mr:'0.25rem'}} />
                             <ListItemText primary={post.title} sx={{color:'rgb(205, 210, 225)',fontWeight:600,fontSize: 16 }} />

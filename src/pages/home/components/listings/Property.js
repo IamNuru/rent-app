@@ -8,9 +8,11 @@ import { red } from "@mui/material/colors";
 import { Paper, Grid, Chip, Typography } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import CircleIcon from "@mui/icons-material/Circle";
+import HouseIcon from '@mui/icons-material/House';
+import KeyIcon from '@mui/icons-material/Key';
 import { Link } from "react-router-dom"
-
+import {titleCase, lowerCase} from "change-case-all"
+import formatDistance from "date-fns/formatDistance";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -20,6 +22,18 @@ import FirstLetter from "../../../../utils/FirstLetter";
 const Property = ({ property }) => {
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const sizes = isMediumScreen ? "medium" : "small";
+  const rentIconStyle = {
+    background: '#c3d0d3',
+    padding: '3px',
+    borderRadius: '4px',
+    color: '#052124',
+  }
+  const homeIconStyle = {
+    padding: '3px',
+    borderRadius: '4px',
+    background: '#c3d0d3',
+    color: 'rgb(22 70 2)',
+  }
 
   return (
     <Paper elevation={7}>
@@ -35,8 +49,9 @@ const Property = ({ property }) => {
               ""
             )
           }
-          title={property?.title}
-          subheader="September 14, 2016"
+          sx={{fontFamily:'Oswald'}}
+          title={property?.title ? titleCase(lowerCase(property?.title)) : 'No title'}
+          subheader={formatDistance(property?.date, new Date(), { addSuffix: true})}
         />
         <CardMedia
           component="img"
@@ -47,7 +62,11 @@ const Property = ({ property }) => {
         <Typography mt={2} component="div" pl={2}>
           <Grid container>
             <Grid item style={{display:"flex"}}>
-              <CircleIcon size="small" style={{color:"#88EAFF"}} />
+              {
+                property?.type === 'rent' ? 
+                  <KeyIcon size='small' style={rentIconStyle} sx={{mr:'0.25rem'}} /> :
+                  <HouseIcon size='small' style={homeIconStyle} sx={{mr:'0.25rem'}} /> 
+              }
               <Typography variant="body1">{property?.title}</Typography>
             </Grid>
           </Grid>

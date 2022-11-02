@@ -38,6 +38,7 @@ const posts = [...Array(23)].map((_, index) => ({
   comment: faker.datatype.number(),
   share: faker.datatype.number(),
   favorite: faker.datatype.number(),
+  description: faker.lorem.paragraphs(20) ,
   author: {
     name: faker.name.fullName(),
     avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,

@@ -59,7 +59,7 @@ export default function ContactUs() {
         >
           Contact Us
         </Typography>
-        <Typography variant="h6" sx={{ my: 2 }}>
+        <Typography variant="h6" sx={{ my: 2, textAlign:'center' }}>
           In case of any inquiries or questions you can fill out the form below
           and one of our representatives will contact you soon.
         </Typography>
