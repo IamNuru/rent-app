@@ -1,0 +1,14 @@
+.home-request{
+    position: relative;
+    background-color: rgba(202, 241, 244, 0.664);
+}
+.home-request::after{
+    content: "";
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    bottom: -25px;
+    left: 10%;
+    background-color: rgba(128, 128, 128, 0.212);
+    clip-path: polygon(0 0, 90% 0, 70% 90%);
+}

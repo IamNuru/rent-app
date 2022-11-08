@@ -3,30 +3,6 @@ import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
-const PROPERTY_NAME = [
-  'Single Bedroom',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'A house with 3 apartments',
-  'SUNNY house ',
-  'SUNNY house ',
-];
-const PROPERTY_TITLE = [
-  'Single Bedroom for rent in Accra',
-  'A house with 3 apartments for sale urgent',
-  'SUNNY house for sale at accra',
-  'Backy house rent',
-  'Backy house rent',
-  'Backy house rent',
-  'Backy house rent',
-  'Backy house rent',
-  'Backy house rent',
-  'Backy house rent',
-];
 // ----------------------------------------------------------------------
 
 const ourProperties = [...Array(24)].map((_, index) => {
@@ -35,7 +11,7 @@ const ourProperties = [...Array(24)].map((_, index) => {
   return {
     id: faker.datatype.uuid(),
     cover: `/static/mock-images/products/product_${setIndex}.jpg`,
-    name: PROPERTY_NAME[index],
+    //name: PROPERTY_NAME[index],
     price: faker.datatype.number({ min: 100, max: 9000, precision: 0.01 }),
     type: sample(['rent', 'sale']),
     city: faker.address.cityName(),
@@ -43,7 +19,7 @@ const ourProperties = [...Array(24)].map((_, index) => {
     region: faker.address.state(),
     date: faker.date.birthdate(),
     address: faker.address.streetAddress(),
-    title: PROPERTY_TITLE[index],
+    title: faker.lorem.words(5),
     kitchen: faker.datatype.boolean(),
     toilet: faker.datatype.boolean(),
     bath: faker.datatype.boolean(),

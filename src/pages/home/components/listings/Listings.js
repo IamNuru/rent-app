@@ -1,4 +1,4 @@
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box, Grid, Button } from "@mui/material";
 import { config } from "../../../../config";
 import Property from "./Property";
 import ourProperties from "../../../../_mock/ourProperties";
@@ -6,8 +6,8 @@ import ourProperties from "../../../../_mock/ourProperties";
 const Listings = () => {
 
   return (
-    <section style={{backgroundColor: 'F6F6F6'}}>
-      <Box mt={8} mb={2} align="center">
+    <section style={{ backgroundColor: 'F6F6F6' }}>
+      <Box mt={15} align="center">
         <Typography variant="h4" align="center" className="main-header">
           Available Listings on RentGh{" "}
           {config.appName ? config.appName : "RentGh"}
@@ -17,6 +17,9 @@ const Listings = () => {
           photos, resident reviews and local insights to find what is right for
           you.
         </Typography>
+        <Box sx={{ width: '100%', textAlign: 'right' }}>
+          <Button variant='contained' href='/properties'>View All</Button>
+        </Box>
         <Box sx={{ flexGrow: 1 }} mt={2} className="">
           <Grid container spacing={2} align="center">
             {ourProperties?.slice(0, 6).map((property) => {

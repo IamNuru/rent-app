@@ -70,7 +70,7 @@ const Property = ({ property }) => {
               <Typography variant="body1">{property?.title}</Typography>
             </Grid>
           </Grid>
-          <Typography variant="body1" my={1} align="left">
+          <Typography variant="body2" my={1} align="left" className="merriweather" style={{fontWeight:'600'}}>
             {CurrencyFormatter.format(property?.price)}
           </Typography>
         </Typography>
@@ -131,7 +131,7 @@ const Property = ({ property }) => {
         <Typography variant="body2">{property?.address}</Typography>
         <Typography my={2} variant="body1">
           {" "}
-          GPS: {property?.gps}{" "}
+          GPS: 
         </Typography>
       </Card>
       </Link>

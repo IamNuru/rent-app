@@ -2,7 +2,7 @@ import { Box, Typography, Paper, Grid } from "@mui/material";
 
 const Statistics = () => {
   return (
-    <Box mt={8}>
+    <Box mt={15}>
       <Typography variant="h4" align="center" className="main-header" >
         What is happening on this Platform?
       </Typography>

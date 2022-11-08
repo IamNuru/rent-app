@@ -16,7 +16,7 @@ const Value = ({value}) => {
               alt={value?.title}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" className=''>
                 {value?.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -26,7 +26,7 @@ const Value = ({value}) => {
           </CardActionArea>
           <CardActions>
             <Button variant="contained" size="small" color="primary" style={{margin:'auto', padding:'5px 15px'}}>
-              Browse
+              {value?.title ? value.title : 'Browse'}
             </Button>
           </CardActions>
         </Card>

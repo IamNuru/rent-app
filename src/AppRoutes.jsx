@@ -18,6 +18,7 @@ import SingleProperty from "./pages/properties/components/SingleProperty";
 import Notifications from "./pages/auth/Notifications";
 import Messages from "./pages/auth/Messages";
 import Tenant from "./pages/dashboard/Tenants";
+import MakeRequest from './pages/request/MakeRequest'
 
 const AppRoutes = () => {
   return (
@@ -35,6 +36,7 @@ const AppRoutes = () => {
           <Route path="/property/:id/:slug" element={<SingleProperty />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/make-request" element={<MakeRequest />} />
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<Dashboard />} />
