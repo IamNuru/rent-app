@@ -9,14 +9,16 @@ const Values = () => {
     {
       id: 123,
       title: "Rent a room",
+      url:'/properties',
       description:
-        "Get the best room of your choice and rent.Review the room and then go for it.",
+      "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
-        "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
+      "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
     },
     {
       id: 200,
       title: "Buy a house",
+      url:'/properties',
       description:
         "Browse through most affordable houses and go for the best offer.",
       image:
@@ -25,6 +27,7 @@ const Values = () => {
     {
       id: 143,
       title: "Make a Request",
+      url:'/make-request',
       description:
         "Create a request for any you want. Be it renting a room, apartment, office or buying a house.",
       image:

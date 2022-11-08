@@ -25,7 +25,7 @@ const Value = ({value}) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button variant="contained" size="small" color="primary" style={{margin:'auto', padding:'5px 15px'}}>
+            <Button href={`${value?.url}`} variant="contained" size="small" color="primary" style={{margin:'auto', padding:'5px 15px'}}>
               {value?.title ? value.title : 'Browse'}
             </Button>
           </CardActions>
