@@ -32,73 +32,76 @@ const MakeRequest = () => {
         onSubmit: async (credentials, { setSubmitting }) => {
             /* await registerUser(credentials); */
             setSubmitting(false);
-          },
+        },
     })
 
-return (
-    <Page title="Make a request">
-        <Container sx={{maxWidth:"60rem !important", mx:"auto"}}>
-            <form onSubmit={formik.handleSubmit}>
-                <Box sx={{mb:4}}>
-                    <TextField
-                        name="title"
-                        type="text"
-                        label="Request Title"
-                        placeholder="I need a 3 bedroom flat for rent"
-                        variant="outlined"
-                        size="medium"
-                        fullWidth
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.title}
-                    />
-                </Box>
-                //use default registered user phone number if he already update it
-                <Box sx={{mb:4}}>
-                    <TextField
-                    name="phone"
-                    type="text"
-                    label="Phone Number"
-                    placeholder="+233543027058"
-                    size="medium"
-                    fullWidth
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.phone}
-                    />
-                </Box>
-                <Box sx={{mb:4}}>
-                    <TextField
-                        name="message"
-                        multiline
-                        rows={4}
-                        label="Request Message"
-                        placeholder="Write details of what you want"
-                        variant="outlined"
-                        fullWidth
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.message}
-                    />
-                </Box>
-                
+    return (
+        <Page title="Make a request">
+            <Container sx={{ maxWidth: "60rem !important", mx: "auto" }}>
+                <form onSubmit={formik.handleSubmit}>
+                    <Box sx={{ mb: 4 }}>
+                        <TextField
+                            name="title"
+                            type="text"
+                            label="Request Title"
+                            placeholder="I need a 3 bedroom flat for rent"
+                            variant="outlined"
+                            size="medium"
+                            fullWidth
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.title}
+                        />
+                    </Box>
+                    {
+                        //use default registered user phone number if he already update it
+                    }
+                    <Box sx={{ mb: 4 }}>
+                        <TextField
+                            name="phone"
+                            type="text"
+                            label="Phone Number"
+                            placeholder="+233543027058"
+                            size="medium"
+                            fullWidth
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.phone}
+                        />
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <TextField
+                            name="message"
+                            multiline
+                            rows={4}
+                            label="Request Message"
+                            placeholder="Write details of what you want"
+                            variant="outlined"
+                            fullWidth
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.message}
+                        />
+                    </Box>
 
-                <Button
-                    fullWidth
-                    color="primary"
-                    variant="contained"
-                    disabled={!isEmptyObject(formik.errors)}
-                    type="submit"
-                >
-                    {formik.isSubmitting ? (
-                        <CircularProgress size={30} color="secondary" />
-                    ) : (
-                        "Submit Request"
-                    )}
-                </Button>
-            </form>
-        </Container>
-    </Page>
-)}
+
+                    <Button
+                        fullWidth
+                        color="primary"
+                        variant="contained"
+                        disabled={!isEmptyObject(formik.errors)}
+                        type="submit"
+                    >
+                        {formik.isSubmitting ? (
+                            <CircularProgress size={30} color="secondary" />
+                        ) : (
+                            "Submit Request"
+                        )}
+                    </Button>
+                </form>
+            </Container>
+        </Page>
+    )
+}
 
 export default MakeRequest

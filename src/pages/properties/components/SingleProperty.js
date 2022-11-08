@@ -1,5 +1,5 @@
 import {
-  Container, Accordion, AccordionDetails, AccordionSummary, Box, CardMedia, Grid,
+  Container, Accordion, AccordionDetails, AccordionSummary, Box, Grid,
   Typography, ImageList, ImageListItem
 } from '@mui/material'
 import React from 'react'

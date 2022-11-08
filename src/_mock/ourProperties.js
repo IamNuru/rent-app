@@ -17,7 +17,7 @@ const ourProperties = [...Array(24)].map((_, index) => {
     city: faker.address.cityName(),
     gps: faker.address.zipCode,
     region: faker.address.state(),
-    date: faker.date.birthdate(),
+    date: faker.date.past(1),
     address: faker.address.streetAddress(),
     title: faker.lorem.words(5),
     kitchen: faker.datatype.boolean(),
