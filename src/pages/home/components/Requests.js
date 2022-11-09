@@ -16,8 +16,9 @@ const Requests = () => {
             <Box sx={{ width: '100%', textAlign: 'right' }}>
                 <Button variant='contained' href='/requests'>View All</Button>
             </Box>
-            <Box className='home-request-wrapper' sx={{ flexGrow: 1 }} mt={1} style={{ overflow: 'auto', paddingBottom: "2.5rem" }}>
-                <Grid container spacing={2} align="center" wrap="nowrap">
+            <Box className='home-request-wrapper'  mt={1} style={{ overflow: 'auto', paddingBottom: "2.5rem" }}>
+                <Grid container spacing={2} align="center" wrap="nowrap" 
+                sx={{display:'grid', gridAutoRows:'1fr', gridTemplateColumns:'repeat(10, 1fr)'}}>
                     {
                         requests?.slice(0, 10).map((request) => {
                             return <Grid item key={request.id}>

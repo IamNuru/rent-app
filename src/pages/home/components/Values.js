@@ -9,16 +9,16 @@ const Values = () => {
     {
       id: 123,
       title: "Rent a room",
-      url:'/properties',
+      url: '/properties',
       description:
-      "Get the best room of your choice and rent.Review the room and then go for it.",
+        "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
-      "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
+        "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
     },
     {
       id: 200,
       title: "Buy a house",
-      url:'/properties',
+      url: '/properties',
       description:
         "Browse through most affordable houses and go for the best offer.",
       image:
@@ -27,7 +27,7 @@ const Values = () => {
     {
       id: 143,
       title: "Make a Request",
-      url:'/make-request',
+      url: '/make-request',
       description:
         "Create a request for any you want. Be it renting a room, apartment, office or buying a house.",
       image:
@@ -37,12 +37,12 @@ const Values = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }} mt={2} className="valuelllls">
-      <Grid container rowSpacing={4} align="center">
+      <Grid container spacing={4} align="center">
         {ourValues?.map((value, index) => {
           return (
-              <Grid key={value.id} item xs={12} md={4} sx={{ zIndex: 10 }}>
-                <Value value={value} />
-              </Grid>
+            <Grid key={value.id} item xs={12} sm={4} sx={{ zIndex: 10 }} spacing={2}>
+              <Value value={value} />
+            </Grid>
           );
         })}
       </Grid>

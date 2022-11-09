@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Value = ({ value }) => {
   return (
-    <Card sx={{ maxWidth: { sm: 345 }, padding: { md: 4, xs: 0 }, margin: '0 auto' }} elevation={20}>
+    <Card sx={{ maxWidth: { xs: 345 }, padding: { sm: 2, md:4, xs: 0 }, margin: '0 auto' }} elevation={20}>
       <CardActionArea>
         <CardMedia
           component="img"

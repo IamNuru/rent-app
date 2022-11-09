@@ -1,12 +1,21 @@
-import React from 'react'
-import { Container, Box, CircularProgress, Button, TextField } from '@mui/material'
+import React, { useState } from 'react'
+import {
+    Select, MenuItem, InputLabel, Radio, RadioGroup, FormControlLabel, FormControl,
+    FormLabel, Container, Box, CircularProgress, Button, TextField,
+    Typography, Autocomplete
+} from '@mui/material'
 import Page from '../../components/Page'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import phoneRegExp from '../../utils/phoneRegExp'
-import isEmptyObject from '../../utils/isEmptyObject'
+import isEmptyObject from '../../utils/isEmptyObject';
 
 const MakeRequest = () => {
+
+    const [category, setCategory] = useState(1)
+    const handleCategoryChange = (event) => {
+        setCategory(event.target.value);
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -38,7 +47,105 @@ const MakeRequest = () => {
     return (
         <Page title="Make a request">
             <Container sx={{ maxWidth: "60rem !important", mx: "auto" }}>
+                <Typography className='main-header' sx={{ textAlign: 'center' }}>
+                    Make a Request
+                </Typography>
+                <Typography className='main-header-description' sx={{ textAlign: 'center', mb: 4 }}>
+                    In need of a place to rent or a house to buy?.
+                    You are at the right place. Just make your request,
+                    an agent may contact you or a colleague might refer you.
+                </Typography>
                 <form onSubmit={formik.handleSubmit}>
+                    <Box sx={{ mb: 4 }}>
+                        <FormControl>
+                            <FormLabel id="select-type-of-request">What are you requesting for?</FormLabel>
+                            <RadioGroup
+                                row
+                                aria-labelledby="select-type-of-request"
+                                name="request-type"
+                            >
+                                <FormControlLabel
+                                    sx={{ backgroundColor: 'green', px: '1.2rem', borderRadius: '40px' }}
+                                    value="Rent" control={<Radio color='secondary' />} label="I want To Rent" />
+                                <FormControlLabel
+                                    sx={{ backgroundColor: 'gray', px: '1.2rem', borderRadius: '40px' }}
+                                    value="Buy" control={<Radio />} label="I want To Buy" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="select-category">Category</InputLabel>
+                            <Select
+                                labelId="select-category"
+                                id="select-property-category"
+                                value={category}
+                                label="Category"
+                                onChange={handleCategoryChange}
+                            >
+                                {
+                                    categories?.map((category) => {
+                                        return <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Autocomplete
+                            multiple
+                            id="amenities"
+                            options={amenities}
+                            getOptionLabel={(option) => option.name}
+                            /* defaultValue={[amenities[1]]} */
+                            filterSelectedOptions
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Select Amenities"
+                                    placeholder="Amenities"
+                                />
+                            )}
+                        />
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Autocomplete
+                            multiple
+                            id="amenities"
+                            options={amenities}
+                            getOptionLabel={(option) => option.name}
+                            /* defaultValue={[amenities[1]]} */
+                            filterSelectedOptions
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Select locations"
+                                    placeholder="Amenities"
+                                />
+                            )}
+                        />
+                    </Box>
+                    <Box sx={{ mb: 4, display: 'flex' }}>
+                        <TextField
+                            id="outlined-number"
+                            label="Min Price(GHC)"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            size="small"
+                            sx={{ mr: 1 }}
+                        />
+                        <TextField
+                            id="outlined-number"
+                            label="Max Price(GHC)"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            size="small"
+                        />
+                    </Box>
                     <Box sx={{ mb: 4 }}>
                         <TextField
                             name="title"
@@ -103,5 +210,18 @@ const MakeRequest = () => {
         </Page>
     )
 }
+
+const amenities = [
+    { name: 'Toilet' },
+    { name: 'Bath' },
+    { name: 'Car Park' },
+    { name: 'Security' },
+]
+const categories = [
+    { name: 'Office', id: 1 },
+    { name: 'Single Room', id: 2 },
+    { name: 'Apartment', id: 3 },
+    { name: 'House', id: 4 },
+]
 
 export default MakeRequest

@@ -9,6 +9,7 @@
     width: 25px;
     bottom: -25px;
     left: 10%;
-    background-color: rgba(128, 128, 128, 0.212);
+    /* background-color: rgba(128, 128, 128, 0.212); */
+    background-color: white;
     clip-path: polygon(0 0, 90% 0, 70% 90%);
 }

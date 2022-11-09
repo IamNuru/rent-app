@@ -6,7 +6,7 @@ const POST_TITLES = [
   'Whiteboard Templates By Industry Leaders',
   'Tesla Cybertruck-inspired camper trailer for Tesla fans who can’t just wait for the truck!',
   'Designify Agency Landing Page Design',
-  '✨What is Done is Done ✨',
+  'What is Done is Done',
   'Fresh Prince',
   'Six Socks Studio',
   'vincenzo de cotiis’ crossing over showcases a research on contamination',
@@ -39,6 +39,7 @@ const posts = [...Array(23)].map((_, index) => ({
   share: faker.datatype.number(),
   favorite: faker.datatype.number(),
   description: faker.lorem.paragraphs(20) ,
+  slug: faker.lorem.slug(5),
   author: {
     name: faker.name.fullName(),
     avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,

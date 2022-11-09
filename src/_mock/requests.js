@@ -8,7 +8,7 @@ const requests = [...Array(50)].map((_, index) => ({
     isVerified: faker.datatype.boolean(),
     message: faker.lorem.words(200),
     slug: faker.lorem.slug(10),
-    type: sample('to rent', 'to buy' ),
+    type: sample(['to rent', 'to buy'] ),
     date: faker.date.past(1),
 }))
 

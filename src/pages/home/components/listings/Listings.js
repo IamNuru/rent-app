@@ -21,10 +21,11 @@ const Listings = () => {
           <Button variant='contained' href='/properties'>View All</Button>
         </Box>
         <Box sx={{ flexGrow: 1 }} mt={2} className="">
-          <Grid container spacing={2} align="center">
-            {ourProperties?.slice(0, 6).map((property) => {
+          <Grid container spacing={2} align="center" 
+          sx={{display:'grid', gridTemplateColumns:{xs:'repeat(2, 1fr)', sm:'repeat(2, 1fr)', md:'repeat(3, 1fr)', lg:'repeat(4, 1fr)'}, gridAutoRows:'1fr'}}>
+            {ourProperties?.slice(0, 12).map((property) => {
               return (
-                <Grid item key={property.id} xs={12} sm={6} md={4}>
+                <Grid item key={property.id} sx={{maxWidth:{xs:'100%',sm:'100%', md:'100%'}}}>
                   <Property property={property} />
                 </Grid>
               );
