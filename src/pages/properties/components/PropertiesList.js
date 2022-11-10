@@ -4,10 +4,10 @@ import ourProperties from "../../../_mock/ourProperties";
 
 
 const PropertiesList = () => {
-  
+
 
   return (
-    <section style={{backgroundColor: 'F6F6F6'}}>
+    <section style={{ backgroundColor: 'F6F6F6' }}>
       <Box mt={2} mb={2} align="center">
         <Box sx={{ flexGrow: 1 }} mt={2} className="">
           <Grid container spacing={2} align="center">
@@ -22,8 +22,8 @@ const PropertiesList = () => {
         </Box>
       </Box>
       <Stack spacing={2} mt={4} style={{ alignItems: "center" }}>
-          <Pagination count={ourProperties?.length} color="primary" />
-        </Stack>
+        <Pagination count={ourProperties?.length} color="primary" />
+      </Stack>
     </section>
   );
 };

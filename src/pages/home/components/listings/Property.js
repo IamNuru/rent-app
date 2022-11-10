@@ -65,7 +65,7 @@ const Property = ({ property }) => {
                 </Box>
                 </Grid>
             </Grid>
-            <Typography variant="body2" my={1} align="left" className="merriweather" style={{ fontWeight: '600' }}>
+            <Typography variant="body2" my={1} align="left" className="merriweather" sx={{ fontWeight: '600', fontSize:{xs:'1.25rem', sm:'1.45rem'} }}>
               {CurrencyFormatter.format(property?.price)}
             </Typography>
           </Typography>

@@ -19,6 +19,8 @@ import Notifications from "./pages/auth/Notifications";
 import Messages from "./pages/auth/Messages";
 import Tenant from "./pages/dashboard/Tenants";
 import MakeRequest from './pages/request/MakeRequest'
+import Profile from "./pages/profile/Profile";
+import Requests from "./pages/request/Requests";
 
 const AppRoutes = () => {
   return (
@@ -37,6 +39,8 @@ const AppRoutes = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/make-request" element={<MakeRequest />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/requests" element={<Requests />} />
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<Dashboard />} />

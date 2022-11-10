@@ -40,7 +40,7 @@ const Values = () => {
       <Grid container spacing={4} align="center">
         {ourValues?.map((value, index) => {
           return (
-            <Grid key={value.id} item xs={12} sm={4} sx={{ zIndex: 10 }} spacing={2}>
+            <Grid key={value.id} item xs={12} sm={4} sx={{ zIndex: 10 }}>
               <Value value={value} />
             </Grid>
           );

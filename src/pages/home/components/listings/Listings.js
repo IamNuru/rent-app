@@ -22,10 +22,10 @@ const Listings = () => {
         </Box>
         <Box sx={{ flexGrow: 1 }} mt={2} className="">
           <Grid container spacing={2} align="center" 
-          sx={{display:'grid', gridTemplateColumns:{xs:'repeat(2, 1fr)', sm:'repeat(2, 1fr)', md:'repeat(3, 1fr)', lg:'repeat(4, 1fr)'}, gridAutoRows:'1fr'}}>
+          sx={{display:'grid', gridTemplateColumns:{sm:'repeat(2, 1fr)', md:'repeat(3, 1fr)', lg:'repeat(4, 1fr)'}, gridAutoRows:'1fr'}}>
             {ourProperties?.slice(0, 12).map((property) => {
               return (
-                <Grid item key={property.id} sx={{maxWidth:{xs:'100%',sm:'100%', md:'100%'}}}>
+                <Grid item key={property.id} sx={{maxWidth:{xs:'100%',sm:'100%', md:'100%'}, mx:{xs:'2rem',sm:'0'}}}>
                   <Property property={property} />
                 </Grid>
               );

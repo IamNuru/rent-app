@@ -4,17 +4,21 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useIsTabletScreen } from "../../../hooks/useMediaScreens"
 /* import "../styles/style.css"; */
 
 const Value = ({ value }) => {
+  const tbs = useIsTabletScreen()
   return (
-    <Card sx={{ maxWidth: { xs: 345 }, padding: { sm: 2, md:4, xs: 0 }, margin: '0 auto' }} elevation={20}>
+    <Card sx={{ maxWidth: { xs: 345 }, padding: { sm: 2, md: 4, xs: 0 }, margin: '0 auto' }} elevation={tbs ? 20 : 0}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="180"
+          width="100"
           image={value?.image}
           alt={value?.title}
+          sx={{ borderRadius: { xs: '50%', sm:'0' }, height: { xs: 150, sm:'100%' }, width: { xs: 150, sm:'100%' } }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" className=''>
@@ -25,7 +29,7 @@ const Value = ({ value }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ justifyContent:'center'}}>
+      <CardActions sx={{ justifyContent: 'center' }}>
         <Link to={`${value?.url}`}>
           <Button variant="contained" size="small" color="primary" style={{ margin: 'auto', padding: '5px 15px' }}>
             {value?.title ? value.title : 'Browse'}
