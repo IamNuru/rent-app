@@ -18,13 +18,21 @@ import CurrencyFormatter from "../../../../utils/CurrencyFormatter";
 import FirstLetter from "../../../../utils/FirstLetter";
 import { Box } from "@mui/system";
 
+//swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Virtual } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/virtual';
+
 const Property = ({ property }) => {
+  SwiperCore.use([Navigation, Virtual]);
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const sizes = isMediumScreen ? "medium" : "small";
   return (
     <Paper elevation={7} sx={{ height: '100%' }}>
-      <Link to={`/property/id/slug`}>
-        <Card sx={{ maxWidth: 345, boxShadow: 'none' }} >
+      <Card sx={{ maxWidth: 345, boxShadow: 'none' }} >
+        <Link to={`/property/id/slug`} style={{color:'black'}}>
           <CardHeader
             avatar={
               isMediumScreen ? (
@@ -45,91 +53,103 @@ const Property = ({ property }) => {
             }}
             subheader={formatDistance(property?.date, new Date(), { addSuffix: true })}
           />
-          <CardMedia
-            component="img"
-            height="194"
-            image={property?.image}
-            alt={property?.title}
-          />
-          <Typography mt={2} component="div" pl={2}>
-            <Grid container>
-              <Grid item>
-                <Box>
-                  {
-                    <Chip size="small"
-                      label={property?.type === 'rent' ? 'For Rent' : 'For Sale'}
-                      color={property?.type === 'rent' ? 'secondary' : 'success'}
-                      sx={{ mr:'0.25rem', float:'left' }} />
-                  }
-                  <Typography variant="body1" sx={{textAlign:'left'}}>{property?.title}</Typography>
-                </Box>
-                </Grid>
+        </Link>
+        <Swiper
+          navigation
+          virtual
+        >
+          {
+            property?.image.map((img, index) => {
+              return <SwiperSlide key={img} virtualIndex={index}>
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={img}
+                  alt={property?.title}
+                />
+              </SwiperSlide>
+            })
+          }
+
+        </Swiper>
+        <Typography mt={2} component="div" pl={2}>
+          <Grid container>
+            <Grid item>
+              <Box>
+                {
+                  <Chip size="small"
+                    label={property?.type === 'rent' ? 'For Rent' : 'For Sale'}
+                    color={property?.type === 'rent' ? 'secondary' : 'success'}
+                    sx={{ mr: '0.25rem', float: 'left' }} />
+                }
+                <Typography variant="body1" sx={{ textAlign: 'left' }}>{property?.title}</Typography>
+              </Box>
             </Grid>
-            <Typography variant="body2" my={1} align="left" className="merriweather" sx={{ fontWeight: '600', fontSize:{xs:'1.25rem', sm:'1.45rem'} }}>
-              {CurrencyFormatter.format(property?.price)}
-            </Typography>
+          </Grid>
+          <Typography variant="body2" my={1} align="left" className="merriweather" sx={{ fontWeight: '600', fontSize: { xs: '1.25rem', sm: '1.45rem' } }}>
+            {CurrencyFormatter.format(property?.price)}
           </Typography>
-          <CardContent>
-            <Grid container rowSpacing={1} columnSpacing={2}>
-              <Grid item>
-                <Chip
-                  size={sizes}
-                  sx={{
-                    "& .MuiChip-icon": {
-                      color: property?.kitchen ? "#2e7d32" : "#d32f2f",
-                    },
-                  }}
-                  icon={
-                    property?.kitchen ? (
-                      <CheckBoxIcon />
-                    ) : (
-                      <CancelPresentationIcon />
-                    )
-                  }
-                  label="Kitchen"
-                />
-              </Grid>
-              <Grid item>
-                <Chip
-                  size={sizes}
-                  sx={{
-                    "& .MuiChip-icon": {
-                      color: property?.toilet ? "#2e7d32" : "#d32f2f",
-                    },
-                  }}
-                  icon={
-                    property?.toilet ? (
-                      <CheckBoxIcon />
-                    ) : (
-                      <CancelPresentationIcon />
-                    )
-                  }
-                  label="toilet"
-                />
-              </Grid>
-              <Grid item>
-                <Chip
-                  size={sizes}
-                  sx={{
-                    "& .MuiChip-icon": {
-                      color: property?.bath ? "#2e7d32" : "#d32f2f",
-                    },
-                  }}
-                  icon={
-                    property?.bath ? <CheckBoxIcon /> : <CancelPresentationIcon />
-                  }
-                  label="bath"
-                />
-              </Grid>
+        </Typography>
+        <CardContent>
+          <Grid container rowSpacing={1} columnSpacing={2}>
+            <Grid item>
+              <Chip
+                size={sizes}
+                sx={{
+                  "& .MuiChip-icon": {
+                    color: property?.kitchen ? "#2e7d32" : "#d32f2f",
+                  },
+                }}
+                icon={
+                  property?.kitchen ? (
+                    <CheckBoxIcon />
+                  ) : (
+                    <CancelPresentationIcon />
+                  )
+                }
+                label="Kitchen"
+              />
             </Grid>
-          </CardContent>
-          <Typography variant="body2">{property?.address}</Typography>
-          <Typography my={2} variant="body1">
-            {" "}
-            GPS:
-          </Typography>
-        </Card>
-      </Link>
+            <Grid item>
+              <Chip
+                size={sizes}
+                sx={{
+                  "& .MuiChip-icon": {
+                    color: property?.toilet ? "#2e7d32" : "#d32f2f",
+                  },
+                }}
+                icon={
+                  property?.toilet ? (
+                    <CheckBoxIcon />
+                  ) : (
+                    <CancelPresentationIcon />
+                  )
+                }
+                label="toilet"
+              />
+            </Grid>
+            <Grid item>
+              <Chip
+                size={sizes}
+                sx={{
+                  "& .MuiChip-icon": {
+                    color: property?.bath ? "#2e7d32" : "#d32f2f",
+                  },
+                }}
+                icon={
+                  property?.bath ? <CheckBoxIcon /> : <CancelPresentationIcon />
+                }
+                label="bath"
+              />
+            </Grid>
+          </Grid>
+        </CardContent>
+        <Typography variant="body2">{property?.address}</Typography>
+        <Typography my={2} variant="body1">
+          {" "}
+          GPS:
+        </Typography>
+      </Card>
     </Paper>
   );
 };

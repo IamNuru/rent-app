@@ -11,6 +11,8 @@ const requests = [...Array(50)].map((_, index) => ({
     slug: faker.lorem.slug(10),
     type: sample(['to rent', 'to buy'] ),
     date: faker.date.past(1),
+    addresses: ['Accra', 'kumasi','Abuja','Ashaima'],
+    amenities: ['toilet', 'kitchen','bath'],
 }))
 
 export default requests;

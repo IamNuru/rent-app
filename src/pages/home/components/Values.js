@@ -36,13 +36,19 @@ const Values = () => {
   ];
 
   return (
-    <Box sx={{ flexGrow: 1 }} mt={2} className="valuelllls">
-      <Grid container spacing={4} align="center">
+    <Box sx={{ flexGrow: 1 }} mt={2}>
+      <Grid container spacing={4} align="center"
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(3, 1fr)' },
+          justifyContent: 'center'
+        }}>
+
         {ourValues?.map((value, index) => {
           return (
-            <Grid key={value.id} item xs={12} sm={4} sx={{ zIndex: 10 }}>
+            <Box key={value.id} sx={{ zIndex: 100, height: '100%', mt:{xs:4} }}>
               <Value value={value} />
-            </Grid>
+            </Box>
           );
         })}
       </Grid>

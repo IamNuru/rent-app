@@ -25,12 +25,12 @@ const ourProperties = [...Array(24)].map((_, index) => {
     bath: faker.datatype.boolean(),
     verify: faker.datatype.boolean(),
     owner: faker.name.firstName(),
-    image: sample([
+    image: [
       "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
       "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
       "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_640.jpg",
 
-    ])
+    ],
   };
 });
 

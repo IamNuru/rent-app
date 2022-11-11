@@ -10,7 +10,12 @@ import { useIsTabletScreen } from "../../../hooks/useMediaScreens"
 const Value = ({ value }) => {
   const tbs = useIsTabletScreen()
   return (
-    <Card sx={{ maxWidth: { xs: 345 }, padding: { sm: 2, md: 4, xs: 0 }, margin: '0 auto' }} elevation={tbs ? 20 : 0}>
+    <Card sx={{
+      maxWidth: { xs: 345 }, 
+      padding: { sm: 0, md: 4, xs: 0 }, height: '100%',
+      margin:{sm:'0 0.155rem', md:'0 1rem'}
+    }}
+      elevation={tbs ? 20 : 0}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -18,13 +23,13 @@ const Value = ({ value }) => {
           width="100"
           image={value?.image}
           alt={value?.title}
-          sx={{ borderRadius: { xs: '50%', sm:'0' }, height: { xs: 150, sm:'100%' }, width: { xs: 150, sm:'100%' } }}
+          sx={{ borderRadius: { xs: '50%', sm: '0' }, height: { xs: 150, sm: '100%' }, width: { xs: 150, sm: '100%' } }}
         />
-        <CardContent>
+        <CardContent sx={{padding:{xs:0}}}>
           <Typography gutterBottom variant="h5" component="div" className=''>
             {value?.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography sx={{ fontSize: '20px' }} color="text.secondary">
             {value?.description}
           </Typography>
         </CardContent>
