@@ -3,12 +3,13 @@ import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
-const users = [...Array(24)].map((_, index) => ({
+const tenants = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
   avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
   name: faker.name.fullName(),
-  status: sample(['married', 'single']),
+  status: sample(['active', 'inactive']),
   gender: sample(['male', 'female']),
+  amount: faker.datatype.number({ min: 100, max: 9000, precision: 0.01 }),
   occupation: sample([
     'Leader',
     'Hr Manager',
@@ -21,6 +22,7 @@ const users = [...Array(24)].map((_, index) => ({
     'Front End Developer',
     'Full Stack Developer',
   ]),
+  phone: faker.phone.number('0##-###-####'),
 }));
 
-export default users;
+export default tenants;

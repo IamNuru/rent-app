@@ -7,6 +7,7 @@ const requests = [...Array(50)].map((_, index) => ({
     name: faker.name.fullName(),
     isVerified: faker.datatype.boolean(),
     message: faker.lorem.words(200),
+    title: faker.lorem.words(7),
     slug: faker.lorem.slug(10),
     type: sample(['to rent', 'to buy'] ),
     date: faker.date.past(1),

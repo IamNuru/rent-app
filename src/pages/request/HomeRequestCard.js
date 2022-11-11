@@ -5,7 +5,7 @@ import { formatDistance } from 'date-fns'
 
 const HomeRequestCard = ({ request }) => {
   return (
-    <Paper elevation={2} sx={{pb:'1.1rem', width: { xs: '12rem', sm: '18rem' }, height:'100%' }} className="home-request">
+    <Paper elevation={2} sx={{pb:'1.1rem', px:2, height:'16rem' }} className="home-request">
       <Grid container sx={{ pt: 1, mx: { sm: 1 } }} spacing={2}>
         <Grid item xs={12} sx={{ justifyContent: { xs: 'center' } }}>
           <Avatar alt="Requester" src={`${request?.avatarUrl}`} />

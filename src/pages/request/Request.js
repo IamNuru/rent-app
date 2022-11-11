@@ -1,8 +1,8 @@
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Box, Chip, Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import React from 'react'
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Request = ({ request }) => {
 
@@ -41,13 +41,18 @@ const Request = ({ request }) => {
 
     return (
         <Paper sx={{ backgroundColor: '#d3d3d329', mb: 4, pt: 2 }} elevation={2}>
-            <Grid container sx={{px: 1.2}}>
-                <Grid container item>
-                    <Grid item xs={2}>For rent</Grid>
-                    <Grid item xs={10}>Ghc100 - Ghc200</Grid>
+            <Grid container sx={{ px: 1.2 }}>
+                <Grid container item sx={{display:'flex', alignItems: 'center'}}>
+                    <Box sx={{mr:2}}>
+                        <Chip size='small' label={`${request?.type}`}
+                            color={request?.type === 'to buy' ? 'success' : 'secondary'} variant="contained"
+                            sx={{ float: 'left', mr: '.25rem' }} />
+                    </Box>
+                    <Box>Ghc100 - Ghc200</Box>
                 </Grid>
-                <Grid item sx={{ display: 'flex' }} xs={12}>
-                    icon : address of the user
+                <Typography sx={{fontFamily:'Merriweather', fontWeight:600, fontSize:'1.14rem', my:1, pl:2}}>I need a 3 bed room apartment</Typography>
+                <Grid item sx={{ display: 'flex', alignItems: 'center', mb:1 }} xs={12}>
+                    <LocationOnIcon size="small" color="error"/> address of the user
                 </Grid>
                 <Grid item xs={12}>
                     <Typography sx={{ textAlign: 'left' }}>
@@ -55,18 +60,18 @@ const Request = ({ request }) => {
                     </Typography>
                 </Grid>
             </Grid>
-            <Box sx={{ display: 'flex', background: 'white', mt:2, p:1.2 }}>
-                <Box sx={{ display: 'flex', alignItems:'center', ml:'auto' }}>
+            <Box sx={{ display: 'flex', background: 'white', mt: 2, p: 1.2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
                     <StyledBadge
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         variant="dot"
                     >
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        <Avatar alt="RentGh User" src="/static/images/avatar/1.jpg" />
                     </StyledBadge>
-                    <Typography>Nurudeen</Typography>
-                    <Typography>posted on: </Typography>
-                    <Typography>12/11/2022 </Typography>/
+                    <Typography sx={{ fontWeight: 600, mr: 2 }}>Nurudeen</Typography>
+                    <Typography sx={{ fontWeight: 300, fontSize: 14, mr: 1 }}>posted on: </Typography>
+                    <Typography sx={{ fontWeight: 100, fontSize: 12 }}>12/11/2022 </Typography>/
                 </Box>
             </Box>
         </Paper>

@@ -1,6 +1,5 @@
 import React from 'react'
-//import { filter } from 'lodash';
-import { sentenceCase } from 'change-case-all';
+import { filter } from 'lodash';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
@@ -21,19 +20,17 @@ import {
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // components
-import UserListHead from '../../dashboard/user/UserListHead';
-import UserMoreMenu from '../../dashboard/user/UserMoreMenu';
+import PropertyListHead from './property/PropertyListHead';
+import PropertyMoreMenu from './property/PropertyMoreMenu';
 import SearchNotFound from '../../../components/SearchNotFound';
-import UserListToolbar from '../../dashboard/user/UserListToolbar';
+import PropertyListToolbar from './property/PropertyListToolbar';
 // mock
-import USERLIST from '../../../_mock/user';
+import ourProperties from '../../../_mock/ourProperties'
 
 const TABLE_HEAD = [
-    { id: 'name', label: 'Name', alignRight: false },
-    { id: 'company', label: 'Company', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
-    { id: 'isVerified', label: 'Verified', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
+    { id: 'title', label: 'Title', alignRight: false },
+    { id: 'type', label: 'Type', alignRight: false },
+    { id: 'price', label: 'Price', alignRight: true },
     { id: '' },
 ];
 
@@ -63,7 +60,7 @@ function applySortFilter(array, comparator, query) {
         return a[1] - b[1];
     });
     if (query) {
-        //return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return filter(array, (_property) => _property.title.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
 }
@@ -76,9 +73,9 @@ const MyProperties = () => {
 
     const [selected, setSelected] = useState([]);
 
-    const [orderBy, setOrderBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('title');
 
-    const [filterName, setFilterName] = useState('');
+    const [filterTitle, setFilterTitle] = useState('');
 
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -90,18 +87,18 @@ const MyProperties = () => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = USERLIST.map((n) => n.name);
+            const newSelecteds = ourProperties.map((n) => n.title);
             setSelected(newSelecteds);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleClick = (event, title) => {
+        const selectedIndex = selected.indexOf(title);
         let newSelected = [];
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, title);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -121,22 +118,22 @@ const MyProperties = () => {
         setPage(0);
     };
 
-    const handleFilterByName = (event) => {
-        setFilterName(event.target.value);
+    const handleFilterByTitle = (event) => {
+        setFilterTitle(event.target.value);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ourProperties.length) : 0;
 
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const filteredProperties = applySortFilter(ourProperties, getComparator(order, orderBy), filterTitle);
 
-    const isUserNotFound = filteredUsers.length === 0;
+    const isPropertyNotFound = filteredProperties.length === 0;
 
 
 
     return (
         <Container>
             <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
-                <Typography variant="h4">
+                <Typography className='sub-header'>
                     My Properties
                 </Typography>
                 <Button variant="contained" component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
@@ -145,23 +142,23 @@ const MyProperties = () => {
             </Stack>
 
             <Card elevation={0}>
-                <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+                <PropertyListToolbar numSelected={selected.length} filterName={filterTitle} onFilterName={handleFilterByTitle} />
 
                 <TableContainer sx={{ minWidth: 800 }}>
                     <Table>
-                        <UserListHead
+                        <PropertyListHead
                             order={order}
                             orderBy={orderBy}
                             headLabel={TABLE_HEAD}
-                            rowCount={USERLIST.length}
+                            rowCount={ourProperties.length}
                             numSelected={selected.length}
                             onRequestSort={handleRequestSort}
                             onSelectAllClick={handleSelectAllClick}
                         />
                         <TableBody>
-                            {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                                const isItemSelected = selected.indexOf(name) !== -1;
+                            {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                const { id, title,  avatarUrl, type, price } = row;
+                                const isItemSelected = selected.indexOf(title) !== -1;
 
                                 return (
                                     <TableRow
@@ -173,25 +170,23 @@ const MyProperties = () => {
                                         aria-checked={isItemSelected}
                                     >
                                         <TableCell padding="checkbox">
-                                            <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                                            <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, title)} />
                                         </TableCell>
                                         <TableCell component="th" scope="row" padding="none">
                                             <Stack direction="row" alignItems="center" spacing={2}>
-                                                <Avatar alt={name} src={avatarUrl} />
+                                                <Avatar alt={title} src={avatarUrl} />
                                                 <Typography variant="subtitle2" noWrap>
-                                                    {name}
+                                                    {title}
                                                 </Typography>
                                             </Stack>
                                         </TableCell>
-                                        <TableCell align="left">{company}</TableCell>
-                                        <TableCell align="left">{role}</TableCell>
-                                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                                        <TableCell align="left">
-                                            {sentenceCase(status)}
+                                        <TableCell align="center">{type}</TableCell>
+                                        <TableCell align="right">
+                                            {price}
                                         </TableCell>
 
                                         <TableCell align="right">
-                                            <UserMoreMenu />
+                                            <PropertyMoreMenu />
                                         </TableCell>
                                     </TableRow>
                                 );
@@ -203,11 +198,11 @@ const MyProperties = () => {
                             )}
                         </TableBody>
 
-                        {isUserNotFound && (
+                        {isPropertyNotFound && (
                             <TableBody>
                                 <TableRow>
                                     <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                                        <SearchNotFound searchQuery={filterName} />
+                                        <SearchNotFound searchQuery={filterTitle} />
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
@@ -218,7 +213,7 @@ const MyProperties = () => {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={USERLIST.length}
+                    count={ourProperties.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
