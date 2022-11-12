@@ -1,6 +1,5 @@
 import React from "react";
 import Value from "./Value";
-import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 /* import "../styles/style.css"; */
 
@@ -36,12 +35,13 @@ const Values = () => {
   ];
 
   return (
-    <Box sx={{ flexGrow: 1 }} mt={2}>
-      <Grid container spacing={4} align="center"
+    <Box sx={{textAlign:'center'}}  mt={2}>
+      <Box 
         sx={{
           display: 'grid',
           gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(3, 1fr)' },
-          justifyContent: 'center'
+          justifyContent: 'center',
+          gap:4
         }}>
 
         {ourValues?.map((value, index) => {
@@ -51,7 +51,7 @@ const Values = () => {
             </Box>
           );
         })}
-      </Grid>
+      </Box>
     </Box>
   );
 };

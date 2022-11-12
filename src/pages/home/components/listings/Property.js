@@ -30,8 +30,8 @@ const Property = ({ property }) => {
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const sizes = isMediumScreen ? "medium" : "small";
   return (
-    <Paper elevation={7} sx={{ height: '100%' }}>
-      <Card sx={{ maxWidth: 345, boxShadow: 'none' }} >
+    <Paper elevation={7} sx={{ height:'100%'  }}>
+      <Card sx={{  boxShadow: 'none' }} >
         <Link to={`/property/id/slug`} style={{color:'black'}}>
           <CardHeader
             avatar={
@@ -56,11 +56,10 @@ const Property = ({ property }) => {
         </Link>
         <Swiper
           navigation
-          virtual
         >
           {
             property?.image.map((img, index) => {
-              return <SwiperSlide key={img} virtualIndex={index}>
+              return <SwiperSlide key={index} >
                 <CardMedia
                   component="img"
                   height="194"

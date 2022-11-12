@@ -9,7 +9,7 @@ const PropertiesList = () => {
   return (
     <section style={{ backgroundColor: 'F6F6F6' }}>
       <Box mt={2} mb={2} align="center">
-        <Box sx={{ flexGrow: 1 }} mt={2} className="">
+        <Box sx={{ flexGrow: 1 }} mt={2}>
           <Grid container spacing={2} align="center">
             {ourProperties?.map((property) => {
               return (

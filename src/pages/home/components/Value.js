@@ -11,19 +11,23 @@ const Value = ({ value }) => {
   const tbs = useIsTabletScreen()
   return (
     <Card sx={{
-      maxWidth: { xs: 345 }, 
-      padding: { sm: 0, md: 4, xs: 0 }, height: '100%',
-      margin:{sm:'0 0.155rem', md:'0 1rem'}
+      maxWidth: { xs: 405 }, 
+      padding: { sm: 0, md: 4, xs: '0.35rem 0.25rem' }, height: '100%',
+      margin:{ sm:'0 0.155rem', md:'0 1rem'},
+      mx:'auto',
+      border:'1px solid #d3d3d3a9'
     }}
       elevation={tbs ? 20 : 0}>
-      <CardActionArea>
+      <CardActionArea sx={{mx:'0 auto', width:'100%'}}>
         <CardMedia
           component="img"
           height="180"
           width="100"
           image={value?.image}
           alt={value?.title}
-          sx={{ borderRadius: { xs: '50%', sm: '0' }, height: { xs: 150, sm: '100%' }, width: { xs: 150, sm: '100%' } }}
+          sx={{ 
+            borderRadius: { xs: '50%', sm: '0' }, height: { xs: 150, sm: '100%' }, 
+            width: { xs: 150, sm: '100%' }, margin:'0 auto' }}
         />
         <CardContent sx={{padding:{xs:0}}}>
           <Typography gutterBottom variant="h5" component="div" className=''>

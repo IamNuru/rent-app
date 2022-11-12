@@ -5,7 +5,7 @@ import { Search } from "@mui/icons-material";
 
 const Hero = () => {
   return (
-    <section className="hero-section">
+    <Box className="hero-section" >
       <Box className="wrap-input" sx={{zIndex:10}}>
         <Typography
           align="center"
@@ -32,7 +32,7 @@ const Hero = () => {
           </Grid>
         </Grid>
       </Box>
-    </section>
+    </Box>
   );
 };
 

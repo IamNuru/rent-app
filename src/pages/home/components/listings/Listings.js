@@ -7,7 +7,7 @@ const Listings = () => {
 
   return (
     <section style={{ backgroundColor: 'F6F6F6' }}>
-      <Box mt={15} align="center">
+      <Box mt={12} sx={{textAlign:'center'}}>
         <Typography variant="h4" align="center" className="main-header">
           Available Listings on RentGh{" "}
           {config.appName ? config.appName : "RentGh"}
@@ -20,17 +20,16 @@ const Listings = () => {
         <Box sx={{ width: '100%', textAlign: 'right' }}>
           <Button variant='contained' href='/properties'>View All</Button>
         </Box>
-        <Box sx={{ flexGrow: 1 }} mt={2} className="">
-          <Grid container spacing={2} align="center" 
-          sx={{display:'grid', gridTemplateColumns:{sm:'repeat(2, 1fr)', md:'repeat(3, 1fr)', lg:'repeat(4, 1fr)'}, gridAutoRows:'1fr'}}>
+            <Box sx={{ flexGrow: 1 }} mt={2}>
+            <Grid container spacing={2} align="center">
             {ourProperties?.slice(0, 12).map((property) => {
               return (
-                <Grid item key={property.id} sx={{maxWidth:{xs:'100%',sm:'100%', md:'100%'}, mx:{xs:'2rem',sm:'0'}}}>
+                <Grid item key={property.id} xs={12} sm={4} lg={3}>
                   <Property property={property} />
                 </Grid>
               );
             })}
-          </Grid>
+        </Grid>
         </Box>
       </Box>
     </section>
