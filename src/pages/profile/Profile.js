@@ -16,7 +16,7 @@ const Profile = () => {
     }
     return (
         <Page title="Profile | UserName">
-            <Container sx={{ px: { xs: 4, sm: 0, md: 4 } }} >
+            <Container sx={{ px: { xs: 0.5, sm: 0, md: 4 } }} >
                 <Grid container columnSpacing={2}>
                     <Grid container item xs={12} sm={5} md={4}>
                         <Grid item>

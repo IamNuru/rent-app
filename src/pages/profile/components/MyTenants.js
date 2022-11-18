@@ -26,6 +26,7 @@ import SearchNotFound from '../../../components/SearchNotFound';
 import TenantListToolbar from './tenant/TenantListToolbar';
 // mock
 import tenants from '../../../_mock/tenant'
+import EmptyList from '../../../components/EmptyList';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
@@ -133,95 +134,105 @@ const MyTenants = () => {
 
 
   return (
-    <Container>
+    <Container sx={{px: { xs: 0.25, sm: 0, md: 2 }}}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
-        <Typography className='sub-header'>
+        <Typography className='sub-header2'>
           My Tenants
         </Typography>
-        <Button variant="contained" component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+        <Button variant="contained" size='small' component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
           New Tenant
         </Button>
       </Stack>
 
-      <Card elevation={0}>
-        <TenantListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+      {
+        tenants?.length > 0 ? (
+          <Card elevation={0}>
+            <TenantListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
-        <TableContainer sx={{ minWidth: 800 }}>
-          <Table>
-            <TenantListHead
-              order={order}
-              orderBy={orderBy}
-              headLabel={TABLE_HEAD}
-              rowCount={tenants.length}
-              numSelected={selected.length}
-              onRequestSort={handleRequestSort}
-              onSelectAllClick={handleSelectAllClick}
+            <TableContainer sx={{ minWidth: 800 }}>
+              <Table>
+                <TenantListHead
+                  order={order}
+                  orderBy={orderBy}
+                  headLabel={TABLE_HEAD}
+                  rowCount={tenants.length}
+                  numSelected={selected.length}
+                  onRequestSort={handleRequestSort}
+                  onSelectAllClick={handleSelectAllClick}
+                />
+                <TableBody>
+                  {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                    const { id, name, avatarUrl, status, gender, phone, amount } = row;
+                    const isItemSelected = selected.indexOf(name) !== -1;
+
+                    return (
+                      <TableRow
+                        hover
+                        key={id}
+                        tabIndex={-1}
+                        role="checkbox"
+                        selected={isItemSelected}
+                        aria-checked={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                        </TableCell>
+                        <TableCell component="th" scope="row" padding="none">
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <Avatar alt={name} src={avatarUrl} />
+                            <Typography variant="subtitle2" noWrap>
+                              {name}
+                            </Typography>
+                          </Stack>
+                        </TableCell>
+                        <TableCell align="left">{status}</TableCell>
+                        <TableCell align="left">{gender}</TableCell>
+                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{amount}</TableCell>
+
+                        <TableCell align="right">
+                          <TenantMoreMenu />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+
+                {isTenantNotFound && (
+                  <TableBody>
+                    <TableRow>
+                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                        <SearchNotFound searchQuery={filterName} />
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                )}
+              </Table>
+            </TableContainer>
+
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={tenants.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <TableBody>
-              {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                const { id, name, avatarUrl, status, gender, phone, amount } = row;
-                const isItemSelected = selected.indexOf(name) !== -1;
+          </Card>
+        ) : (
+          <EmptyList title="No Tenants"
+            description="You currently don't have any client/tenant"
+            sx={{ height: '15rem !important', mt:1 }}
+          />
+        )
+      }
 
-                return (
-                  <TableRow
-                    hover
-                    key={id}
-                    tabIndex={-1}
-                    role="checkbox"
-                    selected={isItemSelected}
-                    aria-checked={isItemSelected}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
-                    </TableCell>
-                    <TableCell component="th" scope="row" padding="none">
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar alt={name} src={avatarUrl} />
-                        <Typography variant="subtitle2" noWrap>
-                          {name}
-                        </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell align="left">{status}</TableCell>
-                    <TableCell align="left">{gender}</TableCell>
-                    <TableCell align="left">{phone}</TableCell>
-                    <TableCell align="left">{amount}</TableCell>
-
-                    <TableCell align="right">
-                      <TenantMoreMenu />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-
-            {isTenantNotFound && (
-              <TableBody>
-                <TableRow>
-                  <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                    <SearchNotFound searchQuery={filterName} />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            )}
-          </Table>
-        </TableContainer>
-
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={tenants.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
     </Container>
   )
 }

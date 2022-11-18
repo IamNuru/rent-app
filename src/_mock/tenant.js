@@ -3,7 +3,7 @@ import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
-const tenants = [...Array(24)].map((_, index) => ({
+const tenants = [...Array(0)].map((_, index) => ({
   id: faker.datatype.uuid(),
   avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
   name: faker.name.fullName(),

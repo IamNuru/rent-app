@@ -5,7 +5,7 @@ import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
-const ourProperties = [...Array(24)].map((_, index) => {
+const ourProperties = [...Array(0)].map((_, index) => {
   const setIndex = index + 1;
 
   return {

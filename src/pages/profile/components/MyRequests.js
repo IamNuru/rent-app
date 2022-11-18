@@ -28,6 +28,7 @@ import RequestListToolbar from './request/RequestListToolbar';
 // mock
 import requests from '../../../_mock/requests'
 import { formatDistance } from 'date-fns/esm';
+import EmptyList from '../../../components/EmptyList';
 
 const TABLE_HEAD = [
     { id: 'title', label: 'Title', alignRight: false },
@@ -133,17 +134,18 @@ const MyRequests = () => {
 
 
     return (
-        <Container>
+        <Container sx={{px: { xs: 0.25, sm: 0, md: 2 }}}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
-                <Typography className='sub-header'>
+                <Typography className='sub-header2'>
                     My Requests
                 </Typography>
-                <Button variant="contained" component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+                <Button variant="contained" size='small' component={RouterLink} to="/make-request" startIcon={<AddCircleOutlineIcon />}>
                     New Request
                 </Button>
             </Stack>
-
-            <Card elevation={0}>
+            {
+                requests?.length > 0 ? (
+                    <Card elevation={0}>
                 <RequestListToolbar numSelected={selected.length} filterName={filterTitle} onFilterName={handleFilterByTitle} />
 
                 <TableContainer sx={{ minWidth: 800 }}>
@@ -225,6 +227,16 @@ const MyRequests = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Card>
+                ) : (
+                    <EmptyList title="No Requests"
+                        description="You have not make any request Yet."
+                        header="sub-header"
+                        sx={{ height: '15rem !important', mt:1 }}
+
+                    />
+                )
+            }
+            
         </Container>
     )
 }

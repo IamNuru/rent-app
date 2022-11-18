@@ -36,6 +36,11 @@ a{
    font-size: 1.75rem !important;
     font-weight: 600;
 }
+.sub-header2{
+    font-family: 'Merriweather' !important;
+   font-size: 1.15rem !important;
+    font-weight: 800;
+}
 
 .custom-scroll-bar::-webkit-scrollbar{
     width: 6px;

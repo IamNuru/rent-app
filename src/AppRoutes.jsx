@@ -21,6 +21,7 @@ import Tenant from "./pages/dashboard/Tenants";
 import MakeRequest from './pages/request/MakeRequest'
 import Profile from "./pages/profile/Profile";
 import Requests from "./pages/request/Requests";
+import PrivateRoute from "./components/PrivateRoute";
 
 const AppRoutes = () => {
   return (
@@ -36,20 +37,27 @@ const AppRoutes = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/property/:id/:slug" element={<SingleProperty />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/make-request" element={<MakeRequest />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/requests" element={<Requests />} />
+
+          {/* protected Routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/make-request" element={<MakeRequest />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route path="" element={<Dashboard />} />
+              <Route path="app" element={<Dashboard />} />
+              <Route path="users" element={<User />} />
+              <Route path="tenants" element={<Tenant />} />
+              <Route path="properties" element={<PropertiesList />} />
+              <Route path="posts" element={<DashboardPosts />} />
+            </Route>
+          </Route>
+
         </Route>
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="" element={<Dashboard />} />
-          <Route path="app" element={<Dashboard />} />
-          <Route path="users" element={<User />} />
-          <Route path="tenants" element={<Tenant />} />
-          <Route path="properties" element={<PropertiesList />} />
-          <Route path="posts" element={<DashboardPosts />} />
-        </Route>
+
+        
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>

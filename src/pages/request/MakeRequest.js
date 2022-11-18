@@ -58,18 +58,18 @@ const MakeRequest = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <Box sx={{ mb: 4 }}>
                         <FormControl>
-                            <FormLabel id="select-type-of-request">What are you requesting for?</FormLabel>
+                            <FormLabel id="select-type-of-request">What are you requesting for? I want:</FormLabel>
                             <RadioGroup
                                 row
                                 aria-labelledby="select-type-of-request"
                                 name="request-type"
                             >
                                 <FormControlLabel
-                                    sx={{ backgroundColor: 'green', px: '1.2rem', borderRadius: '40px' }}
-                                    value="Rent" control={<Radio color='secondary' />} label="I want To Rent" />
+                                    sx={{border:'1px solid #38373721', backgroundColor:'#38373721', px: {xs:'0.75rem', sm:'1rem', md:'1.2rem'}, borderRadius: '40px' }}
+                                    value="Rent" control={<Radio color='secondary' />} label="To Rent" />
                                 <FormControlLabel
-                                    sx={{ backgroundColor: 'gray', px: '1.2rem', borderRadius: '40px' }}
-                                    value="Buy" control={<Radio />} label="I want To Buy" />
+                                    sx={{border:'1px solid #38373721', px: {xs:'0.75rem', sm:'1rem', md:'1.2rem'}, borderRadius: '40px' }}
+                                    value="Buy" control={<Radio />} label="To Buy" />
                             </RadioGroup>
                         </FormControl>
                     </Box>

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -23,36 +23,52 @@ import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 import Page from "../../components/Page.js"
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/actions/authActions";
 
 
 /* import { useLoginUserMutation } from "../../slices/apiSlice"; */
 
 const Login = () => {
+  const navigate = useNavigate()
   /* const [loginUser] = useLoginUserMutation(); */
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
+  //redux
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.ui.loginLoading)
+  const authState = useSelector((state) => state.auth)
+
   /* using formik */
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string()
-        .min(2, "Username must be more than 2 characters")
-        .required("Username is required"),
+      email: Yup.string().email().required("Email is required."),
       password: Yup.string()
         .required("No password provided.")
         .min(6, "Password is too short - should be 6 chars minimum."),
     }),
 
     onSubmit: async (credentials, { setSubmitting }) => {
-      /* await loginUser(credentials); */
+      dispatch(login(credentials))
       setSubmitting(false);
     },
   });
+
+  //redirect to home if logged in
+  useEffect(() => {
+    if (authState.isAuthenticated && authState.token !== '' && !isEmptyObject(authState.user)) {
+      navigate('/')
+    }
+
+    // eslint-disable-next-line
+  }, [authState.isAuthenticated, authState.token, authState.user])
+  
 
   return (
     <Page title="Login" className="wrap-auth-ui">
@@ -69,7 +85,7 @@ const Login = () => {
               LOGIN
             </Typography>
           </Typography>
-          {formik.isSubmitting ? (
+          {formik.isSubmitting || loading ? (
             <Alert severity="success" color="success">
               processing .... please wait
             </Alert>
@@ -84,9 +100,9 @@ const Login = () => {
           )}
           {formik.touched && formik.errors && !isEmptyObject(formik.errors) ? (
             <List style={{ paddingTop: 0 }}>
-              {Object.keys(formik.errors).map(function (value) {
+              {Object.keys(formik.errors).map(function (value, index) {
                 return (
-                  <Slide in={true} direction="down" mountOnEnter unmountOnExit>
+                  <Slide key={index} in={true} direction="down" mountOnEnter unmountOnExit>
                     <ListItem
                       key={value}
                       alignItems="flex-start"
@@ -116,15 +132,15 @@ const Login = () => {
             </List>
           ) : null}
           <TextField
-            name="username"
+            name="email"
             type="text"
-            label="username"
-            placeholder="username"
+            label="Email"
+            placeholder="Your Email"
             variant="outlined"
             size="small"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.username}
+            value={formik.values.email}
           />
 
           <TextField
@@ -154,10 +170,10 @@ const Login = () => {
           <Button
             color="primary"
             variant="contained"
-            disabled={!isEmptyObject(formik.errors)}
+            disabled={!isEmptyObject(formik.errors) || loading }
             type="submit"
           >
-            {formik.isSubmitting ? (
+            {formik.isSubmitting || loading ? (
               <CircularProgress size={30} color="secondary" />
             ) : (
               "Login"

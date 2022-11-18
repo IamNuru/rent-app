@@ -123,8 +123,6 @@ export default function Header(props: Props) {
       <MenuItem onClick={handleMenuClose}>
         <Link to="/profile">Profile</Link>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );

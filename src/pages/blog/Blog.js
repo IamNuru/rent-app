@@ -7,12 +7,15 @@ import {
 import Post from "./components/Post";
 import Page from "../../components/Page.js";
 import posts from "../../_mock/blog";
+import EmptyList from "../../components/EmptyList"
 
 const Blog = () => {
   
   return (
     <Page title="Blog Posts">
-      <Container maxWidth="md">
+      {
+        posts?.length > 0 ? (
+          <Container maxWidth="md">
         <Grid container spacing={3}>
           {posts?.map((post) => {
             return (
@@ -26,6 +29,10 @@ const Blog = () => {
           <Pagination count={posts?.length} color="primary" />
         </Stack>
       </Container>
+        ) : (
+          <EmptyList title="No Posts" description="We don't have blog posts Yet. Come back later" />
+        )
+      }
     </Page>
   );
 };

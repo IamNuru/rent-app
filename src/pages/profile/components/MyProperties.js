@@ -23,9 +23,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import PropertyListHead from './property/PropertyListHead';
 import PropertyMoreMenu from './property/PropertyMoreMenu';
 import SearchNotFound from '../../../components/SearchNotFound';
+import EmptyList from '../../../components/EmptyList';
 import PropertyListToolbar from './property/PropertyListToolbar';
 // mock
-import ourProperties from '../../../_mock/ourProperties'
+import ourProperties from '../../../_mock/ourProperties';
 
 const TABLE_HEAD = [
     { id: 'title', label: 'Title', alignRight: false },
@@ -131,97 +132,106 @@ const MyProperties = () => {
 
 
     return (
-        <Container>
+        <Container sx={{px: { xs: 0, sm: 0, md: 2 }}}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
-                <Typography className='sub-header'>
+                <Typography className='sub-header2'>
                     My Properties
                 </Typography>
-                <Button variant="contained" component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+                <Button variant="contained" size='small' component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
                     New Property
                 </Button>
             </Stack>
 
-            <Card elevation={0}>
-                <PropertyListToolbar numSelected={selected.length} filterName={filterTitle} onFilterName={handleFilterByTitle} />
+            {
+                ourProperties?.length > 0 ? (
+                    <Card elevation={0}>
+                        <PropertyListToolbar numSelected={selected.length} filterName={filterTitle} onFilterName={handleFilterByTitle} />
 
-                <TableContainer sx={{ minWidth: 800 }}>
-                    <Table>
-                        <PropertyListHead
-                            order={order}
-                            orderBy={orderBy}
-                            headLabel={TABLE_HEAD}
-                            rowCount={ourProperties.length}
-                            numSelected={selected.length}
-                            onRequestSort={handleRequestSort}
-                            onSelectAllClick={handleSelectAllClick}
+                        <TableContainer sx={{ minWidth: 800 }}>
+                            <Table>
+                                <PropertyListHead
+                                    order={order}
+                                    orderBy={orderBy}
+                                    headLabel={TABLE_HEAD}
+                                    rowCount={ourProperties.length}
+                                    numSelected={selected.length}
+                                    onRequestSort={handleRequestSort}
+                                    onSelectAllClick={handleSelectAllClick}
+                                />
+                                <TableBody>
+                                    {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                        const { id, title, avatarUrl, type, price } = row;
+                                        const isItemSelected = selected.indexOf(title) !== -1;
+
+                                        return (
+                                            <TableRow
+                                                hover
+                                                key={id}
+                                                tabIndex={-1}
+                                                role="checkbox"
+                                                selected={isItemSelected}
+                                                aria-checked={isItemSelected}
+                                            >
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, title)} />
+                                                </TableCell>
+                                                <TableCell component="th" scope="row" padding="none">
+                                                    <Stack direction="row" alignItems="center" spacing={2}>
+                                                        <Avatar alt={title} src={avatarUrl} />
+                                                        <Typography variant="subtitle2" noWrap>
+                                                            {title}
+                                                        </Typography>
+                                                    </Stack>
+                                                </TableCell>
+                                                <TableCell align="center">{type}</TableCell>
+                                                <TableCell align="right">
+                                                    {price}
+                                                </TableCell>
+
+                                                <TableCell align="right">
+                                                    <PropertyMoreMenu />
+                                                </TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                    {emptyRows > 0 && (
+                                        <TableRow style={{ height: 53 * emptyRows }}>
+                                            <TableCell colSpan={6} />
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+
+                                {isPropertyNotFound && (
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                                                <SearchNotFound searchQuery={filterTitle} />
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                )}
+                            </Table>
+                        </TableContainer>
+
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={ourProperties.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
                         />
-                        <TableBody>
-                            {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                const { id, title,  avatarUrl, type, price } = row;
-                                const isItemSelected = selected.indexOf(title) !== -1;
+                    </Card>
+                ) : (
+                    <EmptyList title="No properties"
+                        description="You have no properties Yet. Add a property"
+                        sx={{ height: '15rem !important', mt:1 }}
+                    />
+                        )
+            }
+                    </Container>
+                )
+            }
 
-                                return (
-                                    <TableRow
-                                        hover
-                                        key={id}
-                                        tabIndex={-1}
-                                        role="checkbox"
-                                        selected={isItemSelected}
-                                        aria-checked={isItemSelected}
-                                    >
-                                        <TableCell padding="checkbox">
-                                            <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, title)} />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" padding="none">
-                                            <Stack direction="row" alignItems="center" spacing={2}>
-                                                <Avatar alt={title} src={avatarUrl} />
-                                                <Typography variant="subtitle2" noWrap>
-                                                    {title}
-                                                </Typography>
-                                            </Stack>
-                                        </TableCell>
-                                        <TableCell align="center">{type}</TableCell>
-                                        <TableCell align="right">
-                                            {price}
-                                        </TableCell>
-
-                                        <TableCell align="right">
-                                            <PropertyMoreMenu />
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-
-                        {isPropertyNotFound && (
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                                        <SearchNotFound searchQuery={filterTitle} />
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        )}
-                    </Table>
-                </TableContainer>
-
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={ourProperties.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Card>
-        </Container>
-    )
-}
-
-export default MyProperties;
+            export default MyProperties;
