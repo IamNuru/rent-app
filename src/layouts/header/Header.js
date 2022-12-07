@@ -22,6 +22,10 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import "./header.css";
 import { config } from "../../config";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import SnackBar from '../../components/SnackBar'
+import { authActions } from '../../redux/slices/authSlice';
+import { useLogUserOutMutation } from '../../features/api/apiService';
 
 interface Props {
   /**
@@ -31,38 +35,45 @@ interface Props {
   window?: () => Window;
 }
 
+
+
+
 const drawerWidth = 240;
 const navItems = [
   {
-    link:'/',
-    text:'Home'
+    link: '/',
+    text: 'Home'
   },
   {
-    link:'/properties',
-    text:'Properties'
+    link: '/properties',
+    text: 'Properties'
   },
   {
-    link:'/blog',
-    text:'Blog'
+    link: '/blog',
+    text: 'Blog'
   },
   {
-    link:'/about-us',
-    text:'About'
+    link: '/about-us',
+    text: 'About'
   },
   {
-    link:'/contact-us',
-    text:'Contact'
+    link: '/contact-us',
+    text: 'Contact'
   },
   {
-    link:'/dashboard',
-    text:'Dashboard'
+    link: '/dashboard',
+    text: 'Dashboard'
   },
 ];
+
 
 export default function Header(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const { isAuthenticated, token } = useSelector((state) => state.auth)
+  const [logUserOut] = useLogUserOutMutation()
+  const dispatch = useDispatch()
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -71,8 +82,8 @@ export default function Header(props: Props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState(null);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -88,6 +99,12 @@ export default function Header(props: Props) {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+  const handleLogout = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    logUserOut(token)
+    dispatch(authActions.logout());
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -111,19 +128,26 @@ export default function Header(props: Props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-      <Link to="/register">Create Account</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/login">Login</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/dashboard">Dashboard</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/profile">Profile</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      {
+        !isAuthenticated ? <div>
+          <MenuItem onClick={handleMenuClose}>
+            <Link to="/register">Create Account</Link>
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link to="/login">Login</Link>
+          </MenuItem>
+        </div>
+          :
+          <div>
+            <MenuItem onClick={handleMenuClose}>
+              <Link to="/dashboard">Dashboard</Link>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <Link to="/profile">Profile</Link>
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </div>
+      }
     </Menu>
   );
 
@@ -145,28 +169,28 @@ export default function Header(props: Props) {
       onClose={handleMobileMenuClose}
     >
       <Link to="/messages">
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
+        <MenuItem>
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={4} color="error">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <p>Messages</p>
+        </MenuItem>
       </Link>
       <Link to="/notifications">
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 12 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={12} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+        <MenuItem>
+          <IconButton
+            size="large"
+            aria-label="show 12 new notifications"
+            color="inherit"
+          >
+            <Badge badgeContent={12} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <p>Notifications</p>
+        </MenuItem>
       </Link>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -186,16 +210,16 @@ export default function Header(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        <Link to="/" style={{color:'gray'}}>{config.appName ? config.appName : 'RentGh'}</Link>
+        <Link to="/" style={{ color: 'gray' }}>{config.appName ? config.appName : 'RentGh'}</Link>
       </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem divider key={item.text} disablePadding sx={{width:'100%'}}>
-            <Link to={`${item.link}`} style={{width:'100%'}}>
-            <ListItemButton sx={{ textAlign: 'left', color: '#000' }}>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
+          <ListItem divider key={item.text} disablePadding sx={{ width: '100%' }}>
+            <Link to={`${item.link}`} style={{ width: '100%' }}>
+              <ListItemButton sx={{ textAlign: 'left', color: '#000' }}>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
             </Link>
           </ListItem>
         ))}
@@ -207,6 +231,7 @@ export default function Header(props: Props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <SnackBar opens={true} message="You've just logged out" />
       <AppBar component="nav" color="transparent" position="absolute">
         <Toolbar>
           <IconButton
@@ -223,35 +248,36 @@ export default function Header(props: Props) {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            {config.appName ? config.appName : 'RentGh'}
+            <Link to="/" style={{ color: 'gray' }}>{config.appName ? config.appName : 'RentGh'}</Link>
+
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Link to={`${item.link}`} key={item.text}>
                 <Button sx={{ color: '#000' }}>
-                {item.text}
-              </Button>
+                  {item.text}
+                </Button>
               </Link>
             ))}
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Link to="/messages">
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
             </Link>
             <Link to="/notifications">
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
             </Link>
             <IconButton
               size="large"
@@ -265,7 +291,7 @@ export default function Header(props: Props) {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, ml:'auto' }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 'auto' }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -298,7 +324,7 @@ export default function Header(props: Props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p:2, mb:4 }}>
+      <Box component="main" sx={{ p: 2, mb: 4 }}>
       </Box>
     </Box>
   );

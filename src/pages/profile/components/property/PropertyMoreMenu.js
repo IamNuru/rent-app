@@ -1,17 +1,26 @@
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText, CircularProgress } from '@mui/material';
 // component
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useDeletePropertyMutation } from '../../../../features/api/apiService';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({id, refetch}) {
+  const [deleteProperty, { isLoading }] = useDeletePropertyMutation();
+
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleDelete = async () => {
+    await deleteProperty(id);
+    refetch()
+  }
+
 
   return (
     <>
@@ -30,13 +39,17 @@ export default function UserMoreMenu() {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <MenuItem sx={{ color: 'text.secondary' }}>
-          <ListItemIcon>
-           <DeleteIcon sx={{width:20, height:20}} />
-          </ListItemIcon>
+        {
+            isLoading ? (<CircularProgress />) : (
+              <ListItemIcon onClick={handleDelete}>
+                <DeleteIcon sx={{ width: 20, height: 20 }} />
+              </ListItemIcon>
+            )
+          }
           <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
 
-        <MenuItem component={RouterLink} to="#" sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`/dashboard/edit-property/${id}`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <EditIcon sx={{width:20, height:20}} />
           </ListItemIcon>

@@ -3,22 +3,22 @@ import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
-// mock
-import account from '../../_mock/account';
-// hooks
+
 import { useIsLargeScreen } from '../../hooks/useMediaScreens';
 // components
 import Logo from '../../components/Logo';
 import NavSection from '../../components/NavSection';
 //
 import navConfig from './NavConfig';
+import { useSelector } from 'react-redux'
+import { titleCase } from 'change-case-all'
 
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
 
 
-const AccountStyle ={
+const AccountStyle = {
   display: 'flex',
   alignItems: 'center',
   /* padding: theme.spacing(2, 2.5), */
@@ -34,6 +34,7 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+  const account = useSelector((state) => state.auth.user);
   const { pathname } = useLocation();
 
   const isDesktop = useIsLargeScreen();
@@ -51,7 +52,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         height: 1,
         '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
       }
-    }
+      }
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
         <Logo />
@@ -60,13 +61,13 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <Box style={AccountStyle}>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={account.photo} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+              <Typography variant="subtitle2" sx={{ color: 'white' }}>
+                {titleCase(account.first_name +' ' + account.last_name)}
               </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+              <Typography variant="body2" sx={{ color: 'white' }}>
+                {account.type}
               </Typography>
             </Box>
           </Box>
@@ -77,12 +78,12 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      
+
     </Box>
   );
 
   return (
-    <Box sx={{flexShrink:{lg:0}, width:{lg:DRAWER_WIDTH}}}>
+    <Box sx={{ flexShrink: { lg: 0 }, width: { lg: DRAWER_WIDTH } }}>
       {!isDesktop && (
         <Drawer
           open={isOpenSidebar}

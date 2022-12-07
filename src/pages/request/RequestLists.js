@@ -1,9 +1,8 @@
 import { Box, Grid, Pagination, Stack } from "@mui/material";
 import Request from "./Request";
-import requests from "../../_mock/requests"
 
 
-const RequestLists = () => {
+const RequestLists = ({requests}) => {
     return (
         <div>
             <Box mt={2} mb={2} align="center">

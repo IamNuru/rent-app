@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -24,22 +24,26 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 import Page from "../../components/Page.js"
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/actions/authActions";
+import { useGetAuthUserQuery, useLoginUserMutation } from "../../features/api/userApiService";
+import { authActions } from "../../redux/slices/authSlice";
 
-
-/* import { useLoginUserMutation } from "../../slices/apiSlice"; */
 
 const Login = () => {
   const navigate = useNavigate()
-  /* const [loginUser] = useLoginUserMutation(); */
+  const location = useLocation();
+  const from = location.state?.from || "/";
+  const { isSuccess:authSucces, data:authData, isLoading:authLoading } = useGetAuthUserQuery();
+  const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
+  const token = window.localStorage.getItem('token');
+  
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
+  const auth = useSelector((state) => state.auth)
+
   //redux
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.ui.loginLoading)
-  const authState = useSelector((state) => state.auth)
 
   /* using formik */
   const formik = useFormik({
@@ -55,19 +59,39 @@ const Login = () => {
     }),
 
     onSubmit: async (credentials, { setSubmitting }) => {
-      dispatch(login(credentials))
+      await loginUser(credentials);
+      //dispatch(login(credentials))
       setSubmitting(false);
     },
   });
 
+
+
+  //redirect to home if already logged in
+  useEffect(() => {
+    if (authSucces) {
+      dispatch(authActions.login(authData))
+      navigate(from)
+    }
+    // eslint-disable-next-line
+  }, [authSucces])
+  
   //redirect to home if logged in
   useEffect(() => {
-    if (authState.isAuthenticated && authState.token !== '' && !isEmptyObject(authState.user)) {
-      navigate('/')
+    if (isSuccess) {
+      dispatch(authActions.login(data))
+      navigate(from)
     }
-
     // eslint-disable-next-line
-  }, [authState.isAuthenticated, authState.token, authState.user])
+  }, [isSuccess])
+
+  if(token){
+    return 'Checking if already authenticated'
+  }
+  
+
+
+  
   
 
   return (
@@ -85,19 +109,30 @@ const Login = () => {
               LOGIN
             </Typography>
           </Typography>
-          {formik.isSubmitting || loading ? (
+          {formik.isSubmitting || isLoading ? (
             <Alert severity="success" color="success">
               processing .... please wait
             </Alert>
-          ) : formik.isValid ? (
+          ) : formik.isValid && isSuccess ? (
             <Alert severity="success" color="success">
               Successfully Login. redirecting...
             </Alert>
-          ) : (
+          ) : formik.touched && formik.errors && !isEmptyObject(formik.errors)  ? (
             <Alert severity="error" color="error">
-              Invalid credentials
+              Invalid inputs
             </Alert>
-          )}
+          ) : isError ? (
+            <Alert severity="error" color="error">
+              {
+                error.status === 'FETCH_ERROR' 
+                ? 'Network Problem : Failed to fetch data' 
+                : error.status === 401 
+                ? error.data.message :
+                'Something went wrong'
+              }
+            </Alert>
+          ): null
+          }
           {formik.touched && formik.errors && !isEmptyObject(formik.errors) ? (
             <List style={{ paddingTop: 0 }}>
               {Object.keys(formik.errors).map(function (value, index) {
@@ -170,13 +205,13 @@ const Login = () => {
           <Button
             color="primary"
             variant="contained"
-            disabled={!isEmptyObject(formik.errors) || loading }
+            disabled={!isEmptyObject(formik.errors) || isLoading || authLoading }
             type="submit"
           >
-            {formik.isSubmitting || loading ? (
+            {isLoading ? (
               <CircularProgress size={30} color="secondary" />
             ) : (
-              "Login"
+              authLoading ? 'Checking if already authenticated' : 'Login'
             )}
           </Button>
         </Box>

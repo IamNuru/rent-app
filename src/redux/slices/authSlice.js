@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     isAuthenticated: false,
     user: null,
+    myProperties:null,
+    myTenants:null,
+    myRequests:null,
     token: '',
     errorMessage:''
 }
@@ -32,6 +35,20 @@ const authSlice = createSlice({
             state.errorMessage = '';
         },
 
+        myProperties(state, action){
+            state.myProperties = action.payload
+        },
+
+
+        myTenants(state, action){
+            state.myTenants = action.payload
+        },
+
+        
+        myRequests(state, action){
+            state.myRequests = action.payload
+        },
+
 
         logout(state) {
             // state = initialState;
@@ -40,11 +57,10 @@ const authSlice = createSlice({
         },
 
         authUser(state, action) {
-            const user = action.payload.user;
+            const user = action.payload;
             state.user = user;
             state.isAuthenticated = true;
             state.token = action.payload.token;
-            window.localStorage.setItem('token', action.payload.token);
             state.errorMessage = '';
         },
 
@@ -54,7 +70,6 @@ const authSlice = createSlice({
 
         clearErrorMessage(state){
             state.errorMessage = '';
-            console.log('fired')
         }
     }
 

@@ -4,9 +4,13 @@ import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import StarIcon from '@mui/icons-material/Star';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { Link } from "react-router-dom";
-import posts from '../../_mock/blog';
+
+import {useGetPostsQuery} from "../../features/api/apiService"
 
 const Footer = () => {
+  const {data, isLoading, isFetching } = useGetPostsQuery();
+  const posts = data ? data.posts : null;
+
     const navItems = [
         {
           link:'/',
@@ -70,9 +74,10 @@ const Footer = () => {
             }
           >
             {
-                posts?.slice(0, 5).map((post, index) =>(
+              isLoading || isFetching ? 'loading posts' :
+                posts?.data?.slice(0, 5).map((post, index) =>(
                    <ListItem divider disableGutters disablePadding key={index} sx={{ml:{xs:'2rem'}, my:'0.35rem'}}>
-                        <Link to={`${post.title}`} style={{width:'100%', display:'flex'}}>
+                        <Link to={`/post/${post.id}/${post.slug}`} style={{width:'100%', display:'flex'}}>
                             <StarIcon fontSize="small" sx={{color:'yellow', mt:'0.3rem', mr:'0.25rem'}} />
                             <ListItemText primary={post.title} sx={{color:'rgb(205, 210, 225)',fontWeight:600,fontSize: 16 }} />
                         </Link>

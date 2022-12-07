@@ -16,6 +16,12 @@ import {
   ListItemIcon,
   Slide,
   Grid,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Checkbox,
+  Radio,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import ReportIcon from "@mui/icons-material/Report";
@@ -28,10 +34,11 @@ import Page from "../../components/Page.js"
 
 import { useIsTabletScreen } from "../../hooks/useMediaScreens";
 import { useDispatch, useSelector } from "react-redux"
-import { register, clearErrorMessages } from '../../store/actions/authActions';
+import { register, clearErrorMessages } from '../../redux/actions/authActions';
+import SnackBar from "../../components/SnackBar";
+
 
 const Register = () => {
-
   const navigate = useNavigate()
 
   const tablet = useIsTabletScreen();
@@ -41,8 +48,8 @@ const Register = () => {
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.ui.registerLoading);
-
   const authState = useSelector((state) => state.auth)
+  const [type, setType] = useState(false)
 
 
 
@@ -74,12 +81,12 @@ const Register = () => {
     }),
 
     onSubmit: async (credentials, { setSubmitting }) => {
-      dispatch(register(credentials));
+      dispatch(register({...credentials, type}));
       setSubmitting(false);
     },
   });
 
-  
+
 
   //redirect to home if logged in
   useEffect(() => {
@@ -88,15 +95,18 @@ const Register = () => {
     }
 
     return () => {
-      clearErrorMessages()
+      dispatch(clearErrorMessages())
     }
     // eslint-disable-next-line
-  }, [authState])
+  }, [authState.isAuthenticated])
 
-
+  const handleCheck = e => {
+    setType(!type)
+  }
 
   return (
     <Page title="Create an Account" className="wrap-auth-ui">
+      <SnackBar message="Successfully Register. redirecting..." open={authState.isAuthenticated ? true : false} />
       <form onSubmit={formik.handleSubmit}>
         <Box className="form-wrapper">
           <Typography component="div" className="auth-ui-title">
@@ -116,7 +126,7 @@ const Register = () => {
                   <Alert severity="error" color="error">
                     {authState.errorMessage}
                   </Alert>
-                  : 
+                  : authState.errorMessage === '' && authState.user !== null &&
                   <Alert severity="success" color="success">
                     Successfully Register. redirecting...
                   </Alert>
@@ -204,6 +214,28 @@ const Register = () => {
                 />
               </Grid>
             </Grid>
+
+            <Grid container item spacing={tablet ? 2 : 1}>
+              <Grid item xs={12} md={6}>
+                <FormControl>
+                  <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="male"
+                    name="radio-buttons-group"
+                    sx={{display:'flex', flexDirection:'row'}}
+                  >
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormControlLabel sx={{backgroundColor:'#edcccc3b', py:1, width:'100%'}} 
+                control={<Checkbox name="type" onClick={handleCheck} checked={type} />} label="Check if you are an agent or property owner" />
+              </Grid>
+            </Grid>
+
             <Grid container item spacing={tablet ? 2 : 1}>
               <Grid item xs={12}>
                 <Typography sx={{ fontWeight: 600 }}>Login Credentials</Typography>

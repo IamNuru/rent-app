@@ -9,7 +9,6 @@ import {
   Stack,
   Avatar,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -24,8 +23,6 @@ import TenantListHead from './tenant/TenantListHead';
 import TenantMoreMenu from './tenant/TenantMoreMenu';
 import SearchNotFound from '../../../components/SearchNotFound';
 import TenantListToolbar from './tenant/TenantListToolbar';
-// mock
-import tenants from '../../../_mock/tenant'
 import EmptyList from '../../../components/EmptyList';
 
 const TABLE_HEAD = [
@@ -56,8 +53,8 @@ function getComparator(order, orderBy) {
 }
 
 function applySortFilter(array, comparator, query) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
+  const stabilizedThis = array?.map((el, index) => [el, index]);
+  stabilizedThis?.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
@@ -65,10 +62,11 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(array, (_tenant) => _tenant.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
-  return stabilizedThis.map((el) => el[0]);
+  return stabilizedThis?.map((el) => el[0]);
 }
 
-const MyTenants = () => {
+const MyTenants = ({ query: { data, isLoading, isError, error, refetch } }) => {
+  const tenants = data ? data.tenants : null;
 
   const [page, setPage] = useState(0);
 
@@ -97,7 +95,7 @@ const MyTenants = () => {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  /* const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
@@ -110,7 +108,7 @@ const MyTenants = () => {
       newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
     setSelected(newSelected);
-  };
+  }; */
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -125,31 +123,32 @@ const MyTenants = () => {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tenants.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tenants?.length) : 0;
 
   const filteredProperties = applySortFilter(tenants, getComparator(order, orderBy), filterName);
 
-  const isTenantNotFound = filteredProperties.length === 0;
+  const isTenantNotFound = filteredProperties?.length === 0;
 
 
 
   return (
     <Container sx={{px: { xs: 0.25, sm: 0, md: 2 }}}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
+      <Stack sx={{backgroundColor:'#ededed', px:1, py:1.5}} direction="row" alignItems="center" justifyContent="space-between" mt={5}>
         <Typography className='sub-header2'>
           My Tenants
         </Typography>
-        <Button variant="contained" size='small' component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+        <Button variant="contained" size='small' component={RouterLink} to="/dashboard/add-tenant" startIcon={<AddCircleOutlineIcon />}>
           New Tenant
         </Button>
       </Stack>
 
       {
+        isLoading ? (<span>Loading data</span>) :
         tenants?.length > 0 ? (
           <Card elevation={0}>
             <TenantListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
-            <TableContainer sx={{ minWidth: 800 }}>
+            <TableContainer className='custom-scroll-bar'>
               <Table>
                 <TenantListHead
                   order={order}
@@ -162,8 +161,8 @@ const MyTenants = () => {
                 />
                 <TableBody>
                   {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, avatarUrl, status, gender, phone, amount } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    const { id, first_name, photo, status, gender, phone_number, owing } = row;
+                    const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
                       <TableRow
@@ -175,23 +174,24 @@ const MyTenants = () => {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                          {/* <Checkbox checked={isItemSelected} 
+                          onChange={(event) => handleClick(event, first_name)} /> */}
                         </TableCell>
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
+                            <Avatar alt={first_name} src={photo} />
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {first_name}
                             </Typography>
                           </Stack>
                         </TableCell>
                         <TableCell align="left">{status}</TableCell>
                         <TableCell align="left">{gender}</TableCell>
-                        <TableCell align="left">{phone}</TableCell>
-                        <TableCell align="left">{amount}</TableCell>
+                        <TableCell align="left">{phone_number}</TableCell>
+                        <TableCell align="left">{owing}</TableCell>
 
                         <TableCell align="right">
-                          <TenantMoreMenu />
+                          <TenantMoreMenu id={id} refetch={refetch} />
                         </TableCell>
                       </TableRow>
                     );

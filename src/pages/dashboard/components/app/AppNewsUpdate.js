@@ -11,6 +11,8 @@ import {
   CardHeader,
 } from "@mui/material";
 import { formatDistance } from "date-fns";
+import { titleCase } from "change-case-all";
+import { Link as RouterLink } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +46,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
 
 NewsItem.propTypes = {
   news: PropTypes.shape({
-    description: PropTypes.string,
+    author: PropTypes.string,
     image: PropTypes.string,
     postedAt: PropTypes.instanceOf(Date),
     title: PropTypes.string,
@@ -52,7 +54,7 @@ NewsItem.propTypes = {
 };
 
 function NewsItem({ news }) {
-  const { image, title, description, postedAt } = news;
+  const { id, image, title, slug, author, postedAt } = news;
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -64,12 +66,12 @@ function NewsItem({ news }) {
       />
 
       <Box sx={{ minWidth: 240, flexGrow: 1 }}>
-        <Link color="inherit" variant="subtitle2" underline="hover" noWrap>
+        <Link component={RouterLink} to={`/post/${id}/${slug}`} color="inherit" variant="subtitle2" underline="hover" wrap>
           {title}
         </Link>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-          {description}
+          {'Author: ' + titleCase(author)}
         </Typography>
       </Box>
 

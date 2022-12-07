@@ -6,9 +6,20 @@ import MyRequests from './components/MyRequests'
 import MyTenants from './components/MyTenants'
 import ProfileInputs from './components/ProfileInputs'
 import UserStatistics from './components/UserStatistics'
+import { useSelector } from 'react-redux'
+import { useGetMyRequestsQuery } from '../../features/api/requestApiService'
+import { useGetMyPropertiesQuery, useGetPropertiesQuery } from '../../features/api/propertyApiService'
+import {  useGetMyTenantsQuery } from '../../features/api/tenantApiService'
 
 
 const Profile = () => {
+    
+    const auth = useSelector((state) => state.auth)
+    const propertiesQuery = useGetMyPropertiesQuery(auth?.token);
+    const tenantsQuery = useGetMyTenantsQuery(auth?.token);
+    const requestsQuery = useGetMyRequestsQuery(auth?.token);
+
+
     const profileImgBg = {
         height: '14rem',
         backgroundColor: 'lightBlue',
@@ -34,11 +45,11 @@ const Profile = () => {
                     </Grid>
                     <Divider />
                     <Grid item xs={12} sm={7} md={8}>
-                        <UserStatistics />
+                        <UserStatistics propertiesQuery={propertiesQuery} tenantsQuery={tenantsQuery} requestsQuery={requestsQuery} />
                         <Box className="custom-scroll-bar" sx={{ maxHeight: { xs: '100%', sm: '40rem', md:'60rem' }, overflowY: 'auto', overflowX: 'hidden' }} >
-                            <MyProperties />
-                            <MyTenants />
-                            <MyRequests />
+                            <MyProperties query={propertiesQuery} />
+                            <MyTenants query={tenantsQuery}  />
+                            <MyRequests query={requestsQuery}  />
                         </Box>
 
                     </Grid>

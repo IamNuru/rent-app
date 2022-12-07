@@ -1,12 +1,27 @@
 import { Box, Paper, Typography } from '@mui/material'
 
-const EmptyList = ({ title, description, header=null, ...other }) => {
+const EmptyList = ({ title, description, header = null, type = null, ...other }) => {
+    const loadingGif = "/static/icons/Loading_icon.gif"
     return (
-        <Paper style={{ height: '20rem', display: 'grid', justifyContent: 'center', alignItems:'center' }} {...other}>
+        <Paper style={{ height: '20rem', display: 'grid', justifyContent: 'center', alignItems: 'center' }} {...other}>
             <Box>
-                <Typography gutterBottom align="center" className={header ? header : 'main-header'}>
+                <Typography gutterBottom align="center" sx={{fontWeight:600, fontSize:'1.6rem', color:type === 'error' && '#f1816ff2'}}>
                     {title}
                 </Typography>
+                <Box>
+                    {
+                        type === 'loading' ?
+                            (
+                                <img
+                                    src={loadingGif}
+                                    srcSet={loadingGif}
+                                    alt="loading"
+                                    loading="lazy"
+                                    style={{maxHeight:"10rem", background:'red', margin:'0 auto'}}
+                                />
+                            ) : null
+                    }
+                </Box>
                 <Typography variant="body2" align="center" className="main-header-description">
                     {description}
                 </Typography>

@@ -18,7 +18,6 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // components
 import Page from '../../components/Page';
 import SearchNotFound from '../../components/SearchNotFound';
@@ -27,6 +26,7 @@ import TenantMoreMenu from './tenant/TenantMoreMenu';
 import TenantListToolbar from './tenant/TenantListToolbar';
 // mock
 import TENANTLIST from '../../_mock/tenant';
+import AddIcon from '@mui/icons-material/Add';
 
 // ----------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ export default function Tenant() {
           <Typography variant="h4" gutterBottom>
             Tenant
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+          <Button variant="contained" component={RouterLink} to="/dashboard/add-tenant" startIcon={<AddIcon />}>
             New Tenant
           </Button>
         </Stack>

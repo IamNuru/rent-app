@@ -1,14 +1,17 @@
 import { Typography, Box, Grid, Button } from "@mui/material";
 import { config } from "../../../../config";
 import Property from "./Property";
-import ourProperties from "../../../../_mock/ourProperties";
 import EmptyList from "../../../../components/EmptyList";
+import PropertySkeleton from "../../../../components/skeletons/PropertySkeleton";
+import { useGetPropertiesQuery } from "../../../../features/api/propertyApiService";
 
 const Listings = () => {
-
+  const {data, isLoading, isFetching, isError, error} = useGetPropertiesQuery();
+    const properties = data ? data.properties : null
+    
   return (
     <section style={{ backgroundColor: 'F6F6F6' }}>
-      <Box mt={12} sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center' }}>
         <Typography variant="h4" align="center" className="main-header">
           Available Listings on RentGh{" "}
           {config.appName ? config.appName : "RentGh"}
@@ -19,14 +22,22 @@ const Listings = () => {
           you.
         </Typography>
         {
-          ourProperties?.length > 0 ? (
+          isLoading && properties?.length > 0 ? <>
+          <PropertySkeleton />
+        </> : isFetching ? <>
+          <EmptyList title="Fetching Properties" description="We are Fetching your data. Please wait" />
+        </> : isError ? <>
+          <EmptyList title="An Error Occured" 
+          description={ error.status ==='FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page' } />
+        </>:
+          properties?.length > 0 ? (
             <>
               <Box sx={{ width: '100%', textAlign: 'right' }}>
                 <Button variant='contained' href='/properties'>View All</Button>
               </Box>
               <Box sx={{ flexGrow: 1 }} mt={2}>
                 <Grid container spacing={2} align="center">
-                  {ourProperties?.slice(0, 12).map((property) => {
+                  {properties?.slice(0, 12).map((property) => {
                     return (
                       <Grid item key={property.id} xs={12} sm={4} lg={3}>
                         <Property property={property} />

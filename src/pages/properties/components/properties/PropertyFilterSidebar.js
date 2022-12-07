@@ -6,18 +6,16 @@ import {
   Stack,
   Button,
   Drawer,
-  Rating,
   Divider,
-  Checkbox,
-  FormGroup,
   IconButton,
   Typography,
   RadioGroup,
   FormControlLabel,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { useDispatch } from 'react-redux';
+import { propertyActions } from '../../../../redux/slices/propertySlice';
 
 
 // ----------------------------------------------------------------------
@@ -27,24 +25,35 @@ export const SORT_BY_OPTIONS = [
   { value: 'priceDesc', label: 'Price: High-Low' },
   { value: 'priceAsc', label: 'Price: Low-High' },
 ];
-export const FILTER_AMENITIES_OPTIONS = ['kitchen', 'toilet', 'bath'];
-export const FILTER_CATEGORY_OPTIONS = ['All', 'For Rent', 'For Sale'];
-export const FILTER_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
+/* export const FILTER_AMENITIES_OPTIONS = ['kitchen', 'toilet', 'bath']; */
+export const FILTER_CATEGORY_OPTIONS = [{value:'', name:'All'}, {value:'rent',name:'For Rent'}, {value:'sale',name:'For Sale'}];
+/* export const FILTER_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
 export const FILTER_PRICE_OPTIONS = [
   { value: 'below', label: 'Below $25' },
   { value: 'between', label: 'Between $25 - $75' },
   { value: 'above', label: 'Above $75' },
-];
+]; */
 
 // ----------------------------------------------------------------------
 
-ShopFilterSidebar.propTypes = {
+PropertiesFilterSidebar.propTypes = {
   isOpenFilter: PropTypes.bool,
   onOpenFilter: PropTypes.func,
   onCloseFilter: PropTypes.func,
 };
 
-export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseFilter }) {
+export default function PropertiesFilterSidebar({ isOpenFilter, onOpenFilter, onCloseFilter }) {
+  const dispatch = useDispatch();
+
+  const handleTypeChange = (value) =>{
+    dispatch(propertyActions.sortByPropertyType(value))
+  }
+
+ /*  const handleFilter = (amenity) =>{
+    dispatch(propertyActions.filterByAmenities(amenity))
+  } */
+
+ 
   return (
     <>
       <Button disableRipple color="inherit" endIcon={<FilterListIcon />} onClick={onOpenFilter}>
@@ -72,30 +81,31 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
 
         <Box>
           <Stack spacing={3} sx={{ p: 3 }}>
-            <div>
+            {/* <div>
               <Typography variant="subtitle1" gutterBottom>
                 Amenities
               </Typography>
               <FormGroup>
-                {FILTER_AMENITIES_OPTIONS.map((item) => (
-                  <FormControlLabel key={item} control={<Checkbox />} label={item} />
+                {FILTER_AMENITIES_OPTIONS.map((amenity) => (
+                  <FormControlLabel key={amenity} control={<Checkbox onClick={() => handleFilter(amenity)}/>} label={titleCase(amenity)} />
                 ))}
               </FormGroup>
-            </div>
+            </div> */}
 
             <div>
               <Typography variant="subtitle1" gutterBottom>
                 Category
               </Typography>
               <RadioGroup>
-                {FILTER_CATEGORY_OPTIONS.map((item) => (
-                  <FormControlLabel key={item} value={item} control={<Radio />} label={item} />
+                {FILTER_CATEGORY_OPTIONS.map((item, index) => (
+                  <FormControlLabel 
+                  key={index} value={item.value} control={<Radio  onChange={() => handleTypeChange(item.value)} />} label={item.name} />
                 ))}
               </RadioGroup>
             </div>
 
             
-            <div>
+            {/* <div>
               <Typography variant="subtitle1" gutterBottom>
                 Price
               </Typography>
@@ -104,9 +114,9 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
                   <FormControlLabel key={item.value} value={item.value} control={<Radio />} label={item.label} />
                 ))}
               </RadioGroup>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <Typography variant="subtitle1" gutterBottom>
                 Rating
               </Typography>
@@ -136,11 +146,11 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
                   />
                 ))}
               </RadioGroup>
-            </div>
+            </div> */}
           </Stack>
         </Box>
 
-        <Box sx={{ p: 3 }}>
+        {/* <Box sx={{ p: 3 }}>
           <Button
             fullWidth
             size="large"
@@ -151,7 +161,7 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
           >
             Clear All
           </Button>
-        </Box>
+        </Box> */}
       </Drawer>
     </>
   );

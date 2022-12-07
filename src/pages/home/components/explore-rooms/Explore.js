@@ -27,7 +27,7 @@ const Explore = () => {
   ];
   return (
     <section>
-      <Box mt={15} align="center">
+      <Box align="center">
         <Typography variant="h4" align="center" className="main-header">
           Explore Rooms on {config.appName ? config.appName : "RentGh"}
         </Typography>

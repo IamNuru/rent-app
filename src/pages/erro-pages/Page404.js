@@ -2,7 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Button, Typography, Container, Box } from '@mui/material';
 // components
-import Page from '../components/Page';
+import Page from '../../components/Page';
 
 // ----------------------------------------------------------------------
 

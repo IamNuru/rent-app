@@ -5,31 +5,32 @@ import { useTheme, ThemeProvider } from "@mui/material";
 import ScrollToTop from "./components/ScrollToTop";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAuthenticatedUser, logout } from "./store/actions/authActions";
+import { useGetAuthUserQuery } from "./features/api/apiService";
+import { authActions } from "./redux/slices/authSlice";
 
 const App = () => {
   const theme = useTheme();
   const dispatch = useDispatch()
 
-  
-  const token = window.localStorage.getItem('token');
-  useEffect(() => {
-    if (token){
-      dispatch(getAuthenticatedUser(token))
-    }
+  const { isSuccess, data, isLoading, isError, isFetching } = useGetAuthUserQuery();
 
-    // eslint-disable-next-line
-  }, [token])
-  
+  if (isLoading || isFetching) {
+    console.log('is loading')
+  }
+
+  if (isSuccess) {
+    console.log(data)
+    dispatch(authActions.login(data))
+  }
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <ScrollToTop />
-        <Box>
-          <AppRoutes />
-        </Box>
-      </Router>
+        <Router>
+          <ScrollToTop />
+          <Box>
+            <AppRoutes />
+          </Box>
+        </Router>
     </ThemeProvider>
   );
 };

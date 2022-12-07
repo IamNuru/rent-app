@@ -12,7 +12,7 @@ const Values = () => {
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
-        "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_640.jpg",
+        "https://cdn.pixabay.com/photo/2017/05/18/11/0d4/key-2323278_640.jpg",
     },
     {
       id: 200,
@@ -35,7 +35,7 @@ const Values = () => {
   ];
 
   return (
-    <Box sx={{textAlign:'center'}}  mt={2}>
+    <Box sx={{textAlign:'center'}}>
       <Box 
         sx={{
           display: 'grid',
@@ -47,7 +47,7 @@ const Values = () => {
         {ourValues?.map((value, index) => {
           return (
             <Box key={value.id} sx={{ zIndex: 100, height: '100%', mt:{xs:4} }}>
-              <Value value={value} />
+              <Value value={value}  />
             </Box>
           );
         })}

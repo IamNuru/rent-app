@@ -6,6 +6,7 @@ import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from 
 //
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ShowItemIfAllowed from '../helpers/ShowItemIfAllowed';
 
 // ----------------------------------------------------------------------
 
@@ -148,7 +149,9 @@ export default function NavSection({ navConfig, ...other }) {
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
         {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
+          <ShowItemIfAllowed type={item.allowed} key={item.title}>
+            <NavItem item={item} active={match} />
+          </ShowItemIfAllowed>
         ))}
       </List>
     </Box>

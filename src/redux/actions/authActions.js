@@ -76,6 +76,7 @@ export const register = (payload) => {
                 dispatch(uiActions.registerLoading());
             }
         } catch (error) {
+            console.log('hmm')
             if (error.code === "ERR_NETWORK") {
                 let errorMessage = error.message
                 await dispatch(authActions.error(errorMessage));
@@ -115,8 +116,6 @@ export const logout = (token) => {
 
 export const clearErrorMessages = () =>{
     return dispatch => {
-        console.log('thunder fire this part of the code');
         dispatch(authActions.clearErrorMessage())
     }
-
 };

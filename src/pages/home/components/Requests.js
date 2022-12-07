@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import HomeRequestCard from '../../request/HomeRequestCard'
-import requests from '../../../_mock/requests'
 import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
@@ -13,11 +12,18 @@ import 'swiper/css/autoplay';
 import useWindowDimensions from '../../../hooks/useWindowsDimensions'
 import EmptyList from '../../../components/EmptyList'
 
+import { useGetRequestsQuery } from '../../../features/api/requestApiService';
+import HomeRequestCardSkeleton from '../../../components/skeletons/HomeRequestCardSkeleton';
+
 const Requests = () => {
     SwiperCore.use([Navigation, Autoplay]);
     const { width } = useWindowDimensions();
+
+    const {data, isLoading, isFetching, isError, error} = useGetRequestsQuery();
+    const requests = data ? data?.requests : null
+
     return (
-        <Box mt={15} sx={{ backgroundColor: '#d3d3d329', px: { xs: 1 } }}>
+        <Box sx={{ backgroundColor: '#d3d3d329', px: { xs: 1 } }}>
             <Typography variant="h4" align="center" className="main-header">
                 Requests
             </Typography>
@@ -25,7 +31,16 @@ const Requests = () => {
                 Are you an agent or land lord?. They following people are request/looking for places to rent or buy.
             </Typography>
             {
-                requests?.length > 100 ? (
+                isLoading ? <>
+                <HomeRequestCardSkeleton />
+                {/* <EmptyList title="Loading Data " description="We are loading your data. Please wait" /> */}
+              </> : isFetching ? <>
+                <EmptyList title="Fetching Requests" description="We are Fetching your data. Please wait" />
+              </> : isError ? <>
+                <EmptyList title="An Error Occured" 
+                description={ error.status ==='FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page' } />
+              </>:
+                requests?.length > 0 ? (
                     <>
                         <Box sx={{ width: '100%', textAlign: 'right' }}>
                             <Link to="/requests">
@@ -43,7 +58,7 @@ const Requests = () => {
                             >
                                 {
                                     requests?.slice(0, 10).map((request) => {
-                                        return <SwiperSlide key={request.id} style={{ marginRight: 0 }}><Box item sx={{ mx: 2 }}>
+                                        return <SwiperSlide key={request.id} style={{ marginRight: 0 }}><Box sx={{ mx: 2 }}>
                                             <Link to={`/request/${request.id}/${request.slug}`}>
                                                 <HomeRequestCard request={request} />
                                             </Link>

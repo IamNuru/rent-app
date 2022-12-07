@@ -6,7 +6,7 @@ import SingleBlogPost from "./pages/blog/components/SingleBlogPost";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
-import Page404 from "./pages/Page404";
+import Page404 from "./pages/erro-pages/Page404";
 import DashboardLayout from "./layouts/dashboard";
 import Dashboard from "./pages/dashboard/Dashboard";
 import User from "./pages/dashboard/User";
@@ -22,6 +22,15 @@ import MakeRequest from './pages/request/MakeRequest'
 import Profile from "./pages/profile/Profile";
 import Requests from "./pages/request/Requests";
 import PrivateRoute from "./components/PrivateRoute";
+import CreatePost from "./pages/dashboard/CreatePost";
+import AddProperty from "./pages/dashboard/AddProperty";
+import SingleRequest from "./pages/request/SingleRequest";
+import ChatBox from "./pages/chat/ChatBox";
+import EditProperty from "./pages/dashboard/EditProperty";
+import AddTenant from "./pages/dashboard/AddTenant";
+import EditTenant from "./pages/dashboard/EditTenant";
+import Page403 from "./pages/erro-pages/Page403";
+import PrivateOwnerRoute from "./components/PrivateOwnerRoute";
 
 const AppRoutes = () => {
   return (
@@ -33,31 +42,41 @@ const AppRoutes = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/post/:id/:slug" element={<SingleBlogPost />} />
+          <Route path="/request/:id/:slug" element={<SingleRequest />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/property/:id/:slug" element={<SingleProperty />} />
+          <Route path="/requests" element={<Requests />} />
 
           {/* protected Routes */}
           <Route element={<PrivateRoute />}>
+            <Route path="/chat/:id" element={<ChatBox />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/make-request" element={<MakeRequest />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/requests" element={<Requests />} />
             <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route element={<PrivateOwnerRoute />}>
+                <Route path="tenants" element={<Tenant />} />
+                <Route path="properties" element={<PropertiesList />} />
+                <Route path="add-property" element={<AddProperty />} />
+                <Route path="edit-property/:id" element={<EditProperty />} />
+                <Route path="add-tenant" element={<AddTenant />} />
+                <Route path="edit-tenant/:id" element={<EditTenant />} />
+              </Route>
               <Route path="" element={<Dashboard />} />
               <Route path="app" element={<Dashboard />} />
               <Route path="users" element={<User />} />
-              <Route path="tenants" element={<Tenant />} />
-              <Route path="properties" element={<PropertiesList />} />
               <Route path="posts" element={<DashboardPosts />} />
+              <Route path="create-post" element={<CreatePost />} />
             </Route>
           </Route>
 
         </Route>
 
-        
+
+        <Route path="/not-allowed" element={<Page403 />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>

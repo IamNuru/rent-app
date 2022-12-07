@@ -7,7 +7,6 @@ import {
     Card,
     Table,
     Stack,
-    Avatar,
     Button,
     Checkbox,
     TableRow,
@@ -25,13 +24,12 @@ import PropertyMoreMenu from './property/PropertyMoreMenu';
 import SearchNotFound from '../../../components/SearchNotFound';
 import EmptyList from '../../../components/EmptyList';
 import PropertyListToolbar from './property/PropertyListToolbar';
-// mock
-import ourProperties from '../../../_mock/ourProperties';
 
 const TABLE_HEAD = [
     { id: 'title', label: 'Title', alignRight: false },
     { id: 'type', label: 'Type', alignRight: false },
     { id: 'price', label: 'Price', alignRight: true },
+    { id: 'title', label: 'Actions', alignRight: true },
     { id: '' },
 ];
 
@@ -53,9 +51,9 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function applySortFilter(array, comparator, query) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
+function applySortFilter(array = [], comparator, query) {
+    const stabilizedThis = array?.map((el, index) => [el, index]);
+    stabilizedThis?.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) return order;
         return a[1] - b[1];
@@ -63,10 +61,11 @@ function applySortFilter(array, comparator, query) {
     if (query) {
         return filter(array, (_property) => _property.title.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
-    return stabilizedThis.map((el) => el[0]);
+    return stabilizedThis?.map((el) => el[0]);
 }
 
-const MyProperties = () => {
+const MyProperties = ({ query: { data, isLoading, isError, error, refetch } }) => {
+    const userProperties = data ? data.properties : null;
 
     const [page, setPage] = useState(0);
 
@@ -88,7 +87,7 @@ const MyProperties = () => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = ourProperties.map((n) => n.title);
+            const newSelecteds = userProperties.map((n) => n.id);
             setSelected(newSelecteds);
             return;
         }
@@ -123,115 +122,117 @@ const MyProperties = () => {
         setFilterTitle(event.target.value);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ourProperties.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userProperties.length) : 0;
 
-    const filteredProperties = applySortFilter(ourProperties, getComparator(order, orderBy), filterTitle);
+    const filteredProperties = applySortFilter(userProperties, getComparator(order, orderBy), filterTitle);
 
-    const isPropertyNotFound = filteredProperties.length === 0;
+    const isPropertyNotFound = filteredProperties?.length === 0;
 
 
 
     return (
-        <Container sx={{px: { xs: 0, sm: 0, md: 2 }}}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mt={5}>
+        <Container sx={{ px: { xs: 0, sm: 0, md: 2 } }}>
+            <Stack sx={{backgroundColor:'#ededed', px:1, py:1.5}} direction="row" alignItems="center" justifyContent="space-between" mt={5}>
                 <Typography className='sub-header2'>
                     My Properties
                 </Typography>
-                <Button variant="contained" size='small' component={RouterLink} to="#" startIcon={<AddCircleOutlineIcon />}>
+                <Button variant="contained" size='small' component={RouterLink} to="/dashboard/add-property" startIcon={<AddCircleOutlineIcon />}>
                     New Property
                 </Button>
             </Stack>
 
             {
-                ourProperties?.length > 0 ? (
-                    <Card elevation={0}>
-                        <PropertyListToolbar numSelected={selected.length} filterName={filterTitle} onFilterName={handleFilterByTitle} />
+                isLoading ? (<span>Loading data</span>) :
+                    userProperties?.length > 0 ? (
+                        <Card elevation={0}>
+                            <PropertyListToolbar selectedIds={selected}
+                                numSelected={selected.length} filterName={filterTitle}
+                                onFilterName={handleFilterByTitle} refetch={refetch} setSelectedIds={setSelected}/>
 
-                        <TableContainer sx={{ minWidth: 800 }}>
-                            <Table>
-                                <PropertyListHead
-                                    order={order}
-                                    orderBy={orderBy}
-                                    headLabel={TABLE_HEAD}
-                                    rowCount={ourProperties.length}
-                                    numSelected={selected.length}
-                                    onRequestSort={handleRequestSort}
-                                    onSelectAllClick={handleSelectAllClick}
-                                />
-                                <TableBody>
-                                    {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        const { id, title, avatarUrl, type, price } = row;
-                                        const isItemSelected = selected.indexOf(title) !== -1;
+                            <TableContainer className='custom-scroll-bar'>
+                                <Table>
+                                    <PropertyListHead
+                                        order={order}
+                                        orderBy={orderBy}
+                                        headLabel={TABLE_HEAD}
+                                        rowCount={userProperties.length}
+                                        numSelected={selected.length}
+                                        onRequestSort={handleRequestSort}
+                                        onSelectAllClick={handleSelectAllClick}
+                                    />
+                                    <TableBody>
+                                        {filteredProperties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                            const { id, title, type, price } = row;
+                                            const isItemSelected = selected.indexOf(id) !== -1;
 
-                                        return (
-                                            <TableRow
-                                                hover
-                                                key={id}
-                                                tabIndex={-1}
-                                                role="checkbox"
-                                                selected={isItemSelected}
-                                                aria-checked={isItemSelected}
-                                            >
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, title)} />
-                                                </TableCell>
-                                                <TableCell component="th" scope="row" padding="none">
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={title} src={avatarUrl} />
-                                                        <Typography variant="subtitle2" noWrap>
-                                                            {title}
-                                                        </Typography>
-                                                    </Stack>
-                                                </TableCell>
-                                                <TableCell align="center">{type}</TableCell>
-                                                <TableCell align="right">
-                                                    {price}
-                                                </TableCell>
+                                            return (
+                                                <TableRow
+                                                    hover
+                                                    key={id}
+                                                    tabIndex={-1}
+                                                    role="checkbox"
+                                                    selected={isItemSelected}
+                                                    aria-checked={isItemSelected}
+                                                >
+                                                    <TableCell padding="checkbox">
+                                                        <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, id)} />
+                                                    </TableCell>
+                                                    <TableCell component="th" scope="row" padding="none">
+                                                        <Stack direction="row" alignItems="center" spacing={2}>
+                                                            <Typography variant="subtitle2" noWrap>
+                                                                {title}
+                                                            </Typography>
+                                                        </Stack>
+                                                    </TableCell>
+                                                    <TableCell align="center">{'For ' + type}</TableCell>
+                                                    <TableCell align="right">
+                                                        {price}
+                                                    </TableCell>
 
-                                                <TableCell align="right">
-                                                    <PropertyMoreMenu />
+                                                    <TableCell align="right">
+                                                        <PropertyMoreMenu refetch={refetch} id={id}/>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                        {emptyRows > 0 && (
+                                            <TableRow style={{ height: 53 * emptyRows }}>
+                                                <TableCell colSpan={6} />
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+
+                                    {isPropertyNotFound && (
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                                                    <SearchNotFound searchQuery={filterTitle} />
                                                 </TableCell>
                                             </TableRow>
-                                        );
-                                    })}
-                                    {emptyRows > 0 && (
-                                        <TableRow style={{ height: 53 * emptyRows }}>
-                                            <TableCell colSpan={6} />
-                                        </TableRow>
+                                        </TableBody>
                                     )}
-                                </TableBody>
+                                </Table>
+                            </TableContainer>
 
-                                {isPropertyNotFound && (
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                                                <SearchNotFound searchQuery={filterTitle} />
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                )}
-                            </Table>
-                        </TableContainer>
-
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={ourProperties.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={userProperties.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </Card>
+                    ) : (
+                        <EmptyList title="No properties"
+                            description="You have no properties Yet. Add a property"
+                            sx={{ height: '15rem !important', mt: 1 }}
                         />
-                    </Card>
-                ) : (
-                    <EmptyList title="No properties"
-                        description="You have no properties Yet. Add a property"
-                        sx={{ height: '15rem !important', mt:1 }}
-                    />
-                        )
+                    )
             }
-                    </Container>
-                )
-            }
+        </Container>
+    )
+}
 
-            export default MyProperties;
+export default MyProperties;

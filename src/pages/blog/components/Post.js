@@ -8,6 +8,7 @@ import '../styles.css'
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Post = ({ post }) => {
+  const noImage = "/static/no-post-image.jpg"
 
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
@@ -24,12 +25,15 @@ const Post = ({ post }) => {
             {post?.title}
           </Typography>
           <Typography variant="body2" sx={{ color: "gray", fontSize: '12px' }} align="right">
-            {format(toDate(post?.createdAt), "do MMM, yyyy")}
+            {format(toDate(new Date(post?.created_at)), "do MMM, yyyy")}
           </Typography>
           <CardMedia
             component="img"
             height={isMediumScreen ? '120' : '180'}
-            image={post?.cover}
+            image={post?.image ? post.image : noImage}
+            onError={e => { 
+              e.target.src = noImage;
+            }}
             alt={post?.title}
           />
         </Grid>

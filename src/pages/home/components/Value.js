@@ -9,6 +9,9 @@ import { useIsTabletScreen } from "../../../hooks/useMediaScreens"
 
 const Value = ({ value }) => {
   const tbs = useIsTabletScreen()
+  const noImage = "/static/no-post-image.jpg";
+
+
   return (
     <Card sx={{
       maxWidth: { xs: 405 }, 
@@ -23,10 +26,13 @@ const Value = ({ value }) => {
           component="img"
           height="180"
           width="100"
-          image={value?.image}
-          alt={value?.title}
+          image={value.image }
+          alt={value.title}
+          onError={e => { 
+            e.target.src = noImage;
+          }}
           sx={{ 
-            borderRadius: { xs: '50%', sm: '0' }, height: { xs: 150, sm: '100%' }, 
+            borderRadius: { xs: '50%', sm: '0' }, height: { xs: 150, sm: 200 }, 
             width: { xs: 150, sm: '100%' }, margin:'0 auto' }}
         />
         <CardContent sx={{padding:{xs:0}}}>
