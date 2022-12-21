@@ -4,7 +4,7 @@ import ReceiverMessage from './ReceiverMessage'
 import SenderMessage from './SenderMessage'
 import { useParams } from "react-router-dom";
 import Pusher from "pusher-js";
-import { useGetChatMessagesQuery } from '../../../features/api/apiService';
+import { useGetChatMessagesQuery } from '../../../features/api/userApiService';
 
 const ChatBody = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const ChatBody = () => {
       console.log(messages);
     });
 
-
+    // eslint-disable-next-line
   }, [isSuccess])
 
   return (
@@ -39,7 +39,7 @@ const ChatBody = () => {
           messages[0]?.length > 0 ? messages[0].map((message, index) => {
             return <Grid container spacing={2} sx={{ mt: 1, px: '0.25rem' }} key={index}>
               {
-                message.sender_id == id ? (
+                message.sender_id === id ? (
                   <Grid item xs={12} sx={{ textAlign: 'right' }}><SenderMessage message={message.message} /></Grid>
                 )
                   :

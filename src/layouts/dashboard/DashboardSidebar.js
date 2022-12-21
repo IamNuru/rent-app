@@ -61,13 +61,13 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <Box style={AccountStyle}>
-            <Avatar src={account.photo} alt="photoURL" />
+            <Avatar src={account?.photo} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'white' }}>
-                {titleCase(account.first_name +' ' + account.last_name)}
+                {titleCase(account?.first_name +' ' + account?.last_name)}
               </Typography>
               <Typography variant="body2" sx={{ color: 'white' }}>
-                {account.type}
+                {account?.type}
               </Typography>
             </Box>
           </Box>

@@ -4,7 +4,7 @@ import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment
 import { Search } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-import { useDeletePropertyMutation, useGetMyPropertiesQuery, useGetSelectedPropertiesQuery } from '../../../../features/api/apiService';
+import { useDeletePropertyMutation, useGetMyPropertiesQuery, useGetSelectedPropertiesQuery } from '../../../../features/api/propertyApiService';
 import { useSelector } from 'react-redux';
 
 

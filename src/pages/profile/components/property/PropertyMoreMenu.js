@@ -6,7 +6,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText, CircularProgres
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDeletePropertyMutation } from '../../../../features/api/apiService';
+import { useDeletePropertyMutation } from '../../../../features/api/propertyApiService';
 
 // ----------------------------------------------------------------------
 
@@ -38,16 +38,17 @@ export default function UserMoreMenu({id, refetch}) {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem sx={{ color: 'text.secondary' }}>
         {
-            isLoading ? (<CircularProgress />) : (
-              <ListItemIcon onClick={handleDelete}>
-                <DeleteIcon sx={{ width: 20, height: 20 }} />
-              </ListItemIcon>
+          isLoading ? (<CircularProgress />) :
+            (
+              <MenuItem sx={{ color: 'text.secondary', cursor:'pointer' }} onClick={handleDelete}>
+                <ListItemIcon>
+                  <DeleteIcon sx={{ width: 20, height: 20 }} />
+                </ListItemIcon>
+                <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
+              </MenuItem>
             )
-          }
-          <ListItemText primary="Delete" primaryTypographyProps={{ variant: 'body2' }} />
-        </MenuItem>
+        }
 
         <MenuItem component={RouterLink} to={`/dashboard/edit-property/${id}`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>

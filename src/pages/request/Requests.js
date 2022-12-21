@@ -10,7 +10,7 @@ import RequestLists from './RequestLists'
 
 const Requests = () => {
   const { data, isLoading, isError } = useGetPaginatedRequestsQuery();
-  const requests = data ? data?.data : null;
+  const requests = data ? data?.requests : null;
   const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -27,7 +27,7 @@ const Requests = () => {
       {
         isLoading ? <EmptyList type="loading" title="Loading Requests" description="Please Wait... We are loading list of Requests" />
           : isError ? <EmptyList title="Ooops !!!" description="Something went wrong" />
-            : requests.length < 0 ? <EmptyList title="No Requests" description="There are no requests at the moment" />
+            : requests?.length < 0 ? <EmptyList title="No Requests" description="There are no requests at the moment" />
               :
               <Container>
                 <SearchProperties />

@@ -10,6 +10,7 @@ import isEmptyObject from "../../utils/isEmptyObject";
 import { useState } from "react";
 import UploadPhotos from "../../components/UploadPhotos";
 import { ADDRESSES, PROPERTY_AMENITIES, PROPERTY_CATEGORIES } from "../../Constants";
+import RenderServerErrorMessage from "../../components/RenderServerErrorMessage";
 
 
 
@@ -253,14 +254,7 @@ export default function AddProperty() {
                         isSuccess && <Alert severity="success" sx={{ mt: 4 }}>Property Added Succesfully</Alert>
                     }
                     {
-                        isError && <Alert severity="warning" sx={{ mt: 4 }}>
-                            {
-                                error.status === 403 
-                                ? 'You are not allowed to add a property'
-                                :
-                                'An error occured. Try again'
-                            }
-                        </Alert>
+                        isError && <RenderServerErrorMessage error={error} />
                     }
 
 

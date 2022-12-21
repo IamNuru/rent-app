@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import SnackBar from '../../components/SnackBar'
 import { authActions } from '../../redux/slices/authSlice';
-import { useLogUserOutMutation } from '../../features/api/apiService';
+import { useLogUserOutMutation } from '../../features/api/userApiService';
 
 interface Props {
   /**
@@ -52,10 +52,10 @@ const navItems = [
     link: '/blog',
     text: 'Blog'
   },
-  {
+  /* {
     link: '/about-us',
     text: 'About'
-  },
+  }, */
   {
     link: '/contact-us',
     text: 'Contact'

@@ -1,7 +1,7 @@
 import { Box, Card, IconButton, InputAdornment, OutlinedInput, Snackbar } from '@mui/material'
 import React, { useState } from 'react'
 import SendIcon from '@mui/icons-material/Send';
-import { useSendMessageMutation } from '../../../features/api/apiService';
+import { useSendMessageMutation } from '../../../features/api/userApiService';
 import { useParams } from "react-router-dom";
 import '../style.css'
 

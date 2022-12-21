@@ -9,7 +9,9 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import phoneRegExp from '../../utils/phoneRegExp'
 import isEmptyObject from '../../utils/isEmptyObject';
-import { usePostRequestMutation } from '../../features/api/apiService'
+import { useCreateRequestMutation } from '../../features/api/requestApiService'
+import RenderServerErrorMessage from '../../components/RenderServerErrorMessage'
+import RenderFormikErrors from '../../components/RenderFormikErrors'
 
 const MakeRequest = () => {
 
@@ -29,7 +31,7 @@ const MakeRequest = () => {
     const handleAmenitiesChange = (event, value) => {
         setAmenities(value);
     };
-    const [postRequest, { isLoading, isError, error, isSuccess }] = usePostRequestMutation()
+    const [postRequest, { isLoading, isError, error, isSuccess, data } ] = useCreateRequestMutation()
 
     const formik = useFormik({
         initialValues: {
@@ -46,9 +48,9 @@ const MakeRequest = () => {
                 .min(5, 'The title field must not be less than 5 characters')
                 .max(60, 'The title field must not be more than 60 characters'),
             message: Yup.string()
-                .required('The title field is required')
-                .min(10, 'The title field must not be less than 10 characters')
-                .max(150, 'The title field must not be more than 150 characters'),
+                .required('The message field is required')
+                .min(10, 'The message field must not be less than 10 characters')
+                .max(1500, 'The message field must not be more than 1500 characters'),
             phone_number: Yup.string()
                 .min(9, 'Phone Number should not be less than 9')
                 .max(16, 'Phone Number should not be more than 16')
@@ -57,8 +59,8 @@ const MakeRequest = () => {
         }),
 
         onSubmit: async (request, { setSubmitting }) => {
-            console.log({ ...request, category, type, addresses, amenities })
-            postRequest({ ...request, category, type, addresses, amenities })
+            await postRequest({ ...request, category, type, addresses, amenities })
+            console.log(data)
             setSubmitting(false);
         },
     })
@@ -195,9 +197,6 @@ const MakeRequest = () => {
                             value={formik.values.title}
                         />
                     </Box>
-                    {
-                        //use default registered user phone number if he already update it
-                    }
                     <Box sx={{ mb: 4 }}>
                         <TextField
                             name="phone_number"
@@ -225,33 +224,24 @@ const MakeRequest = () => {
                             value={formik.values.message}
                         />
                     </Box>
-
                     {
-                        isError ?
-                            <Alert severity="error" sx={{mb:4}}>
-                                { 
-                                error.status === 'FETCH_ERROR' ? 'Failed to fetch : Check network and try again'
-                                :
-                                error.status === 500 ? 'Something bad happened. Try again later'
-                                : error.status === 402 ?
-                                Object.values(error.data.errors)[0][0]
-                                :error.status === 401 ?
-                                'Unauthenticated : Please login/register to be able to make a request'
-                                :
-                                'Something went wrong: Refresh and try again'
-                                
-                                }
-                            </Alert>
-                            : isSuccess &&
-                                <Alert severity="success" sx={{mb:4}}>Request Created Successfully</Alert>
-                                
+                        formik.touched && !isEmptyObject(formik.errors) && <RenderFormikErrors formik={formik} />
                     }
+                    {
+                        isError && <RenderServerErrorMessage error={error} />
+                    }
+                    {
+                        isSuccess &&
+                        <Alert severity="success" sx={{ mb: 4 }}>Request Created Successfully</Alert>
+
+                    }
+                    
 
                     <Button
                         fullWidth
                         color="primary"
                         variant="contained"
-                        disabled={!isEmptyObject(formik.errors) || isLoading}
+                        disabled={!isEmptyObject(formik.errors) || isLoading || formik.isSubmitting}
                         type="submit"
                     >
                         {formik.isSubmitting || isLoading ? (

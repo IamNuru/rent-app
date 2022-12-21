@@ -23,7 +23,7 @@ import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 import Page from "../../components/Page.js"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useGetAuthUserQuery, useLoginUserMutation } from "../../features/api/userApiService";
 import { authActions } from "../../redux/slices/authSlice";
 
@@ -31,16 +31,15 @@ import { authActions } from "../../redux/slices/authSlice";
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation();
-  const from = location.state?.from || "/";
-  const { isSuccess:authSucces, data:authData, isLoading:authLoading } = useGetAuthUserQuery();
+  const from = location.state ? location.state.from : "/";
+  const { isSuccess: authSucces, data: authData, isLoading:authIsLoading } = useGetAuthUserQuery();
   const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
-  const token = window.localStorage.getItem('token');
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-  const auth = useSelector((state) => state.auth)
+
 
   //redux
   const dispatch = useDispatch();
@@ -67,15 +66,16 @@ const Login = () => {
 
 
 
-  //redirect to home if already logged in
+  //redirect to home if logged in
   useEffect(() => {
     if (authSucces) {
       dispatch(authActions.login(authData))
       navigate(from)
     }
     // eslint-disable-next-line
-  }, [authSucces])
-  
+  }, [ authSucces])
+
+
   //redirect to home if logged in
   useEffect(() => {
     if (isSuccess) {
@@ -85,21 +85,19 @@ const Login = () => {
     // eslint-disable-next-line
   }, [isSuccess])
 
-  if(token){
-    return 'Checking if already authenticated'
+  if(authIsLoading){
+    return 'Please wait, redirecting...'
   }
-  
 
 
-  
-  
+
 
   return (
     <Page title="Login" className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
-            margin:{xs:"auto 2rem"}
+            margin: { xs: "auto 2rem" }
           }}
           className="form-wrapper"
         >
@@ -117,21 +115,21 @@ const Login = () => {
             <Alert severity="success" color="success">
               Successfully Login. redirecting...
             </Alert>
-          ) : formik.touched && formik.errors && !isEmptyObject(formik.errors)  ? (
+          ) : formik.touched && formik.errors && !isEmptyObject(formik.errors) ? (
             <Alert severity="error" color="error">
               Invalid inputs
             </Alert>
           ) : isError ? (
             <Alert severity="error" color="error">
               {
-                error.status === 'FETCH_ERROR' 
-                ? 'Network Problem : Failed to fetch data' 
-                : error.status === 401 
-                ? error.data.message :
-                'Something went wrong'
+                error.status === 'FETCH_ERROR'
+                  ? 'Network Problem : Failed to fetch data'
+                  : error.status === 401
+                    ? error.data.message :
+                    'Something went wrong'
               }
             </Alert>
-          ): null
+          ) : null
           }
           {formik.touched && formik.errors && !isEmptyObject(formik.errors) ? (
             <List style={{ paddingTop: 0 }}>
@@ -205,20 +203,20 @@ const Login = () => {
           <Button
             color="primary"
             variant="contained"
-            disabled={!isEmptyObject(formik.errors) || isLoading || authLoading }
+            disabled={!isEmptyObject(formik.errors) || isLoading}
             type="submit"
           >
             {isLoading ? (
               <CircularProgress size={30} color="secondary" />
             ) : (
-              authLoading ? 'Checking if already authenticated' : 'Login'
+              'Login'
             )}
           </Button>
         </Box>
-        <Typography align="center" sx={{p:2, fontSize: "1rem", color:'#979494'}}>
+        <Typography align="center" sx={{ p: 2, fontSize: "1rem", color: '#979494' }}>
           Have you forgot your password?. Click on <Link to="/reset-password">Reset Password</Link> to reset your password.
         </Typography>
-        <Typography align="center" sx={{fontSize: "1rem", color:'#979494'}}>
+        <Typography align="center" sx={{ fontSize: "1rem", color: '#979494' }}>
           You don't have account yet?. Click on <Link to="/register">Create account</Link> to register.
         </Typography>
       </form>

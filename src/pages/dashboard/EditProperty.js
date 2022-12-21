@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import UploadPhotos from "../../components/UploadPhotos";
 import { ADDRESSES, PROPERTY_AMENITIES, PROPERTY_CATEGORIES } from "../../Constants";
 import EmptyList from '../../components/EmptyList'
+import RenderServerErrorMessage from "../../components/RenderServerErrorMessage";
 
 
 
@@ -288,7 +289,7 @@ export default function EditProperty() {
                                 isSuccess && <Alert severity="success" sx={{ mt: 4 }}>Property Update Succesfully</Alert>
                             }
                             {
-                                isError && <Alert severity="warning" sx={{ mt: 4 }}>An error occured</Alert>
+                                isError && <RenderServerErrorMessage error={error} />
                             }
 
 

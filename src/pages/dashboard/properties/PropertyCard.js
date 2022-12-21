@@ -9,7 +9,7 @@ import { Button, Box, Card, Link, Typography, Stack, CircularProgress } from '@m
 /* import Label from '../../../components/Label'; */
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDeletePropertyMutation } from '../../../features/api/apiService';
+import { useDeletePropertyMutation } from '../../../features/api/propertyApiService';
 
 // ----------------------------------------------------------------------
 

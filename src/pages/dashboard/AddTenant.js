@@ -9,11 +9,12 @@ import phoneRegExp from '../../utils/phoneRegExp';
 import { useDispatch } from 'react-redux';
 import { useAddTenantMutation } from '../../features/api/tenantApiService';
 import isEmptyObject from '../../utils/isEmptyObject';
+import RenderServerErrorMessage from '../../components/RenderServerErrorMessage';
 
 
 const AddTenant = () => {
     const dispatch = useDispatch();
-    const [addTenant, { isLoading, isSuccess, isError }] = useAddTenantMutation()
+    const [addTenant, { isLoading, isSuccess, isError, error }] = useAddTenantMutation()
     const [gender, setGender] = useState('');
     const [status, setStatus] = useState('active');
 
@@ -236,7 +237,7 @@ const AddTenant = () => {
                                 isSuccess && <Alert severity="success" sx={{ mt: 4 }}>Tenant Added Succesfully</Alert>
                             }
                             {
-                                isError && <Alert severity="warning" sx={{ mt: 4 }}>An error occured</Alert>
+                                isError && <RenderServerErrorMessage error={error} />
                             }
 
 

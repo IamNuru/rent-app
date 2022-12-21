@@ -1,14 +1,14 @@
 import React from "react";
-import { Box, Grid, List, ListItem, ListSubheader, ListItemText, ListItemButton, ListItemIcon,  } from "@mui/material";
+import { Box, Grid, List, ListItem, ListSubheader, ListItemText, ListItemButton, ListItemIcon, Typography,  } from "@mui/material";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import StarIcon from '@mui/icons-material/Star';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { Link } from "react-router-dom";
 
-import {useGetPostsQuery} from "../../features/api/apiService"
+import {useGetPostsQuery} from "../../features/api/postApiService"
 
 const Footer = () => {
-  const {data, isLoading, isFetching } = useGetPostsQuery();
+  const {data, isLoading, isError } = useGetPostsQuery();
   const posts = data ? data.posts : null;
 
     const navItems = [
@@ -74,8 +74,11 @@ const Footer = () => {
             }
           >
             {
-              isLoading || isFetching ? 'loading posts' :
-                posts?.data?.slice(0, 5).map((post, index) =>(
+              isLoading ? <Typography sx={{color:'white', fontSize:'14px'}}>Loading posts</Typography>
+               :
+               isError ? 'Something went wrong loading posts' :
+                posts?.length > 0 ?
+                posts?.slice(0, 5).map((post, index) =>(
                    <ListItem divider disableGutters disablePadding key={index} sx={{ml:{xs:'2rem'}, my:'0.35rem'}}>
                         <Link to={`/post/${post.id}/${post.slug}`} style={{width:'100%', display:'flex'}}>
                             <StarIcon fontSize="small" sx={{color:'yellow', mt:'0.3rem', mr:'0.25rem'}} />
@@ -83,6 +86,8 @@ const Footer = () => {
                         </Link>
                     </ListItem> 
                 ))
+                :
+                'No posts available'
             }
             
           </List>

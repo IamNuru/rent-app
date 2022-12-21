@@ -14,8 +14,6 @@ const Blog = () => {
   const [page, setPage] = useState(1)
   const {data, isLoading, isFetching, isError, error} = useGetPaginatedPostsQuery(page);
   const posts = data ? data.posts : [];
-  console.log(posts)
-  console.log(data)
   
   const handleChange = (e, v) =>{
     setPage(v)
@@ -31,7 +29,7 @@ const Blog = () => {
         </> : isFetching ? <>
           <EmptyList title="Fetching Posts" description="We are Fetching your data. Please wait" />
         </> : isError ? <>
-          <EmptyList title="An Error Occured" 
+          <EmptyList title="An Error Occured" type="error" 
           description={ error.status ==='FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page' } />
         </>:
         posts?.data?.length > 0 ? (

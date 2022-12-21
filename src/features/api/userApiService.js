@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL } from "../../utils/constants";
+import { API_URL } from '../../Constants';
 const token = window.localStorage.getItem('token');
 
 
@@ -41,6 +41,30 @@ export const userApiService = createApi({
       })
     }),
 
+    updateAuthUser: builder.mutation({
+      query: (data) => ({
+        url: '/auth/update',
+        method: 'PATCH',
+        body: data,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
+    }),
+    
+    updateAuthUserProfilePhoto: builder.mutation({
+      query: (data) => ({
+        url: '/auth/update-profile-photo',
+        method: 'PATCH',
+        body: data,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
+    }),
+
     getAuthUser: builder.query({
       query: () => ({
         url: '/user',
@@ -62,6 +86,31 @@ export const userApiService = createApi({
       })
     }),
 
+
+    sendMessage: builder.mutation({
+      query: (message) => ({
+        url: '/message',
+        method: 'POST',
+        body: message,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept : "application/json"
+        }
+      })
+    }),
+
+    
+    getChatMessages: builder.query({
+      query: (id) => ({
+        url: `/messages/${id}`,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept : "application/json"
+        }
+      })
+    }),
+
+
   }),
 })
 
@@ -72,5 +121,9 @@ export const {
   useLogUserOutMutation,
   useGetUsersQuery,
   useDeleteUserMutation,
+  useUpdateAuthUserMutation,
+  useUpdateAuthUserProfilePhotoMutation,
+  useSendMessageMutation,
+  useGetChatMessagesQuery,
   
 } = userApiService;

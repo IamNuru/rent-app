@@ -27,7 +27,7 @@ const Listings = () => {
         </> : isFetching ? <>
           <EmptyList title="Fetching Properties" description="We are Fetching your data. Please wait" />
         </> : isError ? <>
-          <EmptyList title="An Error Occured" 
+          <EmptyList title="An Error Occured" type="error"
           description={ error.status ==='FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page' } />
         </>:
           properties?.length > 0 ? (

@@ -5,10 +5,10 @@ const EmptyList = ({ title, description, header = null, type = null, ...other })
     return (
         <Paper style={{ height: '20rem', display: 'grid', justifyContent: 'center', alignItems: 'center' }} {...other}>
             <Box>
-                <Typography gutterBottom align="center" sx={{fontWeight:600, fontSize:'1.6rem', color:type === 'error' && '#f1816ff2'}}>
+                <Typography gutterBottom align="center" sx={{fontWeight:600, fontSize:'1.6rem', color:type === 'error' ? '#f1816f' : '#010205'}}>
                     {title}
                 </Typography>
-                <Box>
+                <Box sx={{width:'100%', display:'grid', justifyContent:'center'}}>
                     {
                         type === 'loading' ?
                             (

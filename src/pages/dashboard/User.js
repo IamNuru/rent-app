@@ -19,7 +19,7 @@ import Page from '../../components/Page';
 import SearchNotFound from '../../components/SearchNotFound';
 import UserListHead from './user/UserListHead';
 import UserMoreMenu from './user/UserMoreMenu';
-import { useGetUsersQuery } from '../../features/api/apiService';
+import { useGetUsersQuery } from '../../features/api/userApiService';
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ function applySortFilter(array, comparator, query) {
 
 export default function User() {
   const { data, refetch } = useGetUsersQuery();
-  const USERLIST = data ? data.users : null;
+  const USERLIST = data ? data?.users : null;
 
   const [page, setPage] = useState(0);
 

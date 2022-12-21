@@ -65,11 +65,11 @@ const Properties = () => {
         {
 
           isLoading ? <>
-            <EmptyList title="Loading Data " description="We are loading your data. Please wait" />
+            <EmptyList title="Loading Data " type="loading" description="We are loading your data. Please wait" />
           </> : isFetching ? <>
-            <EmptyList title="Fetching Requests" description="We are Fetching your data. Please wait" />
+            <EmptyList title="Fetching Data" description="We are Fetching your data. Please wait" />
           </> : isError ? <>
-            <EmptyList title="An Error Occured"
+            <EmptyList title="An Error Occured" type="error"
               description={error.status === 'FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page'} />
           </> :
             items?.length > 0 ? (

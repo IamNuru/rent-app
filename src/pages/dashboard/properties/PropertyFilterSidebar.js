@@ -18,8 +18,6 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import FilterListIcon from '@mui/icons-material/FilterList';
-// components
-import { ColorManyPicker } from '../../../components/color-utils';
 
 
 // ----------------------------------------------------------------------
@@ -111,12 +109,6 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
               <Typography variant="subtitle1" gutterBottom>
                 Colors
               </Typography>
-              <ColorManyPicker
-                name="colors"
-                colors={FILTER_COLOR_OPTIONS}
-                onChecked={(color) => [].includes(color)}
-                sx={{ maxWidth: 38 * 4 }}
-              />
             </div>
 
             <div>

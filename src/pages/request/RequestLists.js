@@ -8,7 +8,7 @@ const RequestLists = ({requests}) => {
             <Box mt={2} mb={2} align="center">
                 <Box sx={{ flexGrow: 1 }} mt={2} className="">
                     <Grid container spacing={2} align="center">
-                        {requests?.map((request) => {
+                        {requests?.data?.map((request) => {
                             return (
                                 <Grid item key={request.id} xs={12} sm={6}>
                                     <Request request={request} />

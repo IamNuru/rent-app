@@ -6,7 +6,7 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 import MenuPopover from '../../components/MenuPopover';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../redux/slices/authSlice';
-import { useLogUserOutMutation } from '../../features/api/apiService';
+import { useLogUserOutMutation } from '../../features/api/userApiService';
 
 // ----------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photo} alt="photoURL" />
+        <Avatar src={account?.photo} alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -88,10 +88,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.first_name}
+            {account?.first_name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {account?.email}
           </Typography>
         </Box>
 

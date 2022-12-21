@@ -1,3 +1,5 @@
+export const API_URL = 'https://rentgh-backend.up.railway.app/api'
+
 export const PROPERTY_AMENITIES = [
     { name: 'Toilet' },
     { name: 'Bath' },
@@ -18,3 +20,4 @@ export const ADDRESSES = [
     { name: 'Togo', id: 3 },
     { name: 'Benin', id: 4 },
 ]
+

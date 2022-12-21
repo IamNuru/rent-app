@@ -21,7 +21,7 @@ import Tenant from "./pages/dashboard/Tenants";
 import MakeRequest from './pages/request/MakeRequest'
 import Profile from "./pages/profile/Profile";
 import Requests from "./pages/request/Requests";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/routes/PrivateRoute";
 import CreatePost from "./pages/dashboard/CreatePost";
 import AddProperty from "./pages/dashboard/AddProperty";
 import SingleRequest from "./pages/request/SingleRequest";
@@ -30,7 +30,7 @@ import EditProperty from "./pages/dashboard/EditProperty";
 import AddTenant from "./pages/dashboard/AddTenant";
 import EditTenant from "./pages/dashboard/EditTenant";
 import Page403 from "./pages/erro-pages/Page403";
-import PrivateOwnerRoute from "./components/PrivateOwnerRoute";
+import RoleBasedRoutes from "./components/routes/RoleBasedRoutes";
 
 const AppRoutes = () => {
   return (
@@ -57,7 +57,7 @@ const AppRoutes = () => {
             <Route path="/make-request" element={<MakeRequest />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route element={<PrivateOwnerRoute />}>
+              <Route element={<RoleBasedRoutes allowedRoles={['admin', 'owner']} />}>
                 <Route path="tenants" element={<Tenant />} />
                 <Route path="properties" element={<PropertiesList />} />
                 <Route path="add-property" element={<AddProperty />} />

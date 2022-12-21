@@ -6,7 +6,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText, CircularProgres
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDeleteUserMutation } from '../../../features/api/apiService';
+import { useDeleteUserMutation } from '../../../features/api/userApiService';
 
 // ----------------------------------------------------------------------
 

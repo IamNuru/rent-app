@@ -149,7 +149,7 @@ const MyRequests = ({ query: { data, isLoading, isError, error, refetch } }) => 
                                 numSelected={selected.length} filterName={filterTitle}
                                 onFilterName={handleFilterByTitle} refetch={refetch} setSelectedIds={setSelected}/>
 
-                        <TableContainer sx={{ minWidth: 800 }}>
+                        <TableContainer className='custom-scroll-bar'>
                             <Table>
                                 <RequestListHead
                                     order={order}
@@ -194,7 +194,7 @@ const MyRequests = ({ query: { data, isLoading, isError, error, refetch } }) => 
                                                 </TableCell>
 
                                                 <TableCell align="right">
-                                                    <RequestMoreMenu />
+                                                    <RequestMoreMenu refetch={refetch} id={id} />
                                                 </TableCell>
                                             </TableRow>
                                         );

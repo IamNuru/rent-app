@@ -1,19 +1,20 @@
-import { Alert, Button, CircularProgress, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import Page from "../../components/Page";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { Link as RouterLink } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import ReportIcon from "@mui/icons-material/Report";
 import { useCreatePostMutation, useGetPostsQuery } from "../../features/api/postApiService";
 import isEmptyObject from "../../utils/isEmptyObject";
+import RenderServerErrorMessage from "../../components/RenderServerErrorMessage";
+import RenderFormikErrors from "../../components/RenderFormikErrors";
 
 
 
 
 
 export default function CreatePost() {
-    const [createPost, { isLoading, isError, isSuccess }] = useCreatePostMutation();
+    const [createPost, { isLoading, isError, isSuccess, error }] = useCreatePostMutation();
     const { refetch } = useGetPostsQuery();
 
     const formik = useFormik({
@@ -32,16 +33,16 @@ export default function CreatePost() {
             description: Yup.string()
                 .required('The description field is required')
                 .min(20, 'The description field must not be less than 20 characters')
-                .max(200, 'The description field must not be more than 150 characters'),
+                .max(200, 'The description field must not be more than 200 characters'),
             content: Yup.string()
-            .required('The content field is required')
-            .min(20, 'The content field must not be less than 20 characters'),
-            cover: Yup.string()
-            .url()
-            
+                .required('The content field is required')
+                .min(20, 'The content field must not be less than 20 characters'),
+            cover: Yup.string().required('Cover photo is required')
+                .url()
+
         }),
 
-        onSubmit: async (data, { setSubmitting }) =>{
+        onSubmit: async (data, { setSubmitting }) => {
             await createPost(data);
             setSubmitting(false)
             refetch();
@@ -61,7 +62,7 @@ export default function CreatePost() {
                     </Button>
                 </Stack>
 
-                
+
 
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container sx={{ display: 'grid', gap: '2rem' }}>
@@ -116,43 +117,15 @@ export default function CreatePost() {
                     </Grid>
 
 
-                {formik.touched && formik.errors && !isEmptyObject(formik.errors) ? (
-                    <List style={{ paddingTop: 0 }}>
-                        {Object.keys(formik.errors).map(function (value, index) {
-                            return (
-                                <ListItem
-                                    key={value}
-                                    alignItems="flex-start"
-                                    className="listItem"
-                                    style={{
-                                        color: "#e31414",
-                                        marginTop: "4px",
-                                        paddingTop: "0px",
-                                        paddingBottom: "0px",
-                                        paddingLeft: "8px",
-                                        paddingRight: "8px",
-                                    }}
-                                >
-                                    <ListItemIcon
-                                        style={{ minWidth: "30px", color: "red", margin: 0 }}
-                                    >
-                                        <ReportIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText disableTypography
-                                        sx={{ margin: 0, fontWeight: 'lighter', fontSize: '0.85rem', lineHeight: 1.5 }}
-                                        primary={formik.errors[value]}
-                                    />
-                                </ListItem>
-                            );
-                        })}
-                    </List>
-                ) : null}
-                {
-                    isSuccess && <Alert severity="success">Post Created Succesfully</Alert>
-                }
-                {
-                    isError && <Alert severity="warning">An error occured</Alert>
-                }
+                    {
+                        formik.touched && !isEmptyObject(formik.errors) && <RenderFormikErrors formik={formik} />
+                    }
+                    {
+                        isSuccess && <Alert severity="success" sx={{my:2}}>Post Created Succesfully</Alert>
+                    }
+                    {
+                        isError && <RenderServerErrorMessage error={error} />
+                    }
 
 
                     <Button
@@ -162,7 +135,7 @@ export default function CreatePost() {
                         disabled={formik.isSubmitting || !isEmptyObject(formik.errors) || isLoading}
                         type="submit"
                         size="large"
-                        sx={{mt:4, mb:4}}
+                        sx={{ mt: 4, mb: 4 }}
                     >
                         {formik.isSubmitting || isLoading ? (
                             <CircularProgress size={50} color="primary" />
@@ -171,7 +144,7 @@ export default function CreatePost() {
                         )}
                     </Button>
                 </form>
-                
+
             </Container>
         </Page>
     );

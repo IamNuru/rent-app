@@ -9,7 +9,7 @@ import { Box, Link, Card, Grid, Avatar, Typography, CardContent, Stack, Button, 
 import SvgIconStyle from '../../../components/SvgIconStyle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDeletePostMutation } from '../../../features/api/apiService';
+import { useDeletePostMutation } from '../../../features/api/postApiService';
 import { format, toDate } from 'date-fns';
 
 // ----------------------------------------------------------------------
@@ -73,7 +73,7 @@ export default function BlogPostCard({ post, index, refetch }) {
 
   return (
     <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
-      <Card sx={{ position: 'relative', borderRadius: '16px', height: (!latestPostLarge && !latestPost) ? '26rem': '100%' }}>
+      <Card sx={{ position: 'relative', borderRadius: '16px', height: (!latestPostLarge && !latestPost) ? '26rem' : '100%' }}>
         <Box style={CardMediaStyle}
           sx={[
             ((latestPostLarge || latestPost) && {
@@ -88,7 +88,7 @@ export default function BlogPostCard({ post, index, refetch }) {
               },
             }),
             {
-              '&:after':{
+              '&:after': {
                 top: 0,
                 content: "''",
                 width: '100%',
@@ -133,7 +133,8 @@ export default function BlogPostCard({ post, index, refetch }) {
             }}
           />
 
-          <img style={CoverImgStyle} alt={title} src={noImage} onError={noImage} />
+          <img style={CoverImgStyle} alt={title} src={cover}
+            onError={e => { e.target.src = noImage }} />
         </Box>
 
         <CardContent

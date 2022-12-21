@@ -20,7 +20,7 @@ const ContentStyle ={
 
 export default function Page403() {
   return (
-    <Page title="404 Page Not Found">
+    <Page title="403 Page Not Found">
       <Container>
         <Box style={ContentStyle} sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>

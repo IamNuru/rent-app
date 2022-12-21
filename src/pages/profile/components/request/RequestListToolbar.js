@@ -4,7 +4,7 @@ import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment
 import { Search } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-import { useDeleteRequestMutation, useGetSelectedRequestsQuery } from '../../../../features/api/apiService';
+import { useDeleteRequestMutation, useGetSelectedRequestsQuery } from '../../../../features/api/requestApiService';
 import {  useSelector } from 'react-redux';
 
 
@@ -41,7 +41,7 @@ RequestListToolbar.propTypes = {
 };
 
 export default function RequestListToolbar({ numSelected, filterName, onFilterName, setSelectedIds, selectedIds, refetch }) {
-  const [deleteRequest, { isLoading, isError, error, isSuccess }] = useDeleteRequestMutation()
+  const [deleteRequest, { isLoading }] = useDeleteRequestMutation()
   const { data, isLoading: Ploading } = useGetSelectedRequestsQuery(selectedIds);
   const { token } = useSelector((state) => state.auth)
 

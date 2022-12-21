@@ -48,7 +48,6 @@ NewsItem.propTypes = {
   news: PropTypes.shape({
     author: PropTypes.string,
     image: PropTypes.string,
-    postedAt: PropTypes.instanceOf(Date),
     title: PropTypes.string,
   }),
 };
@@ -66,7 +65,7 @@ function NewsItem({ news }) {
       />
 
       <Box sx={{ minWidth: 240, flexGrow: 1 }}>
-        <Link component={RouterLink} to={`/post/${id}/${slug}`} color="inherit" variant="subtitle2" underline="hover" wrap>
+        <Link component={RouterLink} to={`/post/${id}/${slug}`} color="inherit" variant="subtitle2" underline="hover">
           {title}
         </Link>
 

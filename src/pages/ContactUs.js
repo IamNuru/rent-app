@@ -45,7 +45,7 @@ export default function ContactUs() {
         .matches(phoneRegExp, "Phone number is not valid"),
     }),
 
-    onSubmit: async (credentials, { setSubmitting }) => {
+    onSubmit: async (data, { setSubmitting }) => {
       /* await registerUser(credentials); */
       setSubmitting(false);
     },
@@ -76,13 +76,13 @@ export default function ContactUs() {
               <Alert severity="success" color="success">
                 processing .... please wait
               </Alert>
-            ) : formik.isValid ? (
+            ) : formik.touched  ? (
               <Alert severity="success" color="success">
-                Successfully Register. redirecting...
+                Successfully submitted. redirecting...
               </Alert>
             ) : (
               <Alert severity="error" color="error">
-                Invalid credentials
+                Invalid Data supplied
               </Alert>
             )}
 

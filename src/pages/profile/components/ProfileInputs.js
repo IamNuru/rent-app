@@ -1,13 +1,18 @@
-import { Grid, IconButton, InputAdornment, TextField } from '@mui/material';
-import { useFormik } from 'formik';
+import { Alert, Button, CircularProgress, Grid, IconButton, InputAdornment, TextField } from '@mui/material';
+import { isObject, useFormik } from 'formik';
 import * as Yup from 'yup';
 import phoneRegExp from '../../../utils/phoneRegExp'
 import EditIcon from '@mui/icons-material/Edit';
 import isEmptyObject from '../../../utils/isEmptyObject';
 import { useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
+import CheckIcon from "@mui/icons-material/Check"
+import SaveIcon from '@mui/icons-material/Save';
+import { useUpdateAuthUserMutation } from "../../../features/api/userApiService"
+import SnackBar from '../../../components/SnackBar';
 
-const ProfileInputs = () => {
+
+const ProfileInputs = ({ refetchUserData }) => {
     const ref = useRef()
     const { user } = useSelector((state) => state.auth)
     const [firstName, setfirstName] = useState(true)
@@ -18,6 +23,8 @@ const ProfileInputs = () => {
     const handleEditLastName = (e) => setlastName(!lastName)
     const handleEditPhoneNumber = (e) => setphoneNumber(!phoneNumber)
     const handleEditEmail = (e) => setEmail(!email)
+    const [updateAuthUser, { isLoading, isSuccess, isError, error }] = useUpdateAuthUserMutation();
+
 
     const formik = useFormik({
         initialValues: {
@@ -34,22 +41,19 @@ const ProfileInputs = () => {
                 2,
                 "Last Name must be more than 2 characters."
             ),
-            username: Yup.string()
-                .min(2, "Username must be more than 2 characters.")
-                .required("Username is required."),
             email: Yup.string().email().required("Email is required."),
             phoneNumber: Yup.string()
                 .min(9, 'Phone Number should not be less than 9')
                 .max(16, 'Phone Number should not be more than 16')
                 .matches(phoneRegExp, 'Phone number is not valid'),
-            password: Yup.string()
-                .required("Password is Required.")
-                .min(6, "Password is too short - should be 6 chars minimum."),
         }),
 
-        onSubmit: async (credentials, { setSubmitting }) => {
-            /* await registerUser(credentials); */
+        onSubmit: async (data, { setSubmitting }) => {
+            await updateAuthUser(data);
             setSubmitting(false);
+            if (isSuccess) {
+                refetchUserData()
+            }
         },
     })
 
@@ -78,12 +82,22 @@ const ProfileInputs = () => {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="enable edit"
-                                        onClick={handleEditFirstName}
-                                    >
-                                        {<EditIcon />}
-                                    </IconButton>
+                                    {
+                                        !firstName ?
+                                            <IconButton
+                                                aria-label="enable edit"
+                                                onClick={handleEditFirstName}
+                                            >
+                                                {<CheckIcon />}
+                                            </IconButton>
+                                            :
+                                            <IconButton
+                                                aria-label="enable edit"
+                                                onClick={handleEditFirstName}
+                                            >
+                                                {<EditIcon />}
+                                            </IconButton>
+                                    }
                                 </InputAdornment>
                             ),
                         }}
@@ -128,7 +142,7 @@ const ProfileInputs = () => {
                         size="small"
                         fullWidth
                         disabled={email}
-                        error={formik.touched && !isEmptyObject(formik.errors) && formik.errors.email}
+                        error={formik.touched && !isEmptyObject(formik.errors) && formik.errors.email ? true : false}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.email}
@@ -146,7 +160,8 @@ const ProfileInputs = () => {
                             ),
                         }}
                     />
-                </Grid><Grid item xs={12}>
+                </Grid>
+                <Grid item xs={12}>
                     <TextField
                         name="phoneNumber"
                         type="text"
@@ -175,6 +190,41 @@ const ProfileInputs = () => {
                         }}
                     />
                 </Grid>
+                {
+                    formik.touched &&
+                    <Grid item xs={12} sx={{ mb: 4, mt: -4 }}>
+                        {
+                            isSuccess && <SnackBar message='User Details Updated' open={true} />
+                        }
+                        {
+                            isError ?
+                                isObject(error) ? (
+                                    <Alert severity="error">{
+                                        error.status === 'FETCH_ERROR' ? 'Network error: Check internet'
+                                            : error.status === 401 ? Object.values(error?.data?.errors)[0]
+                                                : 'Something went wrong'
+                                    }</Alert>
+                                ) : (
+                                    <Alert severity="warning">An error occured</Alert>
+                                )
+                                :
+                                null
+                        }
+                        {
+                            <Button type="submit" fullWidth size="small"
+                                disabled={!isError && !isEmptyObject(formik.errors)}
+                                endIcon={!isError && isEmptyObject(formik.errors) && !isLoading && <SaveIcon />}>
+                                {
+                                    isLoading ?
+                                        <CircularProgress size={30} color="primary" />
+                                        :
+                                        'Save Changes'
+                                }
+                            </Button>
+                        }
+                    </Grid>
+                }
+
             </Grid>
         </form>
     )

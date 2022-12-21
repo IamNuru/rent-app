@@ -1,5 +1,5 @@
-import Explore from "./components/explore-rooms/Explore";
 import Hero from "./components/Hero";
+//import Explore from "./components/explore-rooms/Explore";
 import Statistics from "./components/Statistics";
 import Listings from "./components/listings/Listings";
 import Values from "./components/Values";
@@ -17,9 +17,9 @@ const Home = () => {
     <Box mt={30}>
       <Requests />
     </Box>
-    <Box mt={24}>
+    {/* <Box mt={24}>
       <Explore />
-    </Box>
+    </Box> */}
     <Box mt={30} sx={{px:5,}}>
       <Listings />
     </Box>

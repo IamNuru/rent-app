@@ -9,6 +9,7 @@ import phoneRegExp from '../../utils/phoneRegExp';
 import { useGetMyTenantsQuery, useGetTenantQuery, useUpdateTenantMutation } from '../../features/api/tenantApiService';
 import isEmptyObject from '../../utils/isEmptyObject';
 import EmptyList from '../../components/EmptyList';
+import RenderServerErrorMessage from '../../components/RenderServerErrorMessage';
 
 
 const EditTenant = () => {
@@ -18,7 +19,7 @@ const EditTenant = () => {
     const tenantData = tenantD?.tenant ? tenantD.tenant : null;
 
     const { refetch: refetchTenants } = useGetMyTenantsQuery();
-    const [updateTenant, { isLoading, isSuccess, isError }] = useUpdateTenantMutation()
+    const [updateTenant, { isLoading, isSuccess, isError, error }] = useUpdateTenantMutation()
     const [gender, setGender] = useState('');
     const [status, setStatus] = useState('active');
 
@@ -272,7 +273,7 @@ const EditTenant = () => {
                                         isSuccess && <Alert severity="success" sx={{ mt: 4 }}>Tenant Added Succesfully</Alert>
                                     }
                                     {
-                                        isError && <Alert severity="warning" sx={{ mt: 4 }}>An error occured</Alert>
+                                        isError && <RenderServerErrorMessage error={error} />
                                     }
 
 

@@ -1,23 +1,48 @@
 import { Avatar, Box, Container, Divider, Grid } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import Page from '../../components/Page'
 import MyProperties from './components/MyProperties'
 import MyRequests from './components/MyRequests'
 import MyTenants from './components/MyTenants'
 import ProfileInputs from './components/ProfileInputs'
 import UserStatistics from './components/UserStatistics'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useGetMyRequestsQuery } from '../../features/api/requestApiService'
-import { useGetMyPropertiesQuery, useGetPropertiesQuery } from '../../features/api/propertyApiService'
-import {  useGetMyTenantsQuery } from '../../features/api/tenantApiService'
+import { useGetMyPropertiesQuery } from '../../features/api/propertyApiService'
+import { useGetMyTenantsQuery } from '../../features/api/tenantApiService'
+import { useGetAuthUserQuery } from '../../features/api/userApiService'
+import PhotoIcon from '@mui/icons-material/Photo'
+import UploadProfileImage from './components/UploadProfileImage'
+import { authActions } from '../../redux/slices/authSlice'
+
 
 
 const Profile = () => {
-    
+
     const auth = useSelector((state) => state.auth)
-    const propertiesQuery = useGetMyPropertiesQuery(auth?.token);
-    const tenantsQuery = useGetMyTenantsQuery(auth?.token);
-    const requestsQuery = useGetMyRequestsQuery(auth?.token);
+    const propertiesQuery = useGetMyPropertiesQuery();
+    const tenantsQuery = useGetMyTenantsQuery();
+    const requestsQuery = useGetMyRequestsQuery();
+    const { refetch, data } = useGetAuthUserQuery()
+    const dispatch = useDispatch()
+
+    const [open, setOpen] = useState(false)
+
+    const refetchUserData = async () =>{
+        await refetch();
+        dispatch(authActions.authUser(data))
+        console.log(data)
+        
+    }
+
+
+    const handleOpenImageUpload = () => {
+        setOpen(true)
+    }
+
+    const handleCloseDialog = () =>{
+        setOpen(false)
+    }
 
 
     const profileImgBg = {
@@ -26,30 +51,36 @@ const Profile = () => {
         width: '100%'
     }
     return (
-        <Page title="Profile | UserName">
+        <Page title={`Profile | ${auth ? auth?.user?.first_name + ' ' + auth?.user?.last_name : 'user name'}`}>
             <Container sx={{ px: { xs: 0.5, sm: 0, md: 4 } }} >
                 <Grid container columnSpacing={2}>
                     <Grid container item xs={12} sm={5} md={4}>
                         <Grid item>
                             <Box style={profileImgBg}></Box>
-                            <Avatar alt="Travis Howard"
-                                src="/static/mock-images/avatars/avatar_4.jpg"
+                            <Avatar alt={auth?.user?.first_name}
+                                src={auth?.user?.photo ? auth?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
                                 sx={{
                                     width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
                                     mx: 'auto', mt: { xs: -6, sm: -8, md: -10 }
                                 }} />
+                            <PhotoIcon titleAccess="Change Photo" color="success" onClick={handleOpenImageUpload}
+                                sx={{
+                                    position: 'absolute', left: { sm: '70%', md: '30%' }, mt: { sm: '-50px', mt: '-40px' }, cursor: 'pointer'
+                                }} />
+                            <UploadProfileImage refetchUserData={refetchUserData} open={open} handleClose={handleCloseDialog} />
+                            
                             <Box sx={{ mt: 4 }}>
-                                <ProfileInputs />
+                                <ProfileInputs refetchUserData={refetchUserData} />
                             </Box>
                         </Grid>
                     </Grid>
                     <Divider />
                     <Grid item xs={12} sm={7} md={8}>
                         <UserStatistics propertiesQuery={propertiesQuery} tenantsQuery={tenantsQuery} requestsQuery={requestsQuery} />
-                        <Box className="custom-scroll-bar" sx={{ maxHeight: { xs: '100%', sm: '40rem', md:'60rem' }, overflowY: 'auto', overflowX: 'hidden' }} >
+                        <Box className="custom-scroll-bar" sx={{ maxHeight: { xs: '100%', sm: '40rem', md: '60rem' }, overflowY: 'auto', overflowX: 'hidden' }} >
                             <MyProperties query={propertiesQuery} />
-                            <MyTenants query={tenantsQuery}  />
-                            <MyRequests query={requestsQuery}  />
+                            <MyTenants query={tenantsQuery} />
+                            <MyRequests query={requestsQuery} />
                         </Box>
 
                     </Grid>
