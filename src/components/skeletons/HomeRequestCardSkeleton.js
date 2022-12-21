@@ -1,4 +1,4 @@
-import { Grid, Paper, Skeleton, Stack } from '@mui/material'
+import { Grid, Skeleton, Stack } from '@mui/material'
 import React from 'react'
 
 const HomeRequestCardSkeleton = ({ number = 3 }) => {
