@@ -1,9 +1,11 @@
 import React from "react";
 import { Grid, TextField, Button, Container, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
 import { propertyActions } from "../../../redux/slices/propertySlice";
 
 const SearchProperties = () => {
+  const dispatch = useDispatch();
 
   const handleChange = e =>{
     dispatch(propertyActions.filterProperties(e.target.value))
