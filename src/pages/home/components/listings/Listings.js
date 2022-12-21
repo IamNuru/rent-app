@@ -49,7 +49,7 @@ const Listings = () => {
           ) : (
             <EmptyList
               title="No Properties"
-              description='We currently any properties for listing Yet. Check back later'
+              description='We currently have no properties for listing Yet. Check back later'
               elevation={0}
               sx={{ border: '1px solid gray' }}
             />

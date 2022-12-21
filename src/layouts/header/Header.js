@@ -168,7 +168,7 @@ export default function Header(props: Props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/messages">
+      {/* <Link to="/messages">
         <MenuItem>
           <IconButton size="large" aria-label="show 4 new mails" color="inherit">
             <Badge badgeContent={4} color="error">
@@ -191,7 +191,7 @@ export default function Header(props: Props) {
           </IconButton>
           <p>Notifications</p>
         </MenuItem>
-      </Link>
+      </Link> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -261,7 +261,7 @@ export default function Header(props: Props) {
             ))}
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Link to="/messages">
+            {/* <Link to="/messages">
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="error">
                   <MailIcon />
@@ -278,7 +278,7 @@ export default function Header(props: Props) {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-            </Link>
+            </Link> */}
             <IconButton
               size="large"
               edge="end"
