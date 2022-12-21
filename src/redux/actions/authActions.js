@@ -55,6 +55,7 @@ export const getAuthenticatedUser = (token) => {
 
 
 
+
 export const register = (payload) => {
     return async dispatch => {
         try {

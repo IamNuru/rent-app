@@ -23,23 +23,29 @@ import {
   Checkbox,
   Radio,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ReportIcon from "@mui/icons-material/Report";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import "./styles/auth-ui.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 import Page from "../../components/Page.js"
+import RenderServerErrorMessage from '../../components/RenderServerErrorMessage';
 
 
 import { useIsTabletScreen } from "../../hooks/useMediaScreens";
 import { useDispatch, useSelector } from "react-redux"
-import { register, clearErrorMessages } from '../../redux/actions/authActions';
+import { authActions } from "../../redux/slices/authSlice";
 import SnackBar from "../../components/SnackBar";
+import { useGetAuthUserQuery, useRegisterUserMutation } from "../../features/api/userApiService";
 
 
 const Register = () => {
   const navigate = useNavigate()
+  const location = useLocation();
+  const from = location.state ? location.state.from : "/";
+  const { isSuccess: authSucces, data: authData, isLoading:authIsLoading } = useGetAuthUserQuery();
+  const [registerUser, { isLoading, isSuccess, data, isError, error }] = useRegisterUserMutation();
 
   const tablet = useIsTabletScreen();
   const [showPassword, setShowPassword] = useState(false);
@@ -50,6 +56,8 @@ const Register = () => {
   const loading = useSelector((state) => state.ui.registerLoading);
   const authState = useSelector((state) => state.auth)
   const [type, setType] = useState(false)
+  const handleCheck = e => setType(!type)
+
 
 
 
@@ -81,27 +89,35 @@ const Register = () => {
     }),
 
     onSubmit: async (credentials, { setSubmitting }) => {
-      dispatch(register({...credentials, type}));
+      //dispatch(register({ ...credentials, type }));
+      await registerUser({...credentials, type})
       setSubmitting(false);
     },
   });
 
 
+  //redirect to home if logged in
+  useEffect(() => {
+    if (authSucces) {
+      dispatch(authActions.login(authData))
+      navigate(from)
+    }
+    // eslint-disable-next-line
+  }, [authSucces])
+
 
   //redirect to home if logged in
   useEffect(() => {
-    if (authState.isAuthenticated && authState.token !== '' && !isEmptyObject(authState.user)) {
-      navigate('/')
-    }
-
-    return () => {
-      dispatch(clearErrorMessages())
+    if (isSuccess) {
+      dispatch(authActions.register(data))
+      navigate(from)
     }
     // eslint-disable-next-line
-  }, [authState.isAuthenticated])
+  }, [isSuccess])
 
-  const handleCheck = e => {
-    setType(!type)
+
+  if (authIsLoading) {
+    return 'Please wait, attempting to automatically login...'
   }
 
   return (
@@ -115,18 +131,16 @@ const Register = () => {
               REGISTER
             </Typography>
           </Typography>
-          {formik.isSubmitting || loading ? (
+          {formik.isSubmitting || isLoading ? (
             <Alert severity="success" color="success">
               Creating account, Please wait...
             </Alert>
           ) : formik.isValid ? (
             <>
               {
-                authState.errorMessage ?
-                  <Alert severity="error" color="error">
-                    {authState.errorMessage}
-                  </Alert>
-                  : authState.errorMessage === '' && authState.user !== null &&
+                isError ? <RenderServerErrorMessage error={error} />
+                  
+                  : isSuccess &&
                   <Alert severity="success" color="success">
                     Successfully Register. redirecting...
                   </Alert>
@@ -171,7 +185,7 @@ const Register = () => {
             </List>
           ) : null}
           <Grid container spacing={3.5}>
-            <Grid container item spacing={tablet ? 2 : 1}>
+            <Grid container item spacing={tablet ? 3 : 2}>
               <Grid item xs={12} md={6}>
                 <TextField
                   name="firstName"
@@ -215,7 +229,7 @@ const Register = () => {
               </Grid>
             </Grid>
 
-            <Grid container item spacing={tablet ? 2 : 1}>
+            <Grid container item spacing={tablet ? 3 : 2}>
               <Grid item xs={12} md={6}>
                 <FormControl>
                   <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -223,7 +237,7 @@ const Register = () => {
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="male"
                     name="radio-buttons-group"
-                    sx={{display:'flex', flexDirection:'row'}}
+                    sx={{ display: 'flex', flexDirection: 'row' }}
                   >
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -231,8 +245,8 @@ const Register = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} md={6}>
-                <FormControlLabel sx={{backgroundColor:'#edcccc3b', py:1, width:'100%'}} 
-                control={<Checkbox name="type" onClick={handleCheck} checked={type} />} label="Check if you are an agent or property owner" />
+                <FormControlLabel sx={{ backgroundColor: '#edcccc3b', py: 1, width: '100%' }}
+                  control={<Checkbox name="type" onClick={handleCheck} checked={type} />} label="Check if you are an agent or property owner" />
               </Grid>
             </Grid>
 

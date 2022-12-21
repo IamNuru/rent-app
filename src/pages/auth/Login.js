@@ -86,7 +86,7 @@ const Login = () => {
   }, [isSuccess])
 
   if(authIsLoading){
-    return 'Please wait, redirecting...'
+    return 'Please wait, attempting to automatically login...'
   }
 
 

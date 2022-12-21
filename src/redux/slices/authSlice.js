@@ -53,6 +53,7 @@ const authSlice = createSlice({
         logout(state) {
             // state = initialState;
             Object.assign(state, initialState);
+            window.localStorage.removeItem('token');
             state.errorMessage = '';
         },
 

@@ -9,7 +9,7 @@ const RoleBasedRoutes = ({ redirectPath = '/login', allowedRoles }) => {
 
 
 
-    return allowedRoles?.includes(authState?.user.type)
+    return allowedRoles?.includes(authState?.user?.type)
         ? <Outlet />
         :
         <Navigate to="/not-allowed" state={{ from: location }} replace />

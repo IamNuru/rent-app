@@ -76,7 +76,7 @@ export const userApiService = createApi({
     }),
 
     logUserOut: builder.mutation({
-      query: (token) => ({
+      query: () => ({
         url: '/logout',
         method: 'POST',
         headers: {
