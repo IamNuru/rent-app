@@ -1,4 +1,5 @@
 export const API_URL = 'https://rentgh-backend.up.railway.app/api'
+export const BASE_URL = 'https://rentgh-backend.up.railway.app'
 
 export const PROPERTY_AMENITIES = [
     { name: 'Toilet' },
