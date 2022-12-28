@@ -68,7 +68,7 @@ export const propertyApiService = createApi({
         updateProperty: builder.mutation({
             query: (data) => ({
               url: `/property/${data.id}`,
-              method: 'PUT',
+              method: 'PATCH',
               body: data,
               headers: {
                 Authorization: 'Bearer ' + token,
