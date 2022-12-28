@@ -24,7 +24,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import isEmptyObject from "../../utils/isEmptyObject";
 import Page from "../../components/Page.js"
 import { useDispatch } from "react-redux";
-import { useGetAuthUserQuery, useLoginUserMutation } from "../../features/api/userApiService";
+import { useLoginUserMutation } from "../../features/api/userApiService";
 import { authActions } from "../../redux/slices/authSlice";
 
 
@@ -32,7 +32,8 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation();
   const from = location.state ? location.state.from : "/";
-  const { isSuccess: authSucces, data: authData, isLoading:authIsLoading } = useGetAuthUserQuery();
+
+  const token = window.localStorage.getItem('token');
   const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -67,13 +68,9 @@ const Login = () => {
 
 
   //redirect to home if logged in
-  useEffect(() => {
-    if (authSucces) {
-      dispatch(authActions.login(authData))
+    if (token) {
       navigate(from)
     }
-    // eslint-disable-next-line
-  }, [ authSucces])
 
 
   //redirect to home if logged in
@@ -85,9 +82,6 @@ const Login = () => {
     // eslint-disable-next-line
   }, [isSuccess])
 
-  if(authIsLoading){
-    return 'Please wait, attempting to automatically login...'
-  }
 
 
 

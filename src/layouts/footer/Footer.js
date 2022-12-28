@@ -38,7 +38,7 @@ const Footer = () => {
         },
       ];
   return (
-    <Box sx={{px:{sm:'4rem', xs:'1rem'}, mt:6, py:'1.5rem', backgroundColor:'rgb(5, 30, 52)'}}>
+    <Box sx={{px:{sm:'4rem', xs:'1rem'}, mt:6, py:'1.5rem', width:'100%', ml:-3, backgroundColor:'rgb(5, 30, 52)'}}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <List

@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 // components
-//
-import Searchbar from "./Searchbar";
+//import Searchbar from "./Searchbar";
 import AccountPopover from "./AccountPopover";
-import NotificationsPopover from "./NotificationsPopover";
+//import NotificationsPopover from "./NotificationsPopover"
 
 // ----------------------------------------------------------------------
 

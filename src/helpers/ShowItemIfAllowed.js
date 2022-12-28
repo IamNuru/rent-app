@@ -7,7 +7,7 @@ const ShowItemIfAllowed = (props) => {
     return(props.children) 
   }
 
-  if (authState.user.type !== props.type) {
+  if (authState?.user?.type !== props.type) {
     return ''
   }
 

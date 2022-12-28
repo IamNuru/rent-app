@@ -140,7 +140,7 @@ export default function User() {
           {/*<UserListToolbar numSelected={selected.length} filterName={filterName} 
           onFilterName={handleFilterByName} />*/}
 
-          <TableContainer sx={{ minWidth: 800 }}>
+          <TableContainer>
             <Table>
               <UserListHead
                 order={order}

@@ -75,6 +75,18 @@ export const userApiService = createApi({
       })
     }),
 
+
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method:'DELETE',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json",
+        }
+      })
+    }),
+
     logUserOut: builder.mutation({
       query: () => ({
         url: '/logout',
@@ -110,6 +122,7 @@ export const userApiService = createApi({
       })
     }),
 
+    
 
   }),
 })

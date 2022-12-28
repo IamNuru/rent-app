@@ -9,6 +9,7 @@ import { propertyApiService } from './features/api/propertyApiService';
 import { requestApiService } from './features/api/requestApiService';
 import { tenantApiService } from './features/api/tenantApiService';
 import { userApiService } from './features/api/userApiService';
+import { apiService } from './features/api/apiService';
 
 export const store = configureStore({
     composeWithDevTools,
@@ -21,6 +22,7 @@ export const store = configureStore({
         [requestApiService.reducerPath]: requestApiService.reducer,
         [tenantApiService.reducerPath]: tenantApiService.reducer,
         [userApiService.reducerPath]: userApiService.reducer,
+        [apiService.reducerPath]: apiService.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat([
@@ -29,6 +31,7 @@ export const store = configureStore({
             tenantApiService.middleware,
             postApiService.middleware,
             userApiService.middleware,
+            apiService.middleware,
         ]),
     //middleware: getDefaultMiddleware => getDefaultMiddleware().concat([authBaseApi.middleware, unauthBaseApi.middleware])
 });

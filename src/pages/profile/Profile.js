@@ -50,6 +50,11 @@ const Profile = () => {
         backgroundColor: 'lightBlue',
         width: '100%'
     }
+
+    if(!auth.user){
+        return 'loading profile'
+    }
+
     return (
         <Page title={`Profile | ${auth ? auth?.user?.first_name + ' ' + auth?.user?.last_name : 'user name'}`}>
             <Container sx={{ px: { xs: 0.5, sm: 0, md: 4 } }} >

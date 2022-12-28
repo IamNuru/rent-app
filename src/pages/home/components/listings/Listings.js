@@ -12,7 +12,7 @@ const Listings = () => {
   return (
     <section style={{ backgroundColor: 'F6F6F6' }}>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h4" align="center" className="main-header">
+        <Typography variant="h4" align="center" className="main-header" sx={{ fontSize: {xs:'1.75rem !important'}}}>
           Available Listings on RentGh{" "}
           {config.appName ? config.appName : "RentGh"}
         </Typography>
@@ -36,7 +36,7 @@ const Listings = () => {
                 <Button variant='contained' href='/properties'>View All</Button>
               </Box>
               <Box sx={{ flexGrow: 1 }} mt={2}>
-                <Grid container spacing={2} align="center">
+                <Grid container spacing={2} align="center" sx={{justifyContent:'center'}}>
                   {properties?.slice(0, 12).map((property) => {
                     return (
                       <Grid item key={property.id} xs={12} sm={4} lg={3}>

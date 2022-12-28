@@ -20,7 +20,7 @@ const Home = () => {
     {/* <Box mt={24}>
       <Explore />
     </Box> */}
-    <Box mt={30} sx={{px:5,}}>
+    <Box sx={{ marginTop: {xs:5, sm:8, md:15 } }}>
       <Listings />
     </Box>
     <Box mt={25}>

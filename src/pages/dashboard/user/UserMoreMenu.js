@@ -39,7 +39,7 @@ export default function UserMoreMenu({ id, refetch }) {
       >
         <MenuItem sx={{ color: 'text.secondary' }}>
           {
-            isLoading ? (<CircularProgress />) : (
+            isLoading ? (<CircularProgress size={20} />) : (
               <ListItemIcon onClick={handleDelete}>
                 <DeleteIcon sx={{ width: 20, height: 20 }} />
               </ListItemIcon>

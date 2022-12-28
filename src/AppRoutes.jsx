@@ -31,6 +31,7 @@ import AddTenant from "./pages/dashboard/AddTenant";
 import EditTenant from "./pages/dashboard/EditTenant";
 import Page403 from "./pages/erro-pages/Page403";
 import RoleBasedRoutes from "./components/routes/RoleBasedRoutes";
+import SearchPage from "./pages/SearchPage";
 
 const AppRoutes = () => {
   return (
@@ -48,6 +49,7 @@ const AppRoutes = () => {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/property/:id/:slug" element={<SingleProperty />} />
           <Route path="/requests" element={<Requests />} />
+          <Route path="/search" element={<SearchPage />} />
 
           {/* protected Routes */}
           <Route element={<PrivateRoute />}>

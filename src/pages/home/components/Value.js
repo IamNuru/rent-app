@@ -36,7 +36,7 @@ const Value = ({ value }) => {
             width: { xs: 150, sm: '100%' }, margin:'0 auto' }}
         />
         <CardContent sx={{padding:{xs:0}}}>
-          <Typography gutterBottom variant="h5" component="div" className=''>
+          <Typography gutterBottom variant="h5" component="div" sx={{mt:4}}>
             {value?.title}
           </Typography>
           <Typography sx={{ fontSize: '20px' }} color="text.secondary">
@@ -44,7 +44,7 @@ const Value = ({ value }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ justifyContent: 'center' }}>
+      <CardActions sx={{ justifyContent: 'center', mt:4 }}>
         <Link to={`${value?.url}`}>
           <Button variant="contained" size="small" color="primary" style={{ margin: 'auto', padding: '5px 15px' }}>
             {value?.title ? value.title : 'Browse'}

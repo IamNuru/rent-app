@@ -54,3 +54,11 @@ a{
     border-radius: 200px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+.home-request-wrapper .swiper-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.search-item-paper:hover{
+    background: #464646;
+    color: white;
+}

@@ -37,24 +37,25 @@ import { useIsTabletScreen } from "../../hooks/useMediaScreens";
 import { useDispatch, useSelector } from "react-redux"
 import { authActions } from "../../redux/slices/authSlice";
 import SnackBar from "../../components/SnackBar";
-import { useGetAuthUserQuery, useRegisterUserMutation } from "../../features/api/userApiService";
+import { useRegisterUserMutation } from "../../features/api/userApiService";
 
 
 const Register = () => {
   const navigate = useNavigate()
   const location = useLocation();
   const from = location.state ? location.state.from : "/";
-  const { isSuccess: authSucces, data: authData, isLoading:authIsLoading } = useGetAuthUserQuery();
+
+  const token = window.localStorage.getItem('token');
   const [registerUser, { isLoading, isSuccess, data, isError, error }] = useRegisterUserMutation();
+  const authState = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
 
   const tablet = useIsTabletScreen();
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.ui.registerLoading);
-  const authState = useSelector((state) => state.auth)
   const [type, setType] = useState(false)
   const handleCheck = e => setType(!type)
 
@@ -98,12 +99,13 @@ const Register = () => {
 
   //redirect to home if logged in
   useEffect(() => {
-    if (authSucces) {
-      dispatch(authActions.login(authData))
+    if(token){
       navigate(from)
     }
+
     // eslint-disable-next-line
-  }, [authSucces])
+  }, [])
+  
 
 
   //redirect to home if logged in
@@ -116,9 +118,6 @@ const Register = () => {
   }, [isSuccess])
 
 
-  if (authIsLoading) {
-    return 'Please wait, attempting to automatically login...'
-  }
 
   return (
     <Page title="Create an Account" className="wrap-auth-ui">
@@ -299,10 +298,10 @@ const Register = () => {
           <Button
             color="primary"
             variant="contained"
-            disabled={!isEmptyObject(formik.errors) || loading}
+            disabled={!isEmptyObject(formik.errors) || isLoading}
             type="submit"
           >
-            {formik.isSubmitting || loading ? (
+            {formik.isSubmitting || isLoading ? (
               <CircularProgress size={30} color="primary" />
             ) : (
               "Register"
