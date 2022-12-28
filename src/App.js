@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useTheme, ThemeProvider } from "@mui/material";
@@ -6,7 +7,8 @@ import { useGetAuthUserQuery } from "./features/api/userApiService";
 import { useDispatch } from "react-redux";
 import { authActions } from "./redux/slices/authSlice";
 import { Suspense, useEffect, lazy } from "react";
-import FallbackSpinner from "./components/FallbackSpinner";
+import SuspenseFallback from "./components/SuspenseFallback";
+
 
 const AppRoutes = lazy(() => import('./AppRoutes'));
 
@@ -38,7 +40,7 @@ const App = () => {
       <Router>
         <ScrollToTop />
         <Box>
-          <Suspense fallback={<FallbackSpinner />}>
+          <Suspense fallback={<SuspenseFallback />}>
             <AppRoutes />
           </Suspense>
         </Box>

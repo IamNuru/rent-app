@@ -3,7 +3,7 @@ import Page from "../../components/Page";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { Link as RouterLink } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { useCreatePostMutation, useGetPostsQuery } from "../../features/api/postApiService";
 import isEmptyObject from "../../utils/isEmptyObject";
 import RenderServerErrorMessage from "../../components/RenderServerErrorMessage";
@@ -57,7 +57,7 @@ export default function CreatePost() {
                     <Typography variant="h4" gutterBottom>
                         Create a New Post
                     </Typography>
-                    <Button variant="contained" component={RouterLink} to="#" startIcon={<AddIcon />}>
+                    <Button variant="contained" component={RouterLink} to="#" startIcon={<ListAltIcon />}>
                         Posts
                     </Button>
                 </Stack>

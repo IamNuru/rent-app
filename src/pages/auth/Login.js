@@ -90,9 +90,6 @@ const Login = () => {
     <Page title="Login" className="wrap-auth-ui">
       <form onSubmit={formik.handleSubmit}>
         <Box
-          sx={{
-            margin: { xs: "auto 2rem" }
-          }}
           className="form-wrapper"
         >
           <Typography component="div" className="auth-ui-title">

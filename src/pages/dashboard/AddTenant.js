@@ -4,7 +4,7 @@ import Page from '../../components/Page'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 import { Link as RouterLink } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import phoneRegExp from '../../utils/phoneRegExp';
 import { useDispatch } from 'react-redux';
 import { useAddTenantMutation } from '../../features/api/tenantApiService';
@@ -71,7 +71,7 @@ const AddTenant = () => {
                     <Typography variant="h4" gutterBottom>
                         Add a New Tenant
                     </Typography>
-                    <Button variant="contained" component={RouterLink} to="/profile" startIcon={<AddIcon />}>
+                    <Button variant="contained" component={RouterLink} to="/profile" startIcon={<ListAltIcon />}>
                         My Tenants
                     </Button>
                 </Stack>

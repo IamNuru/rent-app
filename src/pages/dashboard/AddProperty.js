@@ -3,7 +3,7 @@ import Page from "../../components/Page";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { Link as RouterLink } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReportIcon from "@mui/icons-material/Report";
 import { useAddPropertyMutation } from "../../features/api/propertyApiService";
 import isEmptyObject from "../../utils/isEmptyObject";
@@ -93,7 +93,7 @@ export default function AddProperty() {
                     <Typography variant="h4" gutterBottom>
                         Add a New Property
                     </Typography>
-                    <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<AddIcon />}>
+                    <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<ListAltIcon />}>
                         Properties
                     </Button>
                 </Stack>

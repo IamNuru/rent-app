@@ -3,7 +3,7 @@ import Page from "../../components/Page";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReportIcon from "@mui/icons-material/Report";
 import { useUpdatePropertyMutation, useGetPropertyQuery, useGetPropertiesQuery } from "../../features/api/propertyApiService";
 import isEmptyObject from "../../utils/isEmptyObject";
@@ -123,7 +123,7 @@ export default function EditProperty() {
                     <Typography variant="h4" gutterBottom>
                         Update Property
                     </Typography>
-                    <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<AddIcon />}>
+                    <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<ListAltIcon />}>
                         Properties
                     </Button>
                 </Stack>

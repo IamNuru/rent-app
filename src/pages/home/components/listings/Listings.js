@@ -36,7 +36,7 @@ const Listings = () => {
                 <Button variant='contained' href='/properties'>View All</Button>
               </Box>
               <Box sx={{ flexGrow: 1 }} mt={2}>
-                <Grid container spacing={2} align="center" sx={{justifyContent:'center'}}>
+                <Grid container spacing={5} align="center" sx={{justifyContent:'center'}}>
                   {properties?.slice(0, 12).map((property) => {
                     return (
                       <Grid item key={property.id} xs={12} sm={4} lg={3}>
