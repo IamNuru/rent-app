@@ -33,7 +33,7 @@ const Login = () => {
   const location = useLocation();
   const from = location.state ? location.state.from : "/";
 
-  const token = window.localStorage.getItem('token');
+  //const token = window.localStorage.getItem('token');
   const [loginUser, { data, isLoading, isSuccess, isError, error }] = useLoginUserMutation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +68,7 @@ const Login = () => {
 
 
   //redirect to home if logged in
-    if (token) {
+    if (data?.user) {
       navigate(from)
     }
 
