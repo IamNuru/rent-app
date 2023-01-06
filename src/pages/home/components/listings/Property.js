@@ -89,14 +89,14 @@ const Property = ({ property }) => {
         <Typography mt={2} component="div" pl={2}>
           <Grid container>
             <Grid item>
-              <Box>
+              <Box >
                 {
                   <Chip size="small"
                     label={property?.type === 'rent' ? 'For Rent' : 'For Sale'}
                     color={property?.type === 'rent' ? 'secondary' : 'success'}
-                    sx={{ mr: '0.25rem', float: 'left' }} />
+                    sx={{  float:'left'}} />
                 }
-                <Typography variant="body1" sx={{ textAlign: 'left' }}>{property?.title}</Typography>
+                <Typography className="property-description" variant="body1" sx={{ textAlign: 'left' }}>{property?.description}</Typography>
               </Box>
             </Grid>
           </Grid>

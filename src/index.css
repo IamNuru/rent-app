@@ -79,40 +79,42 @@ a {
     left: 50%;
     top: 50%;
     bottom: auto;
-    transform: translate(-55%,-55%);
-    height: 100vh;
-    width: 100vw;
+    transform: translate(-50%, -50%);
+    height: 200vh;
+    width: 200vw;
     opacity: 10;
-    z-index: 3;
+    z-index: 3000;
     visibility: visible;
     background-color: #02629f;
-    transition: opacity .3s,visibility;
+    transition: opacity .3s, visibility;
 }
 
-.fallback-logo{
+.fallback-logo {
     position: fixed;
-    z-index: 4;
+    z-index: 4000;
     background: url(./logo.svg) no-repeat;
     top: 40%;
     animation: .8s animatezoom;
-    left: calc(45% - 1.6rem);
+    left: calc(40% - 1.4rem);
     width: 11.3rem;
     height: 10%;
 }
-.fallback-loading{
+
+.fallback-loading {
     position: fixed;
-    z-index: 4;
+    z-index: 4000;
     left: 50%;
     top: 55%;
     height: 0.1rem;
     width: 90%;
     backface-visibility: hidden;
-    transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%, -50%, 0);
     background-color: #02629f;
     visibility: visible;
     transform: translateX(-50%) translateY(-50%) scaleX(.3);
 }
-.fallback-loading::before{
+
+.fallback-loading::before {
     content: '';
     position: absolute;
     top: 0;
@@ -136,15 +138,49 @@ a {
     background-color: #bed600;
     animation: fallback-loading 2s linear infinite;
     animation-play-state: running;
-  }
+}
 
 
 
 @keyframes fallback-loading {
     0% {
-      width: 0%;
+        width: 0%;
     }
+
     100% {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
+
+.property-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    float: left;
+}
+
+.loading-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #000;
+    margin: 0 4px;
+    display: inline-block;
+    animation: dots 1s ease-in infinite;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+@keyframes dots {
+    50% {
+        opacity: 0.5;
+        transform: scale(0.7) translateY(10px);
+    }
+}

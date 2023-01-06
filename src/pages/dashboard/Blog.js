@@ -31,7 +31,7 @@ export default function DashboardPosts() {
     <Page title="Dashboard: Blog">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
             Blog
           </Typography>
           <Button variant="contained" component={RouterLink} to="/dashboard/create-post" startIcon={<AddIcon />}>

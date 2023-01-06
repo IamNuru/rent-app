@@ -31,7 +31,7 @@ export default function PropertiesList() {
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4">
+          <Typography variant="h4" sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
             Properties
           </Typography>
           <Button variant="contained" component={RouterLink} to="/dashboard/add-property" startIcon={<AddIcon />}>

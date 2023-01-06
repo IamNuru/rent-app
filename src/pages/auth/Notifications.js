@@ -1,86 +1,32 @@
-import { faker } from "@faker-js/faker";
 import { Avatar, Box, Container, Divider, ListItemButton, IconButton, List, ListItemAvatar, ListItemText, ListSubheader, Tooltip, Typography } from "@mui/material";
-import { formatDistance, set, sub } from "date-fns";
-import { useState } from "react";
+import { formatDistance } from "date-fns";
 import Page from "../../components/Page";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
+import { useGetNotificationsQuery, useMarkNotificationAsReadMutation } from "../../features/api/userApiService.js"
 
-const NOTIFICATIONS = [
-    {
-        id: faker.datatype.uuid(),
-        title: 'Your order is placed',
-        description: 'waiting for shipping',
-        avatar: null,
-        type: 'order_placed',
-        createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-        isUnRead: true,
-    },
-    {
-        id: faker.datatype.uuid(),
-        title: faker.name.fullName(),
-        description: 'answered to your comment on the Minimal',
-        avatar: '/static/mock-images/avatars/avatar_2.jpg',
-        type: 'friend_interactive',
-        createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
-        isUnRead: true,
-    },
-    {
-        id: faker.datatype.uuid(),
-        title: 'You have new message',
-        description: '5 unread messages',
-        avatar: null,
-        type: 'chat_message',
-        createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
-        isUnRead: false,
-    },
-    {
-        id: faker.datatype.uuid(),
-        title: 'You have new mail',
-        description: 'sent from Guido Padberg',
-        avatar: null,
-        type: 'mail',
-        createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-        isUnRead: false,
-    },
-    {
-        id: faker.datatype.uuid(),
-        title: 'Delivery processing',
-        description: 'Your order is being shipped',
-        avatar: null,
-        type: 'order_shipped',
-        createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-        isUnRead: false,
-    },
-];
+
 
 const Notifications = () => {
-    const [notifications, setNotifications] = useState(NOTIFICATIONS);
-
-    const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+    const { data} = useGetNotificationsQuery();
 
     const handleMarkAllAsRead = () => {
-        setNotifications(
-            notifications.map((notification) => ({
-                ...notification,
-                isUnRead: false,
-            }))
-        );
+        alert()
     };
 
     return (
-        <Page title="Notifications">
+        <Page type="Notifications">
             <Container style={{ maxWidth: "45rem", mx: 'auto' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="subtitle1">Notifications</Typography>
+                        <Typography variant="subtype1">Notifications</Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            You have {totalUnRead} unread messages
+                            You have {data?.totalUnRead} unread notification
                         </Typography>
                     </Box>
 
-                    {totalUnRead > 0 && (
-                        <Tooltip title=" Mark all as read">
+                    {data?.totalUnRead > 0 && (
+                        <Tooltip type=" Mark all as read">
                             <IconButton color="primary" onClick={handleMarkAllAsRead}>
                                 <DoneAllIcon sx={{ width: 20, height: 20 }} />
                             </IconButton>
@@ -99,7 +45,7 @@ const Notifications = () => {
                             </ListSubheader>
                         }
                     >
-                        {notifications.slice(0, 2).map((notification) => (
+                        {data?.unReadNotifications?.map((notification) => (
                             <NotificationItem key={notification.id} notification={notification} />
                         ))}
                     </List>
@@ -112,7 +58,7 @@ const Notifications = () => {
                             </ListSubheader>
                         }
                     >
-                        {notifications.slice(2, 5).map((notification) => (
+                        {data?.readNotifications?.map((notification) => (
                             <NotificationItem key={notification.id} notification={notification} />
                         ))}
                     </List>
@@ -123,24 +69,30 @@ const Notifications = () => {
 }
 
 function NotificationItem({ notification }) {
-    const { avatar, title } = renderContent(notification);
+    const { type } = renderContent(notification);
+    const [markNotificationAsRead] = useMarkNotificationAsReadMutation();
+
+    const handleReadNotification = async (id) => {
+        await markNotificationAsRead(id)
+    }
 
     return (
         <ListItemButton
+            onClick={() => handleReadNotification(notification.id)}
             sx={{
                 py: 1.5,
                 px: 2.5,
                 mt: '1px',
-                ...(notification.isUnRead && {
+                ...(notification.read === false && {
                     bgcolor: 'action.selected',
                 }),
             }}
         >
             <ListItemAvatar>
-                <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>
+                <Avatar sx={{ bgcolor: 'background.neutral' }}></Avatar>
             </ListItemAvatar>
             <ListItemText
-                primary={title}
+                primary={type}
                 secondary={
                     <Typography
                         variant="caption"
@@ -152,7 +104,7 @@ function NotificationItem({ notification }) {
                         }}
                     >
                         <AccessAlarmsIcon sx={{ mr: 0.5, width: 16, height: 16 }} />
-                        {formatDistance(new Date(notification.createdAt), new Date())}
+                        {formatDistance(new Date(notification.created_at), new Date())}
                     </Typography>
                 }
             />
@@ -161,43 +113,43 @@ function NotificationItem({ notification }) {
 }
 
 function renderContent(notification) {
-    const title = (
-        <Typography variant="subtitle2">
-            {notification.title}
+    const type = (
+        <Typography variant="subtype2">
+            {notification.type}
             <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-                {/* &nbsp; {noCase(notification.description)} */}
-                &nbsp; {notification.description}
+                {/* &nbsp; {noCase(notification.message)} */}
+                &nbsp; {notification.message}
             </Typography>
         </Typography>
     );
 
     if (notification.type === 'order_placed') {
         return {
-            avatar: <img alt={notification.title} src="/static/icons/ic_notification_package.svg" />,
-            title,
+            avatar: <img alt={notification.type} src="/static/icons/ic_notification_package.svg" />,
+            type,
         };
     }
     if (notification.type === 'order_shipped') {
         return {
-            avatar: <img alt={notification.title} src="/static/icons/ic_notification_shipping.svg" />,
-            title,
+            avatar: <img alt={notification.type} src="/static/icons/ic_notification_shipping.svg" />,
+            type,
         };
     }
     if (notification.type === 'mail') {
         return {
-            avatar: <img alt={notification.title} src="/static/icons/ic_notification_mail.svg" />,
-            title,
+            avatar: <img alt={notification.type} src="/static/icons/ic_notification_mail.svg" />,
+            type,
         };
     }
     if (notification.type === 'chat_message') {
         return {
-            avatar: <img alt={notification.title} src="/static/icons/ic_notification_chat.svg" />,
-            title,
+            avatar: <img alt={notification.type} src="/static/icons/ic_notification_chat.svg" />,
+            type,
         };
     }
     return {
-        avatar: notification.avatar ? <img alt={notification.title} src={notification.avatar} /> : null,
-        title,
+        avatar: notification.type ? <img alt={notification.type} src={notification.type} /> : null,
+        type,
     };
 }
 

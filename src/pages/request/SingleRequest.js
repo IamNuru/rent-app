@@ -8,6 +8,7 @@ import Page from "../../components/Page";
 import FirstLetter from "../../utils/FirstLetter";
 import { useGetRequestQuery } from "../../features/api/requestApiService";
 import { Link as RouterLink } from 'react-router-dom';
+import GoBackButton from "../../components/GoBackButton";
 
 
 const SingleRequest = () => {
@@ -18,6 +19,7 @@ const SingleRequest = () => {
 
     return (
         <Page title={`Request | ${request?.title}`}>
+            <GoBackButton />
             <Container maxWidth="md">
                 {
                     isLoading  ? <>

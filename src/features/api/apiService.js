@@ -10,11 +10,29 @@ export const apiService = createApi({
                 url: `/search/${term}`,
                 method: 'GET'
             })
+        }),
+        getStatistics: builder.query({
+            query:(term) => ({
+                url: `/statistics`,
+                method: 'GET'
+            })
+        }),
+        contactUs: builder.mutation({
+            query: (data) => ({
+                url: '/contact-us',
+                method: 'POST',
+                body: data,
+                headers: {
+                    Accept: "application/json"
+                }
+            })
         })
     })
 })
 
 
 export const {
-    useGetSearchResultsQuery
+    useGetSearchResultsQuery,
+    useGetStatisticsQuery,
+    useContactUsMutation,
 } = apiService;

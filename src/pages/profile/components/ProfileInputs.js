@@ -211,6 +211,7 @@ const ProfileInputs = ({ refetchUserData }) => {
                                 null
                         }
                         {
+                            formik.dirty &&
                             <Button type="submit" fullWidth size="small"
                                 disabled={!isError && !isEmptyObject(formik.errors)}
                                 endIcon={!isError && isEmptyObject(formik.errors) && !isLoading && <SaveIcon />}>

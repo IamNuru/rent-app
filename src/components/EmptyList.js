@@ -17,7 +17,7 @@ const EmptyList = ({ title, description, header = null, type = null, ...other })
                                     srcSet={loadingGif}
                                     alt="loading"
                                     loading="lazy"
-                                    style={{maxHeight:"10rem", background:'red', margin:'0 auto'}}
+                                    style={{maxHeight:"10rem", margin:'0 auto'}}
                                 />
                             ) : null
                     }

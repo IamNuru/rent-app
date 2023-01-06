@@ -20,7 +20,12 @@ export const requestApiService = createApi({
 
 
         getSelectedRequests: builder.query({
-            query: (ids) => `/requests/multi/${ids}`,
+            query: (ids) => ({
+                url: `/requests/multi/${ids}`,
+                headers: {
+                    Accept: "application/json",
+                }
+            })
         }),
 
 

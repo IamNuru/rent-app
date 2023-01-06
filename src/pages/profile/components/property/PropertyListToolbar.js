@@ -42,7 +42,7 @@ PropertyListToolbar.propTypes = {
 
 export default function PropertyListToolbar({ numSelected, filterName, onFilterName, setSelectedIds, selectedIds, refetch }) {
   const [deleteProperty, { isLoading}] = useDeletePropertyMutation()
-  const { data, isLoading: Ploading } = useGetSelectedPropertiesQuery(selectedIds);
+  const { data, isLoading: Ploading } = useGetSelectedPropertiesQuery(selectedIds?.length > 0 ? selectedIds : 0);
   const { token } = useSelector((state) => state.auth)
   useGetMyPropertiesQuery(token);
 

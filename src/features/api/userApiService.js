@@ -52,7 +52,7 @@ export const userApiService = createApi({
         }
       })
     }),
-    
+
     updateAuthUserProfilePhoto: builder.mutation({
       query: (data) => ({
         url: '/auth/update-profile-photo',
@@ -79,7 +79,7 @@ export const userApiService = createApi({
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/user/${id}`,
-        method:'DELETE',
+        method: 'DELETE',
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: "application/json",
@@ -106,23 +106,45 @@ export const userApiService = createApi({
         body: message,
         headers: {
           Authorization: 'Bearer ' + token,
-          Accept : "application/json"
+          Accept: "application/json"
         }
       })
     }),
 
-    
+
     getChatMessages: builder.query({
       query: (id) => ({
         url: `/messages/${id}`,
         headers: {
           Authorization: 'Bearer ' + token,
-          Accept : "application/json"
+          Accept: "application/json"
         }
       })
     }),
 
-    
+    getNotifications: builder.query({
+      query: () => ({
+        url: `/notifications`,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
+    }),
+
+
+    markNotificationAsRead: builder.mutation({
+      query: (id) => ({
+        url: `/notification/${id}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
+    })
+
+
 
   }),
 })
@@ -138,5 +160,7 @@ export const {
   useUpdateAuthUserProfilePhotoMutation,
   useSendMessageMutation,
   useGetChatMessagesQuery,
-  
+  useGetNotificationsQuery,
+  useMarkNotificationAsReadMutation,
+
 } = userApiService;

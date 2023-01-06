@@ -16,17 +16,27 @@ import {
   Grid,
   Typography
 } from "@mui/material";
+import { useContactUsMutation } from "../features/api/apiService";
+import RenderServerErrorMessage from "../components/RenderServerErrorMessage";
+import RenderFormikErrors from "../components/RenderFormikErrors";
+import { useSelector } from "react-redux";
+
+
+
+
 
 export default function ContactUs() {
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
+  const [contactUs, { data, isLoading, isSuccess, isError, error }] = useContactUsMutation()
+  const user = useSelector((state) => state.auth?.user);
   /* using formik */
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      email: "",
-      phone: "",
+      firstName: user?.first_name ? user?.first_name : '',
+      email: user?.email ? user?.email : '',
+      phone: user?.phone_number ? user?.phone_number : '',
       message: "",
     },
     validationSchema: Yup.object({
@@ -38,16 +48,17 @@ export default function ContactUs() {
         "Last Name must be more than 2 characters."
       ),
       email: Yup.string().email().required("Email is required."),
-      message: Yup.string().required("Provid shor mssag."),
+      message: Yup.string().required("Provide short message."),
       phone: Yup.string()
         .min(9, "Phone Number should not be less than 9")
         .max(16, "Phone Number should not be more than 16")
         .matches(phoneRegExp, "Phone number is not valid"),
     }),
 
-    onSubmit: async (data, { setSubmitting }) => {
-      /* await registerUser(credentials); */
+    onSubmit: async (data, { setSubmitting, resetForm }) => {
+      await contactUs(data);
       setSubmitting(false);
+      resetForm();
     },
   });
   return (
@@ -59,7 +70,7 @@ export default function ContactUs() {
         >
           Contact Us
         </Typography>
-        <Typography variant="h6" sx={{ my: 2, textAlign:'center' }}>
+        <Typography variant="h6" sx={{ my: 2, textAlign: 'center' }}>
           In case of any inquiries or questions you can fill out the form below
           and one of our representatives will contact you soon.
         </Typography>
@@ -72,19 +83,20 @@ export default function ContactUs() {
                 Contact Us Now!
               </Typography>
             </Typography>
-            {formik.isSubmitting ? (
-              <Alert severity="success" color="success">
-                processing .... please wait
-              </Alert>
-            ) : formik.touched  ? (
-              <Alert severity="success" color="success">
-                Successfully submitted. redirecting...
-              </Alert>
-            ) : (
-              <Alert severity="error" color="error">
-                Invalid Data supplied
-              </Alert>
-            )}
+            {
+              formik.isSubmitting || isLoading ? (
+                <Alert severity="success" color="success">
+                  processing .... please wait
+                </Alert>
+              ) : isSuccess ? (
+                <Alert severity="success" color="success">
+                  {data?.message}
+                </Alert>
+              ) : isError ? (
+                <RenderServerErrorMessage error={error} />
+              ) : formik.touched && !isEmptyObject(formik.errors) ? <RenderFormikErrors formik={formik} />
+                : null
+            }
 
             <Grid container item spacing={2} sx={{ mt: 0.5 }}>
               <Grid item xs={12} sm={12}>
@@ -137,7 +149,7 @@ export default function ContactUs() {
                   error={formik.touched.message && formik.errors.message}
                   name="message"
                   label="message"
-                  placeholder="wrimessage"
+                  placeholder="write short message"
                   fullWidth
                   multiline
                   rows={4}
@@ -148,21 +160,32 @@ export default function ContactUs() {
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
-                <Button
-                size="large"
-                  color="primary"
-                  variant="contained"
-                  disabled={!isEmptyObject(formik.errors)}
-                  type="submit"
-                  fullWidth
-                  endIcon={<SendIcon />}
-                >
-                  {formik.isSubmitting ? (
+                {formik.isSubmitting || isLoading ? (
+                  <Button
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    disabled
+                    type="submit"
+                    fullWidth
+                  >
+
                     <CircularProgress size={30} color="secondary" />
-                  ) : (
-                    "Send"
-                  )}
-                </Button>
+                  </Button>
+                )
+                  :
+                  <Button
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    disabled={!isEmptyObject(formik.errors)}
+                    type="submit"
+                    fullWidth
+                    endIcon={<SendIcon />}
+                  >
+                    Send
+                  </Button>
+                }
               </Grid>
             </Grid>
           </Box>

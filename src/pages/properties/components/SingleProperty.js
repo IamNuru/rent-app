@@ -4,6 +4,7 @@ import {
   CardMedia,
   Button,
   Stack,
+  Avatar,
 } from '@mui/material'
 import React from 'react'
 import Page from '../../../components/Page'
@@ -27,6 +28,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/virtual';
 import ShowMyItem from '../../../helpers/showMyItem';
+import GoBackButton from '../../../components/GoBackButton';
 
 const SingleProperty = () => {
   SwiperCore.use([Navigation, Virtual]);
@@ -39,6 +41,7 @@ const SingleProperty = () => {
 
   return (
     <Page title={property?.title ? property.title : 'No property found'}>
+      <GoBackButton />
       {
         isLoading ? (
           <EmptyList title="Loading property details" description="Please wait... we are loading the property details" type="loading" />
@@ -54,7 +57,7 @@ const SingleProperty = () => {
                     fontSize: 30,
                     fontFamily: 'Merriweather',
                     fontWeight: 600,
-                  }}>{property.title}</Typography>
+                  }}>{property.title} eee</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 6, mb: 2 }}>
                   <Box>
@@ -69,7 +72,6 @@ const SingleProperty = () => {
                   </Box>
                 </Box>
                 <Box sx={{ width: '100%' }}>
-                  {/* <ImageList variant="masonry" cols={3} gap={8}> */}
                   {
                     property?.imageslist.length > 0 ?
                       width < 600 ? (
@@ -108,6 +110,38 @@ const SingleProperty = () => {
                       />
                   }
                   {/* </ImageList> */}
+                </Box>
+                <Box sx={{display:{xs:'none', sm:'block'}, mt:6}}>
+                <Typography sx={{fontSize:'1.6rem', fontWeight:'600', textAlign:'center'}}>Posted By:</Typography>
+                  <Box sx={{
+                    width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                    mx: 'auto', 
+                  }}>
+                    <Avatar alt={property?.user?.first_name}
+                      src={property?.user?.photo ? property?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
+                      sx={{
+                        width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sm>First Name</Grid>
+                        <Grid item xs={6}>{property?.user?.first_name}</Grid>
+                      </Grid>
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sx={{p:0}}>Last Name</Grid>
+                        <Grid item xs={6}>{property?.user?.last_name}</Grid>
+                      </Grid>
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sx={{p:0}}>Gender</Grid>
+                        <Grid item xs={6}>{property?.user?.gender} </Grid>
+                      </Grid>
+                  </Box>
                 </Box>
               </Grid>
               <Grid item xs={12} sm={8}>
@@ -175,13 +209,45 @@ const SingleProperty = () => {
                   </Accordion> */}
                 </Box>
               </Grid>
+              <Box sx={{display:{xs:'block', sm:'none'}, width:'100%', mt:6}}>
+                <Typography sx={{fontSize:'1.6rem', fontWeight:'600', textAlign:'center'}}>Posted By:</Typography>
+                  <Box sx={{
+                    width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                    mx: 'auto',
+                  }}>
+                    <Avatar alt={property?.user?.first_name}
+                      src={property?.user?.photo ? property?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
+                      sx={{
+                        width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sm>First Name</Grid>
+                        <Grid item xs={6}>{property?.user?.first_name}</Grid>
+                      </Grid>
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sx={{p:0}}>Last Name</Grid>
+                        <Grid item xs={6}>{property?.user?.last_name}</Grid>
+                      </Grid>
+                  </Box>
+                  <Box sx={{my:2, background:'lightgray', borderBottom:'1px solid #ddd', px:1, py:1}}>
+                      <Grid container spacing={2} sx={{p:0,}}>
+                        <Grid item xs={6} sx={{p:0}}>Gender</Grid>
+                        <Grid item xs={6}>{property?.user?.gender} </Grid>
+                      </Grid>
+                  </Box>
+                </Box>
             </Grid>
             <ShowMyItem user_id={property.user?.id}>
               <Box sx={{ width: '100%', textAlign: 'right', mt: 4 }}>
                 <Button variant='outlined' component={RouterLink} to={`/dashboard/edit-property/${property.id}`}>Edit this property</Button>
               </Box>
             </ShowMyItem>
-            <Stack direction="row" spacing={2} align="center" sx={{justifyContent:'center', mt:4}}>
+            <Stack direction="row" spacing={2} align="center" sx={{ justifyContent: 'center', mt: 4 }}>
               <Button variant="contained" component={RouterLink} to={`/chat/${property.user.id}`}>{`Chat ${property.user.gender === "male" ? 'Him' : property.user.gender === "female" ? 'Her' : 'Owner'}`}</Button>
               <Button variant="contained" color='warning'>{`Call ${property.user.gender === "male" ? 'Him' : property.user.gender === "female" ? 'Her' : 'Owner'}`}</Button>
             </Stack>

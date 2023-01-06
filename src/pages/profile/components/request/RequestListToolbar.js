@@ -42,7 +42,7 @@ RequestListToolbar.propTypes = {
 
 export default function RequestListToolbar({ numSelected, filterName, onFilterName, setSelectedIds, selectedIds, refetch }) {
   const [deleteRequest, { isLoading }] = useDeleteRequestMutation()
-  const { data, isLoading: Ploading } = useGetSelectedRequestsQuery(selectedIds);
+  const { data, isLoading: Ploading } = useGetSelectedRequestsQuery(selectedIds?.length > 0 ? selectedIds : 0);
   const { token } = useSelector((state) => state.auth)
 
   const requests = data ? data.requests || data.request : null;

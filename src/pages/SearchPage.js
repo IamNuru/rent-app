@@ -1,22 +1,71 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Box, Container, Grid, Paper, Typography, TextField, Button } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from 'yup'
+import { createSearchParams, Link, useLocation, useNavigate } from "react-router-dom";
 import EmptyList from "../components/EmptyList";
 import Page from "../components/Page"
 import RenderServerErrorMessage from "../components/RenderServerErrorMessage";
 import { useGetSearchResultsQuery } from "../features/api/apiService";
+import { Search } from "@mui/icons-material";
 
 const SearchPage = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('q');
+    const navigate = useNavigate()
 
-    const { data, isLoading, isFetching, isSuccess, isError, error } = useGetSearchResultsQuery(searchQuery);
+    const {data, isLoading, isFetching, isSuccess, isError, error } = useGetSearchResultsQuery(searchQuery);
 
+    const formik = useFormik({
+        initialValues: {
+            searchField: '',
+        },
 
+        validationSchema: Yup.object({
+            searchField: Yup.string()
+                .min(2, 'Search field must contain minimum of 2 charaters')
+                .max(20, 'Search field must contain maximum of 20 charaters')
+        }),
+
+        onSubmit: ({ searchField }) => {
+            navigate({
+              pathname: "/search",
+              search: createSearchParams({
+                q: searchField
+              }).toString()
+            });
+          }
+    })
 
     return (
         <Page title={searchQuery ? `Search ${searchQuery}` : 'Search Page'}>
+
             <Container maxWidth='md'>
+            <Box sx={{mb:4}}>
+                <form onSubmit={formik.handleSubmit}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12} sm={9}>
+                            <TextField
+                                name="searchField"
+                                size="small"
+                                id="outlined-basic"
+                                variant="outlined"
+                                className="search-input"
+                                placeholder="Example: Property for sale"
+                                onChange={formik.handleChange}
+                                value={formik.values.searchField}
+                                error={formik.errors.searchField}
+                                helperText={formik.errors.searchField}
+                            />
+                        </Grid>
+                        <Grid item sx={{ textAlign: { xs: "right", sm:'left' } }} xs={12} sm={3}>
+                            <Button variant="contained" endIcon={<Search />} type="submit" sx={{width:{sm:'100%'}}}>
+                                Search
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Box>
                 {
                     isLoading ? <EmptyList type='loading' title="Loading Data" description="Loading your search results... Please wait" />
                         : isFetching ? <EmptyList type='loading' title="Loading Data" description="Loading your search results... Please wait" />
@@ -66,10 +115,10 @@ const SearchPage = () => {
                                                     data?.properties.map((property) => {
                                                         return <Grid item key={property.id} sx={{ width: '100%' }}>
                                                             <Link to={`/property/${property.id}/${property.slug}`}>
-                                                            <Paper sx={{ py: 4, px: 2 }} className="search-item-paper">
-                                                                <Typography sx={{ color: '#23dfcd', fontSize: '16px' }}>Property</Typography>
-                                                                <Typography>{property.title}</Typography>
-                                                            </Paper>
+                                                                <Paper sx={{ py: 4, px: 2 }} className="search-item-paper">
+                                                                    <Typography sx={{ color: '#23dfcd', fontSize: '16px' }}>Property</Typography>
+                                                                    <Typography>{property.title}</Typography>
+                                                                </Paper>
                                                             </Link>
                                                         </Grid>
                                                     })

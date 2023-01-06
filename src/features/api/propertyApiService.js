@@ -20,7 +20,12 @@ export const propertyApiService = createApi({
 
 
         getSelectedProperties: builder.query({
-            query: (ids) => `/properties/multi/${ids}`,
+            query: (ids) => ({
+                url: `/properties/multi/${ids}`,
+                headers: {
+                    Accept: "application/json",
+                }
+            })
         }),
 
 

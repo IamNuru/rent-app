@@ -68,14 +68,16 @@ const AddTenant = () => {
         <Page title="Add Tenant">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom>
+                    <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
                         Add a New Tenant
                     </Typography>
                     <Button variant="contained" component={RouterLink} to="/profile" startIcon={<ListAltIcon />}>
                         My Tenants
                     </Button>
                 </Stack>
+                {/* 
                 <Typography variant='body2' sx={{ marginBottom:3}}><span style={{color:'pink'}}>NOTE:</span> You can asked the tenant to link himself to you as his tenant</Typography>
+                 */}
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={6}>

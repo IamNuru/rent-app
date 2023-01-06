@@ -30,6 +30,7 @@ export default function AddProperty() {
     };
 
     const handleTypeChange = (event) => {
+        console.log(event.target.value)
         setType(event.target.value);
     };
     const handleAddressChange = (event, value) => {
@@ -40,7 +41,6 @@ export default function AddProperty() {
     };
     const handlePushToImages = (img) => {
         setImages([...images, img])
-        console.log(images)
     }
 
     const handleOpenImagesDialog = () => {
@@ -90,7 +90,7 @@ export default function AddProperty() {
         <Page title="Dashboard: Add Property">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom>
+                    <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
                         Add a New Property
                     </Typography>
                     <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<ListAltIcon />}>
@@ -148,10 +148,10 @@ export default function AddProperty() {
                                 onChange={handleTypeChange}
                             >
                                 <FormControlLabel
-                                    sx={{ border: '1px solid #38373721', backgroundColor: '#38373721', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
+                                    sx={{ border: '1px solid #38373721', backgroundColor: type === 'rent' ? '#38373721' : '', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
                                     value="rent" control={<Radio color='secondary' />} label="For Rent" />
                                 <FormControlLabel
-                                    sx={{ border: '1px solid #38373721', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
+                                    sx={{ border: '1px solid #38373721', backgroundColor: type === 'sale' ? '#38373721' : '', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
                                     value="sale" control={<Radio />} label="For Sale" />
                             </RadioGroup>
                         </FormControl>
@@ -213,6 +213,9 @@ export default function AddProperty() {
                         <Button variant="outlined" onClick={handleOpenImagesDialog}>
                             Upload images
                         </Button>
+                        {
+                            images?.length > 0 ? <Typography sx={{mt:-4, fontSize:'12px'}}>{images.length + ' images Selected'} </Typography> : '' 
+                        }
                         <UploadPhotos open={open} handleClose={handleCloseImagesDialog}
                             handlePushToImages={handlePushToImages} images={images} />
 

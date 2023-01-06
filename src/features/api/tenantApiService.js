@@ -36,7 +36,13 @@ export const tenantApiService = createApi({
 
 
         getTenant: builder.query({
-            query: (id) => `/tenant/${id}`,
+            query: (id) => ({
+                url: `/tenant/${id}`,
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: "application/json",
+                }
+            })
         }),
 
 
@@ -67,12 +73,12 @@ export const tenantApiService = createApi({
 
         updateTenant: builder.mutation({
             query: (data) => ({
-                url: `/tenant/${data.id}`,
-                method: 'PUT',
+                url: `/tenant/${data?.id}`,
+                method: 'PATCH',
                 body: data,
                 headers: {
                     Authorization: 'Bearer ' + token,
-                    Accept: "application/json"
+                    Accept: "application/json",
                 }
             })
         }),

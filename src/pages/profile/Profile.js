@@ -28,11 +28,11 @@ const Profile = () => {
 
     const [open, setOpen] = useState(false)
 
-    const refetchUserData = async () =>{
+    const refetchUserData = async () => {
         await refetch();
         dispatch(authActions.authUser(data))
         console.log(data)
-        
+
     }
 
 
@@ -40,7 +40,7 @@ const Profile = () => {
         setOpen(true)
     }
 
-    const handleCloseDialog = () =>{
+    const handleCloseDialog = () => {
         setOpen(false)
     }
 
@@ -51,7 +51,7 @@ const Profile = () => {
         width: '100%'
     }
 
-    if(!auth.user){
+    if (!auth.user) {
         return 'loading profile'
     }
 
@@ -62,18 +62,24 @@ const Profile = () => {
                     <Grid container item xs={12} sm={5} md={4}>
                         <Grid item>
                             <Box style={profileImgBg}></Box>
-                            <Avatar alt={auth?.user?.first_name}
-                                src={auth?.user?.photo ? auth?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
-                                sx={{
-                                    width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
-                                    mx: 'auto', mt: { xs: -6, sm: -8, md: -10 }
-                                }} />
-                            <PhotoIcon titleAccess="Change Photo" color="success" onClick={handleOpenImageUpload}
-                                sx={{
-                                    position: 'absolute', left: { sm: '70%', md: '30%' }, mt: { sm: '-50px', mt: '-40px' }, cursor: 'pointer'
-                                }} />
+                            <Box sx={{
+                                        width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                                        mx: 'auto', mt: { xs: -6, sm: -8, md: -10 },
+                                        display:'flex'
+                                    }}>
+                                <Avatar alt={auth?.user?.first_name}
+                                    src={auth?.user?.photo ? auth?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
+                                    sx={{
+                                        width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                                    }}
+                                    />
+                                <PhotoIcon titleAccess="Change Photo" color="success" onClick={handleOpenImageUpload}
+                                    sx={{
+                                        cursor: 'pointer'
+                                    }} />
+                            </Box>
                             <UploadProfileImage refetchUserData={refetchUserData} open={open} handleClose={handleCloseDialog} />
-                            
+
                             <Box sx={{ mt: 4 }}>
                                 <ProfileInputs refetchUserData={refetchUserData} />
                             </Box>
@@ -83,9 +89,9 @@ const Profile = () => {
                     <Grid item xs={12} sm={7} md={8}>
                         <UserStatistics propertiesQuery={propertiesQuery} tenantsQuery={tenantsQuery} requestsQuery={requestsQuery} />
                         <Box className="custom-scroll-bar" sx={{ maxHeight: { xs: '100%', sm: '40rem', md: '60rem' }, overflowY: 'auto', overflowX: 'hidden' }} >
-                            <MyProperties query={propertiesQuery} />
-                            <MyTenants query={tenantsQuery} />
-                            <MyRequests query={requestsQuery} />
+                            <MyProperties query={propertiesQuery} sx={{ mb: { xs: 15, sm: 10 } }} />
+                            <MyTenants query={tenantsQuery} sx={{ mb: { xs: 15, sm: 10 } }} />
+                            <MyRequests query={requestsQuery} sx={{ mb: { xs: 15, sm: 10 } }} />
                         </Box>
 
                     </Grid>

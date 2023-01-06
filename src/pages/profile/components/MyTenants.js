@@ -65,7 +65,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis?.map((el) => el[0]);
 }
 
-const MyTenants = ({ query: { data, isLoading, isError, error, refetch } }) => {
+const MyTenants = ({ query: { data, isLoading, isError, error, refetch }, ...others }) => {
   const tenants = data ? data.tenants : null;
 
   const [page, setPage] = useState(0);
@@ -132,7 +132,7 @@ const MyTenants = ({ query: { data, isLoading, isError, error, refetch } }) => {
 
 
   return (
-    <Container sx={{px: { xs: 0.25, sm: 0, md: 2 }}}>
+    <Container sx={{px: { xs: 0.25, sm: 0, md: 2 }}} {...others}>
       <Stack sx={{backgroundColor:'#ededed', px:1, py:1.5}} direction="row" alignItems="center" justifyContent="space-between" mt={5}>
         <Typography className='sub-header2'>
           My Tenants
