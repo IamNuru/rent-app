@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Grid, Paper, Typography } from '@mui/material'
+import LoadingDots from '../../../components/LoadingDots'
 
 const UserStatistics = ({propertiesQuery, requestsQuery, tenantsQuery }) => {
   
@@ -17,20 +18,20 @@ const UserStatistics = ({propertiesQuery, requestsQuery, tenantsQuery }) => {
         <Grid item>
           <Paper elevation={10} sx={{ borderRadius: '14px', px: 4.5, py: 4 }}>
             <Typography sx={{ fontWeight: 500, fontSize: '1.14rem', textAlign: 'center' }}>Total Properties</Typography>
-            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{propertiesQuery.isLoading ? '...' : totalProperties}</Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{propertiesQuery.isLoading ? <LoadingDots /> : totalProperties}</Typography>
           </Paper>
         </Grid>
 
         <Grid item>
           <Paper elevation={10} sx={{ borderRadius: '14px', px: 4.5, py: 4 }}>
             <Typography sx={{ fontWeight: 500, fontSize: '1.14rem', textAlign: 'center' }}>Total Tenants</Typography>
-            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{totalTenants}</Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{tenantsQuery?.isLoading ? <LoadingDots /> : totalTenants}</Typography>
           </Paper>
         </Grid>
         <Grid item>
           <Paper elevation={10} sx={{ borderRadius: '14px', px: 4.5, py: 4 }}>
             <Typography sx={{ fontWeight: 500, fontSize: '1.14rem', textAlign: 'center' }}>Total Requests</Typography>
-            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{totalRequests}</Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: '2.2rem', textAlign: 'center' }}>{requestsQuery?.isLoading ? <LoadingDots /> : totalRequests}</Typography>
           </Paper>
         </Grid>
       </Grid>

@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import SnackBar from '../../components/SnackBar'
 import { authActions } from '../../redux/slices/authSlice';
-import { useLogUserOutMutation } from '../../features/api/userApiService';
+import { useGetNotificationsQuery, useLogUserOutMutation } from '../../features/api/userApiService';
 
 interface Props {
   /**
@@ -73,7 +73,8 @@ export default function Header(props: Props) {
   const { isAuthenticated, token } = useSelector((state) => state.auth)
   const [logUserOut] = useLogUserOutMutation()
   const dispatch = useDispatch()
-  
+  const { data } = useGetNotificationsQuery()
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -182,10 +183,10 @@ export default function Header(props: Props) {
         <MenuItem>
           <IconButton
             size="large"
-            aria-label="show 12 new notifications"
+            aria-label={`show ${data?.totalUnRead} new notifications`}
             color="inherit"
           >
-            <Badge badgeContent={12} color="error">
+            <Badge badgeContent={data?.totalUnRead} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -271,10 +272,10 @@ export default function Header(props: Props) {
             <Link to="/notifications">
               <IconButton
                 size="large"
-                aria-label="show 17 new notifications"
+                aria-label={`show ${data?.totalUnRead} new notifications`}
                 color="inherit"
               >
-                <Badge badgeContent={17} color="error">
+                <Badge badgeContent={data?.totalUnRead} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

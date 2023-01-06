@@ -1,17 +1,19 @@
-import { Avatar, Box, Container, Divider, ListItemButton, IconButton, List, ListItemAvatar, ListItemText, ListSubheader, Tooltip, Typography } from "@mui/material";
+import { Avatar, Box, Container, Divider, ListItemButton, IconButton, List, ListItemAvatar, ListItemText, ListSubheader, Tooltip, Typography, CircularProgress } from "@mui/material";
 import { formatDistance } from "date-fns";
 import Page from "../../components/Page";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
-import { useGetNotificationsQuery, useMarkNotificationAsReadMutation } from "../../features/api/userApiService.js"
+import { useGetNotificationsQuery, useMarkAllNotificationAsReadMutation, useMarkNotificationAsReadMutation } from "../../features/api/userApiService.js"
 
 
 
 const Notifications = () => {
-    const { data} = useGetNotificationsQuery();
+    const { refetch, data } = useGetNotificationsQuery();
+    const [markAllNotificationAsRead, {isLoading}] = useMarkAllNotificationAsReadMutation()
 
-    const handleMarkAllAsRead = () => {
-        alert()
+    const handleMarkAllAsRead = async () => {
+        await markAllNotificationAsRead()
+        refetch()
     };
 
     return (
@@ -28,7 +30,10 @@ const Notifications = () => {
                     {data?.totalUnRead > 0 && (
                         <Tooltip type=" Mark all as read">
                             <IconButton color="primary" onClick={handleMarkAllAsRead}>
-                                <DoneAllIcon sx={{ width: 20, height: 20 }} />
+                                {
+                                    isLoading ? <CircularProgress size={20} />
+                                    : <DoneAllIcon sx={{ width: 20, height: 20 }} />
+                                }
                             </IconButton>
                         </Tooltip>
                     )}
@@ -45,9 +50,13 @@ const Notifications = () => {
                             </ListSubheader>
                         }
                     >
-                        {data?.unReadNotifications?.map((notification) => (
-                            <NotificationItem key={notification.id} notification={notification} />
-                        ))}
+                        {
+                        data?.unReadNotifications?.length > 0 ? data?.unReadNotifications?.map((notification) => (
+                            <NotificationItem key={notification.id} refetch={refetch} notification={notification} />
+                        ))
+                        :
+                        <Typography variant="subtype1" sx={{ ml:4, color:'#c19505'}}>You have No new Notification</Typography>
+                        }
                     </List>
 
                     <List
@@ -58,9 +67,13 @@ const Notifications = () => {
                             </ListSubheader>
                         }
                     >
-                        {data?.readNotifications?.map((notification) => (
-                            <NotificationItem key={notification.id} notification={notification} />
-                        ))}
+                        {
+                        data?.readNotifications?.length > 0 ? data?.readNotifications?.map((notification) => (
+                            <NotificationItem key={notification.id} refetch={refetch} notification={notification} />
+                        ))
+                        :
+                        <Typography variant="subtype1" sx={{ ml:4, color:'#c19505'}}>You have No Notifications</Typography>
+                        }
                     </List>
                 </Box>
             </Container>
@@ -68,22 +81,27 @@ const Notifications = () => {
     )
 }
 
-function NotificationItem({ notification }) {
+function NotificationItem({ notification, refetch }) {
     const { type } = renderContent(notification);
     const [markNotificationAsRead] = useMarkNotificationAsReadMutation();
 
-    const handleReadNotification = async (id) => {
-        await markNotificationAsRead(id)
+    const handleReadNotification = async (notification) => {
+        if (notification.read === 1) {
+            alert('red')
+        } else {
+            await markNotificationAsRead(notification.id)
+            refetch()
+        }
     }
 
     return (
         <ListItemButton
-            onClick={() => handleReadNotification(notification.id)}
+            onClick={() => handleReadNotification(notification)}
             sx={{
                 py: 1.5,
                 px: 2.5,
                 mt: '1px',
-                ...(notification.read === false && {
+                ...(notification.read === 0 && {
                     bgcolor: 'action.selected',
                 }),
             }}

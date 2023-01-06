@@ -142,6 +142,30 @@ export const userApiService = createApi({
           Accept: "application/json"
         }
       })
+    }),
+
+    markAllNotificationAsRead: builder.mutation({
+      query: () => ({
+        url: `/notifications/markall`,
+        method: 'PATCH',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
+    }),
+
+
+    showInterest: builder.mutation({
+      query: (data) => ({
+        url: '/notification/showInterest',
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: "application/json"
+        }
+      })
     })
 
 
@@ -162,5 +186,7 @@ export const {
   useGetChatMessagesQuery,
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
+  useMarkAllNotificationAsReadMutation,
+  useShowInterestMutation,
 
 } = userApiService;
