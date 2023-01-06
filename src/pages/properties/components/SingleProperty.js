@@ -46,6 +46,7 @@ const SingleProperty = () => {
 
   const handleInterested = async () => {
     let data = {
+      receiver_id: property?.user?.id,
       type: 'Your Property',
       message: `Hi my name is ${user?.first_name}, I'm intered in your property. Call me ${user?.phone_number}, or mail me ${user?.email}`,
     }
