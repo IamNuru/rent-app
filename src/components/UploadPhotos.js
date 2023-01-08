@@ -27,9 +27,9 @@ const UploadPhotos = ({ open, handleClose, handlePushToImages, images, setImages
                 .required('Title field is required')
                 .min(2, 'Characters must be more than 2')
                 .max(20, 'Characters must NOT be more than 20'),
-            url: Yup.string("Title must be a url of characters")
-                .required('Title field is required')
-                .min(2, 'Characters must be more than 2')
+            url: Yup.string("Url field must be a url of characters")
+                .required('Url field is required')
+                .min(6, 'Url Characters must be more than 6')
         }),
 
         onSubmit: async (data) => {

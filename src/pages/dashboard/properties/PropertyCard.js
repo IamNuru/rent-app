@@ -2,13 +2,9 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Button, Box, Card, Link, Typography, Stack, CircularProgress } from '@mui/material';
-/* import { styled } from '@mui/material/styles'; */
-// utils
-/* import { fCurrency } from '../../../utils/formatNumber'; */
-// components
-/* import Label from '../../../components/Label'; */
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 import { useDeletePropertyMutation } from '../../../features/api/propertyApiService';
 
 // ----------------------------------------------------------------------
@@ -68,17 +64,7 @@ export default function RentPropertyCard({ property, refetch }) {
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           {/*<ColorPreview colors={colors} />*/}
           <Typography variant="subtitle1">
-            {/* <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: 'text.disabled',
-                textDecoration: 'line-through',
-              }}
-            >
-              {price && (priceSale)}
-            </Typography>
-            &nbsp; */}
+           
             {price}
           </Typography>
         </Stack>

@@ -7,19 +7,19 @@ import AddIcon from '@mui/icons-material/Add';
 import Page from '../../components/Page';
 //import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from './blog';
 import BlogPostCard from './blog/BlogPostCard';
-import BlogPostsSort from './blog/BlogPostsSort';
-import BlogPostsSearch from './blog/BlogPostsSearch';
+/* import BlogPostsSort from './blog/BlogPostsSort';
+import BlogPostsSearch from './blog/BlogPostsSearch'; */
 
 
 import { useGetPostsQuery } from '../../features/api/postApiService';
 
 // ----------------------------------------------------------------------
 
-const SORT_OPTIONS = [
+/* const SORT_OPTIONS = [
   { value: 'latest', label: 'Latest' },
   { value: 'popular', label: 'Popular' },
   { value: 'oldest', label: 'Oldest' },
-];
+]; */
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ export default function DashboardPosts() {
           isLoading ? (<Box sx={{ display: 'grid', justifyContent: 'center' }}>
             <Box sx={{ display: 'grid', justifyContent: 'center', alignContent: 'center' }}>
               <CircularProgress />
-              <Typography>Loadin Posts</Typography>
+              <Typography>Loading Posts</Typography>
             </Box>
           </Box>
           ) : isError ? (
@@ -52,10 +52,10 @@ export default function DashboardPosts() {
               </Box>
             </Box>
           ) : <>
-            <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+            {/* <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
               <BlogPostsSearch posts={POSTS} />
               <BlogPostsSort options={SORT_OPTIONS} />
-            </Stack>
+            </Stack> */}
 
             <Grid container spacing={3}>
               {POSTS.map((post, index) => (

@@ -19,13 +19,13 @@ import RenderServerErrorMessage from "../../components/RenderServerErrorMessage"
 
 export default function EditProperty() {
     const { id } = useParams();
-    const { data: propertyD, isSuccess:pisSuccess, isLoading: pLoading, isFetching: pFetching, isError:pisError } = useGetPropertyQuery(id);
+    const { refetch: refetchData, data: propertyD, isSuccess: pisSuccess, isLoading: pLoading, isFetching: pFetching, isError: pisError } = useGetPropertyQuery(id);
     const propertyData = propertyD?.property ? propertyD.property : null;
     const [updateProperty, { isLoading, isError, error, isSuccess }] = useUpdatePropertyMutation()
-    const { refetch:refetchProperties } = useGetPropertiesQuery();
+    const { refetch: refetchProperties } = useGetPropertiesQuery();
 
     const [open, setOpen] = useState(false)
-    const [images, setImages] = useState(propertyData?.imageslist ? propertyData?.imageslist : [])
+    const [images, setImages] = useState([])
     const [category, setCategory] = useState('')
     const [type, setType] = useState('')
     const [addresses, setAddresses] = useState('')
@@ -34,19 +34,21 @@ export default function EditProperty() {
 
 
     useEffect(() => {
-        if(pisSuccess){
+        if (pisSuccess) {
             setType(propertyData?.type ? propertyData?.type : '')
             setImages(propertyData?.imageslist ? propertyData?.imageslist : [])
             setCategory(propertyData?.category ? propertyData?.category : '')
+            setAddresses(propertyData?.amenities ? propertyData?.amenities : '')
         }
 
         // eslint-disable-next-line
     }, [pisSuccess])
-    
+
     useEffect(() => {
         if (isSuccess) {
             navigate('/dashboard/properties')
             refetchProperties()
+            refetchData(id)
         }
 
         // eslint-disable-next-line
@@ -87,7 +89,7 @@ export default function EditProperty() {
         initialValues: {
             title: propertyData?.title ? propertyData.title : '',
             description: propertyData?.description ? propertyData.description : '',
-            price: propertyData?.price ? parseInt(propertyData.price) : '',
+            price: propertyData?.price ? parseInt(propertyData?.price) : '',
         },
 
         validationSchema: Yup.object({
@@ -107,11 +109,12 @@ export default function EditProperty() {
 
         enableReinitialize: true,
 
-        onSubmit: async (data, { setSubmitting }) => {
+        onSubmit: async (data, { setSubmitting, resetForm }) => {
             await updateProperty({ ...data, id, images, addresses, amenities, type, category });
             isError && console.log(error)
             isSuccess && refetchProperties()
             setSubmitting(false)
+            resetForm()
         }
     })
 
@@ -120,7 +123,7 @@ export default function EditProperty() {
         <Page title="Dashboard: Edit Post">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: { xs: 600 }, fontSize: { xs: '1.35rem' } }}>
                         Update Property
                     </Typography>
                     <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<ListAltIcon />}>
@@ -133,8 +136,8 @@ export default function EditProperty() {
                     pLoading || pFetching ? (
                         <EmptyList title="Loading Content" type='loading' description="Please wait for few seconds"></EmptyList>
                     ) : pisError ? (
-                        <EmptyList title="Oppss!!"  description="Something went wrong: Refresh page"></EmptyList>
-                    ) :(
+                        <EmptyList title="Oppss!!" description="Something went wrong: Refresh page"></EmptyList>
+                    ) : (
                         <form onSubmit={formik.handleSubmit}>
                             <Grid container sx={{ display: 'grid', gap: '2rem' }}>
                                 <TextField
@@ -183,10 +186,10 @@ export default function EditProperty() {
                                         onChange={handleTypeChange}
                                     >
                                         <FormControlLabel
-                                            sx={{ border: '1px solid #38373721', backgroundColor: '#38373721', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
+                                            sx={{ border: '1px solid #38373721', backgroundColor: type === 'rent' ? '#38373721' : '', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
                                             value="rent" control={<Radio color='secondary' />} label="For Rent" />
                                         <FormControlLabel
-                                            sx={{ border: '1px solid #38373721', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
+                                            sx={{ border: '1px solid #38373721', backgroundColor: type === 'sale' ? '#38373721' : '', px: { xs: '0.75rem', sm: '1rem', md: '1.2rem' }, borderRadius: '40px' }}
                                             value="sale" control={<Radio />} label="For Sale" />
                                     </RadioGroup>
                                 </FormControl>
@@ -248,8 +251,8 @@ export default function EditProperty() {
                                 <Button variant="outlined" onClick={handleOpenImagesDialog}>
                                     Upload images
                                 </Button>
-                                <UploadPhotos open={open} handleClose={handleCloseImagesDialog} 
-                                handlePushToImages={handlePushToImages} images={images} setImages={setImages} />
+                                <UploadPhotos open={open} handleClose={handleCloseImagesDialog}
+                                    handlePushToImages={handlePushToImages} images={images} setImages={setImages} />
 
                             </Grid>
 

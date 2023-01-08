@@ -51,13 +51,13 @@ export default function CreatePost() {
 
 
     return (
-        <Page title="Dashboard: Create Blog">
+        <Page title="Dashboard: Create A Blog Post">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
                         Create a New Post
                     </Typography>
-                    <Button variant="contained" component={RouterLink} to="#" startIcon={<ListAltIcon />}>
+                    <Button variant="contained" component={RouterLink} to="/dashboard/posts" startIcon={<ListAltIcon />}>
                         Posts
                     </Button>
                 </Stack>

@@ -1,9 +1,8 @@
-import { useState } from 'react';
 // material
 import { Button, Box, CircularProgress, Container, Stack, Typography } from '@mui/material';
 // components
 import Page from '../../components/Page';
-import { PropertySort, PropertyList, PropertyFilterSidebar } from './properties';
+import {  PropertyList } from './properties';
 
 import { Link as RouterLink } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -16,7 +15,7 @@ export default function PropertiesList() {
   const properties = data ? data.properties : null;
 
   
-  const [openFilter, setOpenFilter] = useState(false);
+  /* const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -24,7 +23,7 @@ export default function PropertiesList() {
 
   const handleCloseFilter = () => {
     setOpenFilter(false);
-  };
+  }; */
 
   return (
     <Page title="Dashboard: Properties">
@@ -52,7 +51,7 @@ export default function PropertiesList() {
               </Box>
             </Box>
           ) : <>
-            <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
+            {/* <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
               <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
                 <PropertyFilterSidebar
                   isOpenFilter={openFilter}
@@ -61,7 +60,7 @@ export default function PropertiesList() {
                 />
                 <PropertySort />
               </Stack>
-            </Stack>
+            </Stack>  */}
 
             <PropertyList properties={properties} refetch={refetch} />
             {/* <PropertyCartWidget /> */}

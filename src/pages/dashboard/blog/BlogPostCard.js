@@ -180,7 +180,7 @@ export default function BlogPostCard({ post, index, refetch }) {
               )
             }
             <Box sx={{ px: 2 }}></Box>
-            <Button size='small' variant='contained' color="primary" startIcon={<EditIcon />} component={RouterLink} to={`/property/${id}/${slug}`}>
+            <Button size='small' variant='contained' color="primary" startIcon={<EditIcon />} component={RouterLink} to={`/dashboard/edit-post/${id}/${slug}`}>
               Edit
             </Button>
           </Stack>

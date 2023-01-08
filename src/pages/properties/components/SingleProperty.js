@@ -284,6 +284,7 @@ const SingleProperty = () => {
 
               }
               <Button variant="contained" component={RouterLink} to={`/chat/${property.user.id}`}>{`Chat ${property.user.gender === "male" ? 'Him' : property.user.gender === "female" ? 'Her' : 'Owner'}`}</Button>
+              
               <Button variant="contained" color='warning'>{`Call ${property.user.gender === "male" ? 'Him' : property.user.gender === "female" ? 'Her' : 'Owner'}`}</Button>
             </Stack>
           </Container>

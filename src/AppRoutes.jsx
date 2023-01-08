@@ -29,6 +29,7 @@ import ChatBox from "./pages/chat/ChatBox";
 import EditProperty from "./pages/dashboard/EditProperty";
 import AddTenant from "./pages/dashboard/AddTenant";
 import EditTenant from "./pages/dashboard/EditTenant";
+import EditPost from "./pages/dashboard/EditPost";
 import Page403 from "./pages/erro-pages/Page403";
 import RoleBasedRoutes from "./components/routes/RoleBasedRoutes";
 import SearchPage from "./pages/SearchPage";
@@ -51,35 +52,41 @@ const AppRoutes = () => {
           <Route path="/requests" element={<Requests />} />
           <Route path="/search" element={<SearchPage />} />
 
-          {/* protected Routes */}
-          <Route element={<PrivateRoute />}>
+          <Route element={<PrivateRoute />} >
             <Route path="/chat/:id" element={<ChatBox />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/make-request" element={<MakeRequest />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route element={<RoleBasedRoutes allowedRoles={['admin', 'owner']} />}>
-                <Route path="tenants" element={<Tenant />} />
-                <Route path="properties" element={<PropertiesList />} />
-                <Route path="add-property" element={<AddProperty />} />
-                <Route path="edit-property/:id" element={<EditProperty />} />
-                <Route path="add-tenant" element={<AddTenant />} />
-                <Route path="edit-tenant/:id" element={<EditTenant />} />
-              </Route>
-              <Route path="" element={<Dashboard />} />
-              <Route path="app" element={<Dashboard />} />
-              <Route path="users" element={<User />} />
-              <Route path="posts" element={<DashboardPosts />} />
-              <Route path="create-post" element={<CreatePost />} />
-            </Route>
           </Route>
+        </Route>
+        {/* protected Routes */}
+        <Route element={<PrivateRoute />} >
 
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route element={<RoleBasedRoutes allowedRoles={['admin', 'owner']} />}>
+              <Route path="tenants" element={<Tenant />} />
+              <Route path="properties" element={<PropertiesList />} />
+              <Route path="add-property" element={<AddProperty />} />
+              <Route path="edit-property/:id" element={<EditProperty />} />
+              <Route path="add-tenant" element={<AddTenant />} />
+              <Route path="edit-tenant/:id" element={<EditTenant />} />
+              <Route path="edit-post/:id/:slug" element={<EditPost />} />
+            </Route>
+            <Route path="" element={<Dashboard />} />
+            <Route path="app" element={<Dashboard />} />
+            <Route path="users" element={<User />} />
+            <Route path="posts" element={<DashboardPosts />} />
+            <Route path="create-post" element={<CreatePost />} />
+          </Route>
         </Route>
 
 
-        <Route path="/not-allowed" element={<Page403 />} />
-        <Route path="*" element={<Page404 />} />
+
+        <Route element={<AppLayout />}>
+          <Route path="/not-allowed" element={<Page403 />} />
+          <Route path="*" element={<Page404 />} />
+        </Route>
       </Routes>
     </>
   );

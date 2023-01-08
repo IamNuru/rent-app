@@ -6,14 +6,14 @@ import MyRequests from './components/MyRequests'
 import MyTenants from './components/MyTenants'
 import ProfileInputs from './components/ProfileInputs'
 import UserStatistics from './components/UserStatistics'
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { useGetMyRequestsQuery } from '../../features/api/requestApiService'
 import { useGetMyPropertiesQuery } from '../../features/api/propertyApiService'
 import { useGetMyTenantsQuery } from '../../features/api/tenantApiService'
-import { useGetAuthUserQuery } from '../../features/api/userApiService'
 import PhotoIcon from '@mui/icons-material/Photo'
 import UploadProfileImage from './components/UploadProfileImage'
-import { authActions } from '../../redux/slices/authSlice'
+/* import { useGetAuthUserQuery } from '../../features/api/userApiService'
+import { authActions } from '../../redux/slices/authSlice' */
 
 
 
@@ -23,16 +23,15 @@ const Profile = () => {
     const propertiesQuery = useGetMyPropertiesQuery();
     const tenantsQuery = useGetMyTenantsQuery();
     const requestsQuery = useGetMyRequestsQuery();
-    const { refetch, data } = useGetAuthUserQuery()
-    const dispatch = useDispatch()
+    /* const { refetch, data } = useGetAuthUserQuery()
+    const dispatch = useDispatch() */
 
     const [open, setOpen] = useState(false)
 
     const refetchUserData = async () => {
-        await refetch();
-        dispatch(authActions.authUser(data))
-        console.log(data)
-
+        /* await refetch(); */
+        /* dispatch(authActions.authUser(data)) */
+        window.location.reload(true)
     }
 
 
@@ -51,9 +50,6 @@ const Profile = () => {
         width: '100%'
     }
 
-    if (!auth.user) {
-        return 'loading profile'
-    }
 
     return (
         <Page title={`Profile | ${auth ? auth?.user?.first_name + ' ' + auth?.user?.last_name : 'user name'}`}>
@@ -65,17 +61,24 @@ const Profile = () => {
                             <Box sx={{
                                         width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
                                         mx: 'auto', mt: { xs: -6, sm: -8, md: -10 },
-                                        display:'flex'
+                                        display:'flex',
                                     }}>
                                 <Avatar alt={auth?.user?.first_name}
                                     src={auth?.user?.photo ? auth?.user?.photo : "/static/mock-images/avatars/avatar_4.jpg"}
                                     sx={{
-                                        width: { xs: 120, sm: 150, md: 180 }, height: { xs: 120, sm: 150, md: 180 },
+                                        width: { xs: 110, sm: 140, md: 170 }, height: { xs: 110, sm: 140, md: 170 },
+                                        mt:'auto',
                                     }}
                                     />
                                 <PhotoIcon titleAccess="Change Photo" color="success" onClick={handleOpenImageUpload}
                                     sx={{
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        mt:'auto',
+                                        ml:-6,
+                                        backgroundColor:'white',
+                                        p:1,
+                                        borderRadius:'50%',
+                                        zIndex:100
                                     }} />
                             </Box>
                             <UploadProfileImage refetchUserData={refetchUserData} open={open} handleClose={handleCloseDialog} />

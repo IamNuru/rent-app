@@ -1,7 +1,9 @@
 // @mui
 import PropTypes from "prop-types";
 import { Box, Card, Typography } from "@mui/material";
-// utils
+
+
+import LoadingDots from '../../../../components/LoadingDots'
 
 // ----------------------------------------------------------------------
 
@@ -22,13 +24,13 @@ AppWidgetSummary.propTypes = {
   color: PropTypes.string,
   /* icon: PropTypes.string, */
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
   sx: PropTypes.object,
 };
 
 export default function AppWidgetSummary({
   title,
   total,
+  isLoading,
   icon,
   color = "gray",
   bgColor='white',
@@ -53,11 +55,11 @@ export default function AppWidgetSummary({
           backgroundImage: `linear-gradient(135deg, ${(color, 0)} 0%, ${(color, 0.24)} 100%`,
         }}
       >
-        {/* <Iconify icon={icon} width={24} height={24} /> */}
-        {/* {icon} */}
       </Box>
 
-      <Typography variant="h3">{total}</Typography>
+      <Box>{
+        isLoading ? <LoadingDots /> : <Typography variant="h4">{total}</Typography>
+      }</Box>
 
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         {title}

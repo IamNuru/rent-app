@@ -69,11 +69,10 @@ export const postApiService = createApi({
             })
         }),
 
-
         updatePost: builder.mutation({
             query: (data) => ({
                 url: `/post/${data.id}`,
-                method: 'PUT',
+                method: 'PATCH',
                 body: data,
                 headers: {
                     Authorization: 'Bearer ' + token,
@@ -81,6 +80,7 @@ export const postApiService = createApi({
                 }
             })
         }),
+
 
 
     })
@@ -94,6 +94,7 @@ export const {
     useGetPostsQuery,
     useCreatePostMutation,
     useDeletePostMutation,
+    useUpdatePostMutation,
 } = postApiService;
 
 

@@ -23,13 +23,10 @@ import { useGetPropertiesQuery } from '../../features/api/propertyApiService'
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-  const { data: posts, isLoading:pLoading } = useGetPostsQuery();
-  const { data: users } = useGetUsersQuery();
-  const { data: properties } = useGetPropertiesQuery();
+  const postsQuery = useGetPostsQuery();
+  const usersQuery = useGetUsersQuery();
+  const propertiesQuery = useGetPropertiesQuery();
 
-  let totalPosts = posts ? posts?.posts.length : 0;
-  let totalUsers = users ? users?.users.length : 0;
-  let totalProperties = properties ? properties?.properties.length : 0;
 
   return (
     <Page title="Dashboard">
@@ -41,24 +38,24 @@ export default function DashboardApp() {
         <Grid container spacing={3}>
 
           <Grid item xs={12} sm={6} md={4}>
-            <AppWidgetSummary title="Users" total={totalUsers} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
+            <AppWidgetSummary title="Users" isLoading={usersQuery?.isLoading} total={usersQuery?.data?.users?.length} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <AppWidgetSummary title="Posts" total={totalPosts} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
+            <AppWidgetSummary title="Posts" isLoading={postsQuery?.isLoading} total={postsQuery?.data?.posts?.length} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <AppWidgetSummary title="Properties" total={totalProperties} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
+            <AppWidgetSummary title="Properties" isLoading={propertiesQuery?.isLoading} total={propertiesQuery?.data?.properties?.length} color="rgb(6, 27, 100)" bgColor="rgb(209, 233, 252)" icon={<GroupIcon />} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
             {
-              pLoading ? (
+              postsQuery?.isLoading ? (
                 <CircularProgress />
               ) : (
-                posts?.posts?.length > 0 ? (
+                postsQuery?.data?.posts?.length > 0 ? (
                   <AppNewsUpdate
                     title="Blog Posts"
-                    list={posts?.posts?.slice(0, 5).map((post, index) => ({
+                    list={postsQuery?.data?.posts?.slice(0, 5).map((post, index) => ({
                       id: post.id,
                       title: post.title,
                       author: post.user.first_name,

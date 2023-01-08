@@ -48,6 +48,8 @@ const ProfileInputs = ({ refetchUserData }) => {
                 .matches(phoneRegExp, 'Phone number is not valid'),
         }),
 
+        enableReinitialize: true,
+
         onSubmit: async (data, { setSubmitting }) => {
             await updateAuthUser(data);
             setSubmitting(false);

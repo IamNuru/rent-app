@@ -5,7 +5,7 @@ import SuspenseFallback from '../SuspenseFallback';
 
 const PrivateRoute = ({ redirectPath = '/login' }) => {
     const location = useLocation();
-    //const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     const { isSuccess, data, isLoading } = useGetAuthUserQuery();
 
 
@@ -13,7 +13,7 @@ const PrivateRoute = ({ redirectPath = '/login' }) => {
         return <SuspenseFallback />
     }
 
-    if (isSuccess && data?.user) {
+    if (isSuccess && data?.user && token) {
        return <Outlet />
     } else {
         return <Navigate to={redirectPath} state={{ from: location }} replace />;
