@@ -4,9 +4,9 @@ import LoadingDots from '../../../components/LoadingDots'
 
 const UserStatistics = ({propertiesQuery, requestsQuery, tenantsQuery }) => {
   
-  const totalProperties = propertiesQuery.data ? propertiesQuery.data.properties.length : 0;
-  const totalTenants = tenantsQuery.data ? tenantsQuery.data.tenants.length : 0;
-  const totalRequests = requestsQuery.data ? requestsQuery.data.requests.length : 0;
+  const totalProperties = propertiesQuery?.data ? propertiesQuery?.data?.properties?.length : 0;
+  const totalTenants = tenantsQuery?.data ? tenantsQuery?.data?.tenants?.length : 0;
+  const totalRequests = requestsQuery?.data ? requestsQuery?.data?.requests?.length : 0;
   
   return (
     <Box sx={{ background: '#d3d3d329', px: 2, py: 5, minHeight: '10rem' }}>

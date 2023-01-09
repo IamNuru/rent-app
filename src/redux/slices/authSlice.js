@@ -55,6 +55,7 @@ const authSlice = createSlice({
             Object.assign(state, initialState);
             window.localStorage.removeItem('token');
             state.errorMessage = '';
+            window.location.reload(true)
         },
 
         authUser(state, action) {
