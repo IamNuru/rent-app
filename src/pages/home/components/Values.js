@@ -12,7 +12,8 @@ const Values = () => {
       description:
         "Get the best room of your choice and rent.Review the room and then go for it.",
       image:
-        "https://cdn.pixabay.com/photo/2017/05/18/11/0d4/key-2323278_640.jpg",
+        "https://cdn.pixabay.com/photo/2017/05/18/11/04/key-2323278_960_720.jpg",
+        
     },
     {
       id: 200,

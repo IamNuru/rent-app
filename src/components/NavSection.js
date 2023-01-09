@@ -148,8 +148,8 @@ export default function NavSection({ navConfig, ...other }) {
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
-        {navConfig.map((item) => (
-          <ShowItemIfAllowed type={item.allowed} key={item.title}>
+        {navConfig.map((item, index) => (
+          <ShowItemIfAllowed type={item.allowed} allowedItems={item.allowed} key={index}>
             <NavItem item={item} active={match} />
           </ShowItemIfAllowed>
         ))}

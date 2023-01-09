@@ -3,8 +3,13 @@ import "./request.css"
 import TruncateSentence from '../../utils/TruncateSentence'
 import { formatDistance } from 'date-fns'
 import { upperCaseFirst } from 'change-case-all'
+import useMobile from '../../hooks/useMobile'
 
 const HomeRequestCard = ({ request }) => {
+
+  const isMobile = useMobile()
+
+
   return (
     <Paper elevation={2} sx={{ pb: '1.1rem', px: 2, height: '16rem' }} className="home-request">
       <Grid container sx={{ pt: 1, mx: { sm: 1 } }} spacing={2}>
@@ -12,8 +17,8 @@ const HomeRequestCard = ({ request }) => {
           <Avatar alt={request.user && upperCaseFirst(request.user.first_name)} src={`${request?.user?.photo}`} />
         </Grid>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }} className="merriweather">
-            {request.user && upperCaseFirst(TruncateSentence(request?.user?.first_name, 15))}
+          <Typography sx={{ fontSize: isMobile ? '15px' : '18px', fontWeight: '600' }} className="merriweather">
+            {request?.user && upperCaseFirst(TruncateSentence(request?.user?.first_name, 12))}
           </Typography>
         </Grid>
       </Grid>
@@ -23,7 +28,7 @@ const HomeRequestCard = ({ request }) => {
           sx={{ float: 'left', mr: '.25rem' }} />
         <Typography>
           {
-            TruncateSentence(request?.message, 75)
+            TruncateSentence(request?.message,isMobile ? 50 : 75)
           }
         </Typography>
       </Box>

@@ -53,10 +53,9 @@ const Requests = () => {
                                     navigation
                                     autoplay={{ delay: 5000, }}
                                     spaceBetween={2}
-                                    centeredSlides={true}
                                     roundLengths={true}
-
-                                    slidesPerView={width < 600 ? 'auto' : width < 800 ? 2 : width < 968 ? 3 : width < 1200 ? 4 : 5}
+                                    loop= {false}
+                                    slidesPerView={width < 600 ? 2 : width < 800 ? 3  : width < 1200 ? 4 : 5} 
                                 >
                                     {
                                         requests?.slice(0, 10).map((request) => {

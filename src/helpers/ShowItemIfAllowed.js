@@ -1,17 +1,12 @@
 import { useSelector } from 'react-redux';
 
-const ShowItemIfAllowed = (props) => {
+const ShowItemIfAllowed = ({children, allowedItems}) => {
   const authState = useSelector((state) => state.auth);
 
-  if (props.type === "*") {
-    return(props.children) 
+  if(allowedItems?.includes(authState?.user?.type)){
+    return(children)
   }
 
-  if (authState?.user?.type !== props.type) {
-    return ''
-  }
-
-  return(props.children) 
 }
 
 export default ShowItemIfAllowed
