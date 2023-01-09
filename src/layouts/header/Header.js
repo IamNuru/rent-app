@@ -16,7 +16,7 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+/* import MailIcon from '@mui/icons-material/Mail'; */
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import "./header.css";
@@ -170,14 +170,14 @@ export default function Header(props: Props) {
       onClose={handleMobileMenuClose}
     >
       <Link to="/messages">
-        <MenuItem>
+        {/* <MenuItem>
           <IconButton size="large" aria-label="show 4 new mails" color="inherit">
             <Badge badgeContent={4} color="error">
               <MailIcon />
             </Badge>
           </IconButton>
           <p>Messages</p>
-        </MenuItem>
+        </MenuItem> */}
       </Link>
       <Link to="/notifications">
         <MenuItem>
@@ -262,13 +262,13 @@ export default function Header(props: Props) {
             ))}
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Link to="/messages">
+            {/* <Link to="/messages">
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="error">
                   <MailIcon />
                 </Badge>
               </IconButton>
-            </Link>
+            </Link> */}
             <Link to="/notifications">
               <IconButton
                 size="large"
