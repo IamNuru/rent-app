@@ -79,7 +79,7 @@ export default function AddProperty() {
         onSubmit: async (data, { setSubmitting, resetForm }) => {
             await addProperty({ ...data, images, addresses, amenities, type, category });
             setSubmitting(false)
-            if(isSuccess){
+            if (isSuccess) {
                 resetForm()
             }
         }
@@ -90,7 +90,7 @@ export default function AddProperty() {
         <Page title="Dashboard: Add Property">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom sx={{fontWeight:{xs:600}, fontSize:{xs:'1.35rem'}}}>
+                    <Typography variant="h4" gutterBottom sx={{ fontWeight: { xs: 600 }, fontSize: { xs: '1.35rem' } }}>
                         Add a New Property
                     </Typography>
                     <Button variant="contained" component={RouterLink} to="/dashboard/properties" startIcon={<ListAltIcon />}>
@@ -167,7 +167,7 @@ export default function AddProperty() {
                             >
                                 {
                                     PROPERTY_CATEGORIES?.map((category) => {
-                                        return <MenuItem value={category.id} key={category.name}>{category.name}</MenuItem>
+                                        return <MenuItem value={category.name} key={category.name}>{category.name}</MenuItem>
                                     })
                                 }
                             </Select>
@@ -190,6 +190,7 @@ export default function AddProperty() {
                                 />
                             )}
                         />
+
                         <Autocomplete
                             multiple
                             id="addresses"
@@ -214,7 +215,7 @@ export default function AddProperty() {
                             Upload images
                         </Button>
                         {
-                            images?.length > 0 ? <Typography sx={{mt:-4, fontSize:'12px'}}>{images.length + ' images Selected'} </Typography> : '' 
+                            images?.length > 0 ? <Typography sx={{ mt: -4, fontSize: '12px' }}>{images.length + ' images Selected'} </Typography> : ''
                         }
                         <UploadPhotos open={open} handleClose={handleCloseImagesDialog}
                             handlePushToImages={handlePushToImages} images={images} />

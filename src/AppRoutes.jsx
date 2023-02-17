@@ -33,6 +33,7 @@ import EditPost from "./pages/dashboard/EditPost";
 import Page403 from "./pages/erro-pages/Page403";
 import RoleBasedRoutes from "./components/routes/RoleBasedRoutes";
 import SearchPage from "./pages/SearchPage";
+import CreatePropertyCategory from "./pages/dashboard/CreatePropertyCategory";
 
 const AppRoutes = () => {
   return (
@@ -72,6 +73,7 @@ const AppRoutes = () => {
               <Route path="add-tenant" element={<AddTenant />} />
               <Route path="edit-tenant/:id" element={<EditTenant />} />
               <Route path="edit-post/:id/:slug" element={<EditPost />} />
+              <Route path="add-category" element={<CreatePropertyCategory />} />
             </Route>
             <Route path="" element={<Dashboard />} />
             <Route path="app" element={<Dashboard />} />

@@ -15,7 +15,7 @@ const Value = ({ value }) => {
   return (
     <Card sx={{
       maxWidth: { xs: 405 }, 
-      padding: { sm: 0, md: 4, xs: '0.35rem 0.25rem' }, height: '100%',
+      padding: { sm: 0, md: '2rem 1rem 0rem 1rem', xs: '0.35rem 0.25rem' }, height: '100%',
       margin:{ sm:'0 0.155rem', md:'0 1rem'},
       mx:'auto',
       border:'1px solid #d3d3d3a9'

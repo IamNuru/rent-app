@@ -14,13 +14,13 @@ const Home = () => {
     <Box mt={0}>
       <Values />
     </Box>
-    <Box mt={30}>
+    <Box mt={25}>
       <Requests />
     </Box>
     {/* <Box mt={24}>
       <Explore />
     </Box> */}
-    <Box sx={{ marginTop: {xs:5, sm:8, md:15 } }}>
+    <Box sx={{ marginTop: { xs: 5, sm: 8, md: 15 } }}>
       <Listings />
     </Box>
     <Box mt={25}>

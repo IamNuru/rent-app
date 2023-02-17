@@ -27,6 +27,7 @@ import TenantListToolbar from './tenant/TenantListToolbar';
 // mock
 import TENANTLIST from '../../_mock/tenant';
 import AddIcon from '@mui/icons-material/Add';
+import { useGetTenantsQuery } from '../../features/api/tenantApiService';
 
 // ----------------------------------------------------------------------
 
@@ -69,6 +70,8 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function Tenant() {
+  const { data } = useGetTenantsQuery()
+  console.log(data)
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');

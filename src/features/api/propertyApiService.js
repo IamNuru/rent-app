@@ -83,6 +83,47 @@ export const propertyApiService = createApi({
           }),
 
 
+          addCategory: builder.mutation({
+              query: (data) => ({
+                  url: '/add-category',
+                  method: 'POST',
+                  body: data,
+                  headers: {
+                      Authorization: 'Bearer ' + token,
+                      Accept: "application/json"
+                  }
+              })
+          }),
+
+
+          updateCategory: builder.mutation({
+              query: (data) => ({
+                  url: `/update-category/${data.id}`,
+                  method: 'PATCH',
+                  body: data,
+                  headers: {
+                      Authorization: 'Bearer ' + token,
+                      Accept: "application/json"
+                  }
+              })
+          }),
+
+          
+        getCategories: builder.query({
+            query: () => '/categories',
+        }),
+
+        deleteCategory: builder.mutation({
+            query: (id) => ({
+                url: `/category/${id}`,
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: "application/json"
+                }
+            })
+        }),
+
     })
 })
 
@@ -95,6 +136,10 @@ export const {
     useDeletePropertyMutation,
     useAddPropertyMutation,
     useUpdatePropertyMutation,
+    useAddCategoryMutation,
+    useGetCategoriesQuery,
+    useUpdateCategoryMutation,
+    useDeleteCategoryMutation,
 } = propertyApiService;
 
 
