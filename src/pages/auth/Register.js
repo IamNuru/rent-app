@@ -243,10 +243,6 @@ const Register = () => {
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <FormControlLabel sx={{ backgroundColor: '#edcccc3b', py: 1, width: '100%' }}
-                  control={<Checkbox name="type" onClick={handleCheck} checked={type} />} label="Check if you are an agent or property owner" />
-              </Grid>
             </Grid>
 
             <Grid container item spacing={tablet ? 2 : 1}>

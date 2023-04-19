@@ -22,6 +22,7 @@ import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 import { upperCaseFirst } from "change-case-all";
 import Page from "../../../components/Page";
 import GoBackButton from "../../../components/GoBackButton";
+import CenterLoading from "../../../components/CenterLoading";
 
 const SingleBlogPost = () => {
   let { id } = useParams();
@@ -36,7 +37,7 @@ const SingleBlogPost = () => {
       <Container maxWidth="md">
         {
           isLoading ? <>
-            <EmptyList title="Loading Data " description="We are loading your data. Please wait" />
+          <CenterLoading />
           </> : isFetching ? <>
             <EmptyList title="Fetching Requests" description="We are Fetching your data. Please wait" />
           </> : isError ? <>

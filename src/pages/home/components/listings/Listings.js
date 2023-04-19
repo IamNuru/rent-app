@@ -6,6 +6,7 @@ import PropertySkeleton from "../../../../components/skeletons/PropertySkeleton"
 import { useGetPropertiesQuery } from "../../../../features/api/propertyApiService";
 import MobileProperty from "../../../../components/MobileProperty";
 import useMobile from "../../../../hooks/useMobile";
+import ServerErrorMessage from "../../../../components/errors/ServerErrorMessage";
 
 const Listings = () => {
   const { data, isLoading, isFetching, isError, error } = useGetPropertiesQuery();
@@ -30,8 +31,7 @@ const Listings = () => {
           </> : isFetching ? <>
             <EmptyList title="Fetching Properties" description="We are Fetching your data. Please wait" />
           </> : isError ? <>
-            <EmptyList title="An Error Occured" type="error"
-              description={error.status === 'FETCH_ERROR' ? 'Failed to fetch data' : 'Something went wrong... Refresh Page'} />
+            <ServerErrorMessage title="An Error Occured" error={error}/>
           </> :
             properties?.length > 0 ? (
               <>

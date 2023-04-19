@@ -9,11 +9,11 @@ import FirstLetter from "../../utils/FirstLetter";
 import { useGetRequestQuery } from "../../features/api/requestApiService";
 import { Link as RouterLink } from 'react-router-dom';
 import GoBackButton from "../../components/GoBackButton";
+import CenterLoading from "../../components/CenterLoading";
 
 
 const SingleRequest = () => {
     let { id, slug } = useParams();
-    console.log(slug)
     const { data, isLoading, isFetching, isError, error } = useGetRequestQuery(id,slug);
     const request = data ? data.request : null;
 
@@ -23,7 +23,7 @@ const SingleRequest = () => {
             <Container maxWidth="md">
                 {
                     isLoading  ? <>
-                        <EmptyList title="Loading Data" type="loading" description="We are loading your data. Please wait" />
+                    <CenterLoading />
                     </> : isFetching ? <>
                         <EmptyList title="Fetching Requests" description="We are Fetching your data. Please wait" />
                     </> : isError ? <>

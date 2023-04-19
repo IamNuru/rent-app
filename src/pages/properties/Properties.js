@@ -1,4 +1,4 @@
-import { Container, Stack } from '@mui/material'
+import { Box, Container, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import SearchProperties from "./components/SearchProperties"
 import PropertiesList from './components/PropertiesList'
@@ -8,6 +8,7 @@ import EmptyList from '../../components/EmptyList'
 import { useDispatch, useSelector } from 'react-redux'
 import { propertyActions } from '../../redux/slices/propertySlice'
 import { useGetPaginatedPropertiesQuery } from '../../features/api/propertyApiService'
+import CenterLoading from '../../components/CenterLoading'
 
 
 const Properties = () => {
@@ -65,7 +66,9 @@ const Properties = () => {
         {
 
           isLoading ? <>
-            <EmptyList title="Loading Data " type="loading" description="We are loading your data. Please wait" />
+            {/*  <EmptyList title="Loading Data " type="loading" description="We are loading your data. Please wait" />
+          */}
+            <CenterLoading />
           </> : isFetching ? <>
             <EmptyList title="Fetching Data" description="We are Fetching your data. Please wait" />
           </> : isError ? <>

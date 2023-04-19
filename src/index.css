@@ -158,6 +158,21 @@ a {
     animation-play-state: running;
 }
 
+.error-wrapper{
+    display: flex;
+}
+.error-wrapper > div{
+    flex-basis: 0;
+    flex-grow: 1;
+}
+.left-error{
+    background-color: rgb(243, 133, 133);
+    font-size: 5rem;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 @keyframes fallback-loading {

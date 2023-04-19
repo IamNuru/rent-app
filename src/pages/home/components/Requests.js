@@ -23,8 +23,8 @@ const Requests = () => {
     const requests = data ? data?.requests : null
 
     return (
-        <Box sx={{ backgroundColor: '#d3d3d329', px: { xs: 1 }, pt:4 }}>
-            <Typography variant="h4" align="center" className="main-header">
+        <Box sx={{ backgroundColor: '#d3d3d329', px: { xs: 1 }, pt:4, pb:2 }}>
+            <Typography variant="h4" align="center" className="main-header" sx={{mb:1}}>
                 Requests
             </Typography>
             {

@@ -32,6 +32,7 @@ import ShowMyItem from '../../../helpers/showMyItem';
 import GoBackButton from '../../../components/GoBackButton';
 import { useSelector } from 'react-redux';
 import { useShowInterestMutation } from '../../../features/api/userApiService';
+import CenterLoading from '../../../components/CenterLoading';
 
 const SingleProperty = () => {
   SwiperCore.use([Navigation, Virtual]);
@@ -60,7 +61,7 @@ const SingleProperty = () => {
       <GoBackButton />
       {
         isLoading ? (
-          <EmptyList title="Loading property details" description="Please wait... we are loading the property details" type="loading" />
+          <CenterLoading />
         ) : isFetching ? (
           <EmptyList title="Fetching property details" description="Please wait... we are fetching the property details" type="loading" />
 

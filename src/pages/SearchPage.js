@@ -7,6 +7,8 @@ import Page from "../components/Page"
 import RenderServerErrorMessage from "../components/RenderServerErrorMessage";
 import { useGetSearchResultsQuery } from "../features/api/apiService";
 import { Search } from "@mui/icons-material";
+import {upperCaseFirst} from 'change-case-all';
+
 
 const SearchPage = () => {
     const location = useLocation();
@@ -18,7 +20,7 @@ const SearchPage = () => {
 
     const formik = useFormik({
         initialValues: {
-            searchField: '',
+            searchField: searchQuery ? searchQuery : '',
         },
 
         validationSchema: Yup.object({
@@ -54,7 +56,7 @@ const SearchPage = () => {
                                 placeholder="Example: Property for sale"
                                 onChange={formik.handleChange}
                                 value={formik.values.searchField}
-                                error={formik.errors.searchField}
+                                error={!formik.isValid}
                                 helperText={formik.errors.searchField}
                             />
                         </Grid>
@@ -83,9 +85,9 @@ const SearchPage = () => {
                                                     data?.posts.map((post) => {
                                                         return <Grid item key={post.id} sx={{ width: '100%' }}>
                                                             <Link to={`/post/${post.id}/${post.slug}`}>
-                                                                <Paper sx={{ py: 4, px: 2 }} className="search-item-paper">
-                                                                    <Typography sx={{ color: '#65e79fe8', fontSize: '16px' }}>Blog Post</Typography>
-                                                                    <Typography>{post.title}</Typography>
+                                                                <Paper sx={{ py: 4, px: 2, backgroundColor: '#eff7f6b5' }} className="search-item-paper">
+                                                                    <Typography sx={{ color: '#03875ded', fontSize: 20, fontWeight:600 }}>Blog Post</Typography>
+                                                                    <Typography sx={{fontSize:18, fontWeight:400}}>{ upperCaseFirst(post.title)}</Typography>
                                                                 </Paper>
                                                             </Link>
                                                         </Grid>
@@ -99,9 +101,9 @@ const SearchPage = () => {
                                                     data?.requests.map((request) => {
                                                         return <Grid item key={request.id} sx={{ width: '100%' }}>
                                                             <Link to={`/request/${request.id}/${request.slug}`}>
-                                                                <Paper sx={{ py: 4, px: 2 }} className="search-item-paper">
-                                                                    <Typography sx={{ color: '#e7b365e8', fontSize: '16px' }}>A Request</Typography>
-                                                                    <Typography>{request.title}</Typography>
+                                                                <Paper sx={{ py: 4, px: 2, backgroundColor:'#f4ede29b' }} className="search-item-paper">
+                                                                    <Typography sx={{ color: '#e7b365e8', fontSize: 20, fontWeight:600 }}>A Request</Typography>
+                                                                    <Typography sx={{fontSize:18}}>{request.title}</Typography>
                                                                 </Paper>
                                                             </Link>
                                                         </Grid>
@@ -115,9 +117,9 @@ const SearchPage = () => {
                                                     data?.properties.map((property) => {
                                                         return <Grid item key={property.id} sx={{ width: '100%' }}>
                                                             <Link to={`/property/${property.id}/${property.slug}`}>
-                                                                <Paper sx={{ py: 4, px: 2 }} className="search-item-paper">
-                                                                    <Typography sx={{ color: '#23dfcd', fontSize: '16px' }}>Property</Typography>
-                                                                    <Typography>{property.title}</Typography>
+                                                                <Paper sx={{ py: 4, px: 2, backgroundColor:'#caffff29' }} className="search-item-paper">
+                                                                    <Typography sx={{ color: '#15cebb', fontSize: 20, fontWeight:600 }}>Property</Typography>
+                                                                    <Typography sx={{fontSize:18}}>{property.title}</Typography>
                                                                 </Paper>
                                                             </Link>
                                                         </Grid>

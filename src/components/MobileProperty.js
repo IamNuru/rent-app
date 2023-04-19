@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/virtual';
 import { lowerCase, titleCase } from 'change-case-all';
 import CurrencyFormatter from '../utils/CurrencyFormatter';
+import { Link } from 'react-router-dom';
 
 
 const MobileProperty = ({ property }) => {
@@ -58,9 +59,11 @@ const MobileProperty = ({ property }) => {
             </Box>
             <Box sx={{ textAlign: 'left', display: 'grid', pl: 2, width:'70%' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Link to={`/property/${property.id}/${property.slug}`} style={{ color: 'black' }}>
                     <Typography className='merriweather' sx={{ fontSize: '1rem', fontWeight: 600,  }}>
                         {property?.title ? titleCase(lowerCase(property.title)) : 'No title'}
                     </Typography>
+                    </Link>
                     <Chip size="small"
                         label={property?.type === 'rent' ? 'For Rent' : 'For Sale'}
                         color={property?.type === 'rent' ? 'secondary' : 'success'}

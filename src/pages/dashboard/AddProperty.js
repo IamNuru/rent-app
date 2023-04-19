@@ -64,15 +64,18 @@ export default function AddProperty() {
         validationSchema: Yup.object({
             title: Yup.string()
                 .required('The title field is required')
-                .min(15, 'The title field must not be less than 15 characters')
+                .min(20, 'The title field must not be less than 15 characters')
                 .max(75, 'The title field must not be more than 75 characters'),
             description: Yup.string()
                 .required('The description field is required')
-                .min(20, 'The description field must not be less than 20 characters')
+                .min(50, 'The description field must not be less than 20 characters')
                 .max(3000, 'The description field must not be more than 200 characters'),
+            type: Yup.string()
+                .required('The Type option is required'),
             price: Yup.number()
                 .required()
                 .min(0)
+                .max(100000000)
 
         }),
 
@@ -112,6 +115,7 @@ export default function AddProperty() {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.title}
+                            
                         />
                         <TextField
                             name="description"
